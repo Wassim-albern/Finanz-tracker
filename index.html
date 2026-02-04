@@ -5,510 +5,496 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Finanz Tracker</title>
 
-<style>
-* { box-sizing: border-box; }
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 24px;
-  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
-  background: #0b1220;
-  color: #e6eef8;
-}
-
-h1 { text-align: center; font-weight: 300; margin: 6px 0 30px; }
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  gap: 20px;
-}
-
-.panel-left, .panel-right {
-  background: #161a22;
-  border-radius: 16px;
-  height: calc(100vh - 190px);
-  border: none !important;
-  box-shadow: 0 2px 30px rgba(0,0,0,0.55);
-}
-
-.panel-left {
-  flex: 0 0 38%;
-  padding: 18px;
-   overflow-y: auto;
-overflow: hidden
-}
-
-.panel-right {
-  flex: 0 0 62%;
-  overflow: hidden;
-  padding: 18px;
-  border-radius: 16px;
-
- 
-
-}
-
-.paper {
-
-height: 100%;
-  overflow-y: auto; /* SCROLLBAR HIER */
-  padding-right: 10px;
-
-}
-
-
-
-
-.field {
-  position: relative;
-  margin-bottom: 14px;
-  flex: 1;
-  min-width: 150px;
-}
-
-.field input,
-.field select {
-  width: 100%;
-  padding: 14px 12px 10px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255,255,255,0.06);
-  color: #e6eef8;
-  font-size: 1rem;
-  outline: none;
-}
-
-
-.field input:hover,
-.field select:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-/* Gleicher Fokus-Effekt wie rechts */
-
-
-/* Eigener Fokusrahmen – ohne obere Linie (Floating Label bleibt sauber) */
-.field input:focus,
-.field select:focus {
-  background: rgba(255,255,255,0.08) !important;
-  box-shadow:
-      0px 0px 0px 2px rgba(0, 212, 255, 0.20),   /* sanfter Glow */
-      0px 0.5px 0px 0px #00d4ff;                   /* NUR untere Linie */
-  outline: none !important;
-  border: none !important;
-}
-
-
-.panel-left .field select { height: 48px; }
-
-/* Floating Label normal */
-.field label {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #cfeffd;
-  pointer-events: none;
-  transition: 0.18s ease;
-}
-
-/* Floating Label oben */
-.field input:focus + label,
-.field select:focus + label,
-.field.filled label {
-  top: -10px;
-  transform: none;
-  left: 10px;
-  font-size: 0.8rem;
-  color: #00d4ff;
-}
-
-/* Himmelblauer + */
-.field.filled label::first-letter,
-.field label:focus-within::first-letter {
-  color: #6ecbff;
-}
-
-.radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
-.action-row { 
-	display: flex; 
-	gap: 10px; 
-	justify-content: center;
-	margin-top: 15px; }
-
-
-.action-row button {
-  flex: 1;                     /* GLEICHE BREITE */
-  max-width: 2000px;           /* unlimitiert */
-  height: 48px;                /* wie große Selects */
-  font-size: 1rem;
-  border-radius: 10px;
-}
-
-
-#addBtn { flex: 2; }
-#clearBtn { flex: 1; }
-
-
-#clearBtn {
-  background: rgba(255, 0, 0, 0.45);        /* transparentes Rot */
-  border: 1px solid rgba(255, 0, 0, 0.3);   /* leichte rote Kontur */
-  color: rgba(255, 255, 255, 1);              /* heller Rotton für Text */
-  font-size: 0.85rem;                        /* falls kleiner gewünscht */
-  flex: 1;
-  transition: 0.2s ease;
-}
-
-#clearBtn:hover {
-  background: rgba(255, 0, 0, 0.22);        /* stärkeres Rot beim Hover */
-  border-color: rgba(255, 0, 0, 0.5);       /* kräftigere Outline */
-}
-
-#addBtn:hover {
-  
-background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35)); /* Transparenter Glow */
-  border: 1px solid rgba(0, 212, 255, 0.5); 
-
-}
-
-.controls-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-
-.analysis-controls .controls-row {
-  display: flex;
-  width: 100%;
-  gap: 10px;
-  justify-content: center;   /* zentriert innerhalb des Panels */
-  align-items: stretch;      /* gleiche Höhe für alle Kinder */
-  flex-wrap: nowrap;         /* alles in eine Zeile */
-  box-sizing: border-box;
-}
-
-/* Alle 4 Controls in der Reihe bekommen exakt die gleiche Breite */
-.analysis-controls .controls-row > * {
-  flex: 1 1 0;          /* gleiche Breite-Verteilung */
-  min-width: 0;         /* verhindert, dass Selects „aufblähen“ */
-  box-sizing: border-box;
-}
-
-
-/* Höhe & Optik der 4 Controls angleichen (selects + toggle buttons) */
-.analysis-controls .controls-row .mini-select,
-.analysis-controls .controls-row .toggle-btn {
-  height: 40px;                 /* konsistent, leicht größer als vorher */
-  line-height: 40px;            /* Vertikal zentriert (für Buttons) */
-  padding: 0 12px;              /* keine doppelte vertikale Höhe durch padding */
-  font-size: 0.95rem;
-}
-
-.analysis-controls .controls-row .toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  border-color: transparent !important;
-  color: #fff !important;
-}
-
-/* Buttons haben normalerweise inneres Padding – das neutralisieren wir hier,
-   damit Höhe exakt mit den Selects übereinstimmt */
-.analysis-controls .controls-row .toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-}
-
-/* Optional: Hover-Farbangleichung an die Select-Hover-Optik */
-.analysis-controls .controls-row .toggle-btn:hover:not(.active),
-.analysis-controls .controls-row .mini-select:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-/* Optional: Fokus-Optik angleichen wie bei deinen .mini-select/.minimal */
-.analysis-controls .controls-row .toggle-btn:focus-visible,
-.analysis-controls .controls-row .mini-select:focus {
-  outline: none;
-  border-color: #00d4ff;
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-  background: rgba(255,255,255,0.08);
-  color: #e6eef8;
-}
-
-
-
-button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.primary {
-  background: linear-gradient(135deg, #00d4ff, #007bff);
-  color: #fff;
-}
-
-.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: inherit;
-  
-line-height: 1.2;
-}
-
-
-#clearBtn {
-  font-size: 0.85rem;   /* kleiner */
-}
-
-
-.entry {
-
-display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  margin: 8px 0;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  align-items: center;
-  gap: 22px;
-  border: 1px solid rgba(255,255,255,0.1); /* leichte Kontur */
-
-}
-
-.meta { color: #002366; flex: 1; }
-.small { font-size: 0.85rem; color:black; }
-
-.amount-income { color: #218838; font-weight: 700; }
-.amount-expense { color: #c82333; font-weight: 700; }
-
-.balance {
-  
-margin-top: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;   /* ⇦ NEU: Abstand nach unten */
-  
-  text-align: center;
-  font-weight: 700;
-
-}
-
-/* RIGHT FILTER AREA */
-.field-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-select.minimal {
-  font-size: 0.9rem;
-  padding: 8px 10px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.06);
-}
-
-select.minimal option {
-  background-color: #161a22 !important;
-  color: #e6eef8 !important;
-}
-
-/* MINI SELECTS (Jahr/Monat links) — wie Buttons */
-
-.mini-select {
-  appearance: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e6eef8;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-weight: 600;
-  height: 38px;          /* kompakt lassen */
-  line-height: 1;
-  transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
-}
-
-.mini-select:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-/* Fokus wie rechts: dezente Cyan-Betonung, kein grüner Verlauf mehr */
-.mini-select:focus {
-  outline: none;
-  border-color: #00d4ff;
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-  background: rgba(255,255,255,0.08);
-  color: #e6eef8;
-}
-
-/* Dropdown-Liste (Optionen) — gleich wie rechts */
-.mini-select option {
-  background-color: #161a22 !important;
-  color: #e6eef8 !important;
-}
-
-/* ANALYSE BUTTONS */
-.analysis-controls { margin: 14px 0 4px; }
-.toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-
-.toggle-btn {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: #e6eef8;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20);
-  border-color: transparent;
-  color: #fff;
-}
-/* Hover-Farbe für Kategorie/Tag-Buttons wie Dropdown-Selects */
-.toggle-btn:hover:not(.active) {
-  background: rgba(255,255,255,0.12);
-}
-.analysis-btn {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
-}
-
-.analysis-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35)); /* Transparenter Glow */
-  border: 1px solid rgba(0, 212, 255, 0.5); 
-}
-
-
-/* ANALYSIS MODAL */
-#analysisModal { 
-  position: fixed; inset: 0; display: none;
-  justify-content: center; align-items: center;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
-  z-index: 1100;
-}
-
-.analysis-sheet {
-  position: relative;
-  background: #fff; color: #222;
-  border-radius: 16px;
-  width: min(820px, 92vw);
-  padding: 18px 20px;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-  animation: pop .2s ease;
-}
-
-.analysis-sheet h2 { margin: 0 0 10px; color: #111; }
-
-.analysis-body {
-  max-height: 60vh; overflow-y: auto;
-  white-space: pre-wrap;
-  line-height: 1.5;
-  font-size: 0.98rem;
-}
-
-.close-x {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  font-size: 1.1rem;
-  padding: 4px 6px;
-  border-radius: 8px;
-}
-
-.analysis-close-btn {
-  border: 1px solid black !important;
-  padding: 10px 20px;
-  border-radius: 10px;
-  display: block;
-  margin: 20px auto 0 auto; /* zentriert */
-  color: #e6eef8;
-  background: #161a22;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.analysis-close-btn:hover {
-  background: #161a22;
-}
-
-
-.panel-left h2,
-.panel-right h2 {
-  text-align: center;
-  width: 100%;
- margin-bottom: 27px;
-}
-
-
-/* Dunkle, dezente Scrollbar */
-.paper::-webkit-scrollbar,
-.panel-left::-webkit-scrollbar {
-  width: 3px;        /* Breite */
-}
-
-.paper::-webkit-scrollbar-track,
-.panel-left::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.04); 
-  border-radius: 10px;
-}
-
-.paper::-webkit-scrollbar-thumb,
-.panel-left::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 255, 0.35); /* Cyan passend zum UI */
-  border-radius: 10px;
-}
-
-.paper::-webkit-scrollbar-thumb:hover,
-.panel-left::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 255, 0.55);
-}
- 
-
-.analysis-blue {
-    color: #4da3ff; /* helles blau */
-    font-weight: 600;
-}
-
-.analysis-tag-green {
-    color: #d16e00; 
-    font-weight: 600;
-}
-
-.analysis-pos {
-    color: #218838; /* hellgrün wie einnahme */
-    font-weight: 600;
-}
-
-.analysis-neg {
-    color: #c82333; /* rot wie ausgabe */
-    font-weight: 600;
-}
-
-
-</style>
-
-
-
-
-
-
-
+  <style>
+    /* ============ Globales Layout / Scroll-Verhalten ============ */
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: auto;        /* statt 100% – verhindert Scroll-Probleme auf Mobile */
+      min-height: 100%;
+      margin: 0;
+      padding: 24px;
+      overflow-y: auto;    /* nur EINE große Scrollbar (global) */
+      font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #0b1220;
+      color: #e6eef8;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 300;
+      margin: 6px 0 30px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 20px;
+    }
+
+    .panel-left, .panel-right {
+      background: #161a22;
+      border-radius: 16px;
+      /* height: calc(100vh - 190px);  <-- entfernt, Body übernimmt das Scrollen */
+      border: none !important;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    }
+
+    .panel-left {
+      flex: 0 0 38%;
+      padding: 18px;
+      /* overflow-y: auto;  <-- entfernt */
+      /* overflow: hidden;  <-- entfernt */
+    }
+
+    .panel-right {
+      flex: 0 0 62%;
+      /* overflow: hidden;  <-- entfernt */
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .paper {
+      /* height: 100%;         <-- entfernt */
+      /* overflow-y: auto;     <-- entfernt */
+      padding-right: 10px;
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 14px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 14px 12px 10px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.06);
+      color: #e6eef8;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .field input:hover,
+    .field select:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .field input:focus,
+    .field select:focus {
+      background: rgba(255,255,255,0.08) !important;
+      box-shadow:
+        0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+        0px 0.5px 0px 0px #00d4ff; /* nur Unterlinie */
+      outline: none !important;
+      border: none !important;
+    }
+
+    .panel-left .field select { height: 48px; }
+
+    /* Floating Label */
+    .field label {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #cfeffd;
+      pointer-events: none;
+      transition: 0.18s ease;
+    }
+
+    .field input:focus + label,
+    .field select:focus + label,
+    .field.filled label {
+      top: -10px;
+      transform: none;
+      left: 10px;
+      font-size: 0.8rem;
+      color: #00d4ff;
+    }
+
+    .field.filled label::first-letter,
+    .field label:focus-within::first-letter {
+      color: #6ecbff;
+    }
+
+    .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .action-row button {
+      flex: 1;
+      max-width: 2000px;
+      height: 48px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+
+    #addBtn { flex: 2; }
+    #clearBtn { flex: 1; }
+
+    #clearBtn {
+      background: rgba(255, 0, 0, 0.45);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 1);
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+    #clearBtn:hover {
+      background: rgba(255, 0, 0, 0.22);
+      border-color: rgba(255, 0, 0, 0.5);
+    }
+
+    #addBtn:hover {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
+      border: 1px solid rgba(0, 212, 255, 0.5);
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .analysis-controls .controls-row {
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      box-sizing: border-box;
+    }
+
+    .analysis-controls .controls-row > * {
+      flex: 1 1 0;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .analysis-controls .controls-row .mini-select,
+    .analysis-controls .controls-row .toggle-btn {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 12px;
+      font-size: 0.95rem;
+    }
+
+    .analysis-controls .controls-row .toggle-btn.active {
+      background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+      border-color: transparent !important;
+      color: #fff !important;
+    }
+
+    .analysis-controls .controls-row .toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .analysis-controls .controls-row .toggle-btn:hover:not(.active),
+    .analysis-controls .controls-row .mini-select:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .analysis-controls .controls-row .toggle-btn:focus-visible,
+    .analysis-controls .controls-row .mini-select:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+      background: rgba(255,255,255,0.08);
+      color: #e6eef8;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #00d4ff, #007bff);
+      color: #fff;
+    }
+
+    .ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: inherit;
+      line-height: 1.2;
+    }
+
+    #clearBtn { font-size: 0.85rem; }
+
+    .entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      margin: 8px 0;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      align-items: center;
+      gap: 22px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .meta { color: #002366; flex: 1; }
+    .small { font-size: 0.85rem; color:black; }
+
+    .amount-income { color: #218838; font-weight: 700; }
+    .amount-expense { color: #c82333; font-weight: 700; }
+
+    .balance {
+      margin-top: 12px;
+      padding-top: 12px;
+      padding-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* RIGHT FILTER AREA */
+    .field-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    select.minimal {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      width: 100%;
+      background-color: rgba(255,255,255,0.06);
+    }
+
+    select.minimal option {
+      background-color: #161a22 !important;
+      color: #e6eef8 !important;
+    }
+
+    /* MINI SELECTS */
+    .mini-select {
+      appearance: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: #e6eef8;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+      height: 38px;
+      line-height: 1;
+      transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+
+    .mini-select:hover { background: rgba(255,255,255,0.12); }
+
+    .mini-select:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+      background: rgba(255,255,255,0.08);
+      color: #e6eef8;
+    }
+
+    .mini-select option {
+      background-color: #161a22 !important;
+      color: #e6eef8 !important;
+    }
+
+    /* ANALYSE BUTTONS */
+    .analysis-controls { margin: 14px 0 4px; }
+    .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+
+    .toggle-btn {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #e6eef8;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, #0a7a36, #024d20);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .toggle-btn:hover:not(.active) { background: rgba(255,255,255,0.12); }
+
+    .analysis-btn {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+    }
+
+    .analysis-btn:hover {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
+      border: 1px solid rgba(0, 212, 255, 0.5);
+    }
+
+    /* ANALYSIS MODAL */
+    #analysisModal {
+      position: fixed; inset: 0; display: none;
+      justify-content: center; align-items: center;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+      z-index: 1100;
+    }
+
+    .analysis-sheet {
+      position: relative;
+      background: #fff; color: #222;
+      border-radius: 16px;
+      width: min(820px, 92vw);
+      padding: 18px 20px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+      animation: pop .2s ease;
+    }
+
+    .analysis-sheet h2 { margin: 0 0 10px; color: #111; }
+
+    .analysis-body {
+      max-height: 60vh; overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 0.98rem;
+    }
+
+    .close-x {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      font-size: 1.1rem;
+      padding: 4px 6px;
+      border-radius: 8px;
+    }
+
+    .analysis-close-btn {
+      border: 1px solid black !important;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: block;
+      margin: 20px auto 0 auto;
+      color: #e6eef8;
+      background: #161a22;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .analysis-close-btn:hover { background: #161a22; }
+
+    .panel-left h2,
+    .panel-right h2 {
+      text-align: center;
+      width: 100%;
+      margin-bottom: 27px;
+    }
+
+    /* (Optional) Desktop: dezente Scrollbar in Panel-Inhalten */
+    @media (min-width: 901px) {
+      .paper::-webkit-scrollbar,
+      .panel-left::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .paper::-webkit-scrollbar-track,
+      .panel-left::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.04);
+        border-radius: 10px;
+      }
+
+      .paper::-webkit-scrollbar-thumb,
+      .panel-left::-webkit-scrollbar-thumb {
+        background: rgba(0, 212, 255, 0.35);
+        border-radius: 10px;
+      }
+
+      .paper::-webkit-scrollbar-thumb:hover,
+      .panel-left::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 212, 255, 0.55);
+      }
+    }
+
+    .analysis-blue { color: #4da3ff; font-weight: 600; }
+    .analysis-tag-green { color: #d16e00; font-weight: 600; }
+    .analysis-pos { color: #218838; font-weight: 600; }
+    .analysis-neg { color: #c82333; font-weight: 600; }
+
+    /* ============ Responsive: Mobile-Stack & nur Body-Scroll ============ */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;  /* Panels untereinander */
+        gap: 14px;
+      }
+
+      .panel-left, .panel-right {
+        flex: 1 1 auto;
+        width: 100%;
+      }
+
+      /* Sicherstellen: innen kein eigener Scroll/keine feste Höhe */
+      .panel-left,
+      .panel-right,
+      .paper {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      /* Controls klüger umbrechen */
+      .analysis-controls .controls-row {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .analysis-controls .controls-row > * {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 160px;
+      }
+
+      /* Kompaktere Inputs */
+      .field input,
+      .field select {
+        padding: 12px 10px 8px;
+        font-size: 0.98rem;
+      }
+
+      /* Panel-spezifische Scrollbars auf Mobile ausblenden */
+      .paper::-webkit-scrollbar,
+      .panel-left::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    /* Feinschliff für sehr kleine Screens */
+    @media (max-width: 480px) {
+      html, body { padding: 16px; }
+      h1 { font-size: 1.35rem; margin-bottom: 18px; }
+      .analysis-sheet { width: 94vw; padding: 14px; }
+      .analysis-body { max-height: 66vh; }
+    }
+  </style>
 </head>
 
 <body>
