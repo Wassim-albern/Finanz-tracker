@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Finanz Tracker</title>
+
+<style>
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 24px;
+  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #0b1220;
+  color: #e6eef8;
+}
+
+h1 { text-align: center; font-weight: 300; margin: 6px 0 30px; }
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+}
+
+.panel-left, .panel-right {
+  background: #161a22;
+  border-radius: 16px;
+  height: calc(100vh - 190px);
+  border: none !important;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.55);
+}
+
+.panel-left {
+  flex: 0 0 38%;
+  padding: 18px;
+   overflow-y: auto;
+overflow: hidden
+}
+
+.panel-right {
+  flex: 0 0 62%;
+  overflow: hidden;
+  padding: 18px;
+  border-radius: 16px;
+
+ 
+
+}
+
+.paper {
+
+height: 100%;
+  overflow-y: auto; /* SCROLLBAR HIER */
+  padding-right: 10px;
+
+}
+
+
+
+
+.field {
+  position: relative;
+  margin-bottom: 14px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 14px 12px 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+  font-size: 1rem;
+  outline: none;
+}
+
+
+.field input:hover,
+.field select:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Gleicher Fokus-Effekt wie rechts */
+
+
+/* Eigener Fokusrahmen – ohne obere Linie (Floating Label bleibt sauber) */
+.field input:focus,
+.field select:focus {
+  background: rgba(255,255,255,0.08) !important;
+  box-shadow:
+      0px 0px 0px 2px rgba(0, 212, 255, 0.20),   /* sanfter Glow */
+      0px 0.5px 0px 0px #00d4ff;                   /* NUR untere Linie */
+  outline: none !important;
+  border: none !important;
+}
+
+
+.panel-left .field select { height: 48px; }
+
+/* Floating Label normal */
+.field label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #cfeffd;
+  pointer-events: none;
+  transition: 0.18s ease;
+}
+
+/* Floating Label oben */
+.field input:focus + label,
+.field select:focus + label,
+.field.filled label {
+  top: -10px;
+  transform: none;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #00d4ff;
+}
+
+/* Himmelblauer + */
+.field.filled label::first-letter,
+.field label:focus-within::first-letter {
+  color: #6ecbff;
+}
+
+.radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
+.action-row { 
+	display: flex; 
+	gap: 10px; 
+	justify-content: center;
+	margin-top: 15px; }
+
+
+.action-row button {
+  flex: 1;                     /* GLEICHE BREITE */
+  max-width: 2000px;           /* unlimitiert */
+  height: 48px;                /* wie große Selects */
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+
+#addBtn { flex: 2; }
+#clearBtn { flex: 1; }
+
+
+#clearBtn {
+  background: rgba(255, 0, 0, 0.45);        /* transparentes Rot */
+  border: 1px solid rgba(255, 0, 0, 0.3);   /* leichte rote Kontur */
+  color: rgba(255, 255, 255, 1);              /* heller Rotton für Text */
+  font-size: 0.85rem;                        /* falls kleiner gewünscht */
+  flex: 1;
+  transition: 0.2s ease;
+}
+
+#clearBtn:hover {
+  background: rgba(255, 0, 0, 0.22);        /* stärkeres Rot beim Hover */
+  border-color: rgba(255, 0, 0, 0.5);       /* kräftigere Outline */
+}
+
+#addBtn:hover {
+  
+background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35)); /* Transparenter Glow */
+  border: 1px solid rgba(0, 212, 255, 0.5); 
+
+}
+
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.analysis-controls .controls-row {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;   /* zentriert innerhalb des Panels */
+  align-items: stretch;      /* gleiche Höhe für alle Kinder */
+  flex-wrap: nowrap;         /* alles in eine Zeile */
+  box-sizing: border-box;
+}
+
+/* Alle 4 Controls in der Reihe bekommen exakt die gleiche Breite */
+.analysis-controls .controls-row > * {
+  flex: 1 1 0;          /* gleiche Breite-Verteilung */
+  min-width: 0;         /* verhindert, dass Selects „aufblähen“ */
+  box-sizing: border-box;
+}
+
+
+/* Höhe & Optik der 4 Controls angleichen (selects + toggle buttons) */
+.analysis-controls .controls-row .mini-select,
+.analysis-controls .controls-row .toggle-btn {
+  height: 40px;                 /* konsistent, leicht größer als vorher */
+  line-height: 40px;            /* Vertikal zentriert (für Buttons) */
+  padding: 0 12px;              /* keine doppelte vertikale Höhe durch padding */
+  font-size: 0.95rem;
+}
+
+.analysis-controls .controls-row .toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+/* Buttons haben normalerweise inneres Padding – das neutralisieren wir hier,
+   damit Höhe exakt mit den Selects übereinstimmt */
+.analysis-controls .controls-row .toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+}
+
+/* Optional: Hover-Farbangleichung an die Select-Hover-Optik */
+.analysis-controls .controls-row .toggle-btn:hover:not(.active),
+.analysis-controls .controls-row .mini-select:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Optional: Fokus-Optik angleichen wie bei deinen .mini-select/.minimal */
+.analysis-controls .controls-row .toggle-btn:focus-visible,
+.analysis-controls .controls-row .mini-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+  background: rgba(255,255,255,0.08);
+  color: #e6eef8;
+}
+
+
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.primary {
+  background: linear-gradient(135deg, #00d4ff, #007bff);
+  color: #fff;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: inherit;
+  
+line-height: 1.2;
+}
+
+
+#clearBtn {
+  font-size: 0.85rem;   /* kleiner */
+}
+
+
+.entry {
+
+display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid rgba(255,255,255,0.1); /* leichte Kontur */
+
+}
+
+.meta { color: #002366; flex: 1; }
+.small { font-size: 0.85rem; color:black; }
+
+.amount-income { color: #218838; font-weight: 700; }
+.amount-expense { color: #c82333; font-weight: 700; }
+
+.balance {
+  
+margin-top: 12px;
+  padding-top: 12px;
+  padding-bottom: 20px;   /* ⇦ NEU: Abstand nach unten */
+  
+  text-align: center;
+  font-weight: 700;
+
+}
+
+/* RIGHT FILTER AREA */
+.field-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+select.minimal {
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.06);
+}
+
+select.minimal option {
+  background-color: #161a22 !important;
+  color: #e6eef8 !important;
+}
+
+/* MINI SELECTS (Jahr/Monat links) — wie Buttons */
+
+.mini-select {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  height: 38px;          /* kompakt lassen */
+  line-height: 1;
+  transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+.mini-select:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Fokus wie rechts: dezente Cyan-Betonung, kein grüner Verlauf mehr */
+.mini-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+  background: rgba(255,255,255,0.08);
+  color: #e6eef8;
+}
+
+/* Dropdown-Liste (Optionen) — gleich wie rechts */
+.mini-select option {
+  background-color: #161a22 !important;
+  color: #e6eef8 !important;
+}
+
+/* ANALYSE BUTTONS */
+.analysis-controls { margin: 14px 0 4px; }
+.toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+
+.toggle-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20);
+  border-color: transparent;
+  color: #fff;
+}
+/* Hover-Farbe für Kategorie/Tag-Buttons wie Dropdown-Selects */
+.toggle-btn:hover:not(.active) {
+  background: rgba(255,255,255,0.12);
+}
+.analysis-btn {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+}
+
+.analysis-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35)); /* Transparenter Glow */
+  border: 1px solid rgba(0, 212, 255, 0.5); 
+}
+
+
+/* ANALYSIS MODAL */
+#analysisModal { 
+  position: fixed; inset: 0; display: none;
+  justify-content: center; align-items: center;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+  z-index: 1100;
+}
+
+.analysis-sheet {
+  position: relative;
+  background: #fff; color: #222;
+  border-radius: 16px;
+  width: min(820px, 92vw);
+  padding: 18px 20px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  animation: pop .2s ease;
+}
+
+.analysis-sheet h2 { margin: 0 0 10px; color: #111; }
+
+.analysis-body {
+  max-height: 60vh; overflow-y: auto;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 0.98rem;
+}
+
+.close-x {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.1rem;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.analysis-close-btn {
+  border: 1px solid black !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: block;
+  margin: 20px auto 0 auto; /* zentriert */
+  color: #e6eef8;
+  background: #161a22;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.analysis-close-btn:hover {
+  background: #161a22;
+}
+
+
+.panel-left h2,
+.panel-right h2 {
+  text-align: center;
+  width: 100%;
+ margin-bottom: 27px;
+}
+
+
+/* Dunkle, dezente Scrollbar */
+.paper::-webkit-scrollbar,
+.panel-left::-webkit-scrollbar {
+  width: 3px;        /* Breite */
+}
+
+.paper::-webkit-scrollbar-track,
+.panel-left::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04); 
+  border-radius: 10px;
+}
+
+.paper::-webkit-scrollbar-thumb,
+.panel-left::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.35); /* Cyan passend zum UI */
+  border-radius: 10px;
+}
+
+.paper::-webkit-scrollbar-thumb:hover,
+.panel-left::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.55);
+}
+ 
+
+.analysis-blue {
+    color: #4da3ff; /* helles blau */
+    font-weight: 600;
+}
+
+.analysis-tag-green {
+    color: #d16e00; 
+    font-weight: 600;
+}
+
+.analysis-pos {
+    color: #218838; /* hellgrün wie einnahme */
+    font-weight: 600;
+}
+
+.analysis-neg {
+    color: #c82333; /* rot wie ausgabe */
+    font-weight: 600;
+}
+
+
+</style>
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <h1>💰 Finanz Tracker</h1>
+
+  <div class="container">
+
+    <!-- Left Panel -->
+    <div class="panel-left">
+      <h2>📝 Neue Eingabe</h2>
+
+      <div class="field">
+        <input type="date" id="dateInput" onkeydown="return false;" onpaste="return false;" oninput="this.value=this.value;">
+        <label>Datum</label>
+      </div>
+
+      <div class="radio-group">
+        <label><input type="radio" name="type" value="expense" checked> 💸 Ausgabe</label>
+        <label><input type="radio" name="type" value="income"> 💰 Einnahme</label>
+      </div>
+
+      <div class="field">
+        <input type="number" id="amountInput" step="0.01">
+        <label>Betrag (€)</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="descriptionInput">
+        <label>Beschreibung</label>
+      </div>
+
+      <!-- Kategorie -->
+      <div class="field">
+        <select id="categorySelect" class="minimal"></select>
+        <label>Kategorie</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="newCategoryInput">
+        <label>➕ Neue Kategorie</label>
+      </div>
+
+      <!-- Tag -->
+      <div class="field">
+        <select id="tagSelect" class="minimal"></select>
+        <label>Tag</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="newTagInput">
+        <label>➕ Neuer Tag</label>
+      </div>
+
+      <!-- Add / Clear -->
+      <div class="action-row">
+        <button class="primary" id="addBtn">➕ Eintrag</button>
+        <button class="ghost" id="clearBtn">🗑️ ALLES LÖSCHEN</button>
+      </div>
+
+      <!-- MINI SELECTS: Jahr + Monat (wie Buttons) -->
+<!-- MINI SELECTS + TOGGLE BUTTONS: eine Zeile -->
+<div class="analysis-controls">
+  <div class="controls-row">
+    <select id="leftYearSelect" class="mini-select">
+      <option value="">Jahr</option>
+    </select>
+
+    <select id="leftMonthSelect" class="mini-select">
+      <option value="">Monat</option>
+    </select>
+
+    <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+    <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
+  </div>
+</div>
+
+<!-- Analyse -->
+<div class="analysis-controls">
+  <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
+</div>
+
+      <!-- Analysis Modal -->
+      <div id="analysisModal" class="modal" style="display:none;">
+        <div class="analysis-sheet">
+          <button class="close-x" id="analysisCloseX">✖</button>
+          <h2>📊 Analyse</h2>
+          <div id="analysisBody" class="analysis-body"></div>
+          <div class="actions">
+            <button class="analysis-close-btn" id="analysisCloseBtn">Schließen</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Panel -->
+    <div class="panel-right">
+      <div class="paper">
+        <h2>🧾 Kassenbon</h2>
+
+        <div class="field-group">
+          <div class="field">
+            <select id="yearSelect" class="minimal"></select>
+            <label>Jahr</label>
+          </div>
+          <div class="field">
+            <select id="monthSelect" class="minimal"></select>
+            <label>Monat</label>
+          </div>
+          <div class="field">
+            <select id="daySelect" class="minimal"></select>
+            <label>Tag</label>
+          </div>
+          <div class="field">
+            <select id="categoryFilterSelect" class="minimal"></select>
+            <label>Kategorie</label>
+          </div>
+          <div class="field">
+            <select id="tagFilterSelect" class="minimal"></select>
+            <label>Tag</label>
+          </div>
+        </div>
+
+        <div id="entriesList"></div>
+        <div class="balance" id="dailyBalance">💰 Bilanz: 0.00 €</div>
+	
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* ===================== STATE / STORAGE ===================== */
+let entries = [];
+let categories = [];
+let tags = [];
+
+let entryMap = new Map(); // schneller Lookup
+
+const storageKey = 'finanztracker_v3';
+
+const today = () => new Date().toISOString().split('T')[0];
+const generateId = () =>
+  'e_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+/* ===================== STORAGE ===================== */
+function load() {
+  const d = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  entries = d.entries || [];
+  categories = d.categories || ['Essen', 'Miete', 'Freizeit'];
+  tags = d.tags || ['Fix', 'Variabel', 'Abo'];
+
+  entryMap.clear();
+  for (const e of entries) {
+    if (!e.id) e.id = generateId();
+    entryMap.set(e.id, e);
+  }
+}
+
+function save() {
+  localStorage.setItem(storageKey, JSON.stringify({ entries, categories, tags }));
+}
+
+/* ===================== SELECT HELPERS ===================== */
+function addEmptyPlaceholder(select) {
+  const opt = document.createElement('option');
+  opt.value = '';
+  opt.textContent = '\u00A0';
+  opt.selected = true;
+  select.appendChild(opt);
+}
+
+function fillSelectWithPlaceholder(select, items = []) {
+  select.innerHTML = '';
+  addEmptyPlaceholder(select);
+
+  const f = document.createDocumentFragment();
+  items.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item;
+    opt.textContent = item;
+    f.appendChild(opt);
+  });
+
+  select.appendChild(f);
+}
+
+/* ===================== UPDATE SELECTS ===================== */
+function updateSelects() {
+  fillSelectWithPlaceholder(categorySelect, categories);
+  fillSelectWithPlaceholder(tagSelect, tags);
+
+  fillSelectWithPlaceholder(categoryFilterSelect, categories);
+  fillSelectWithPlaceholder(tagFilterSelect, tags);
+}
+
+/* ===================== DATE SELECTS (RIGHT PANEL) ===================== */
+function fillYearSelect() {
+  yearSelect.innerHTML = '';
+  addEmptyPlaceholder(yearSelect);
+
+  const nowY = new Date().getFullYear();
+  const f = document.createDocumentFragment();
+
+  for (let y = nowY - 10; y <= nowY + 2; y++) {
+    f.appendChild(new Option(y, y));
+  }
+  yearSelect.appendChild(f);
+}
+
+function fillMonthSelect() {
+  fillSelectWithPlaceholder(monthSelect, Array.from({ length: 12 }, (_, i) => i + 1));
+}
+
+function getDaysInMonth(year, month) {
+  if (!year || !month) return 31;
+  return new Date(year, month, 0).getDate();
+}
+
+function fillDaySelect() {
+  const y = parseInt(yearSelect.value);
+  const m = parseInt(monthSelect.value);
+
+  const days = getDaysInMonth(y, m);
+  const prev = daySelect.value;
+
+  daySelect.innerHTML = '';
+  addEmptyPlaceholder(daySelect);
+
+  const f = document.createDocumentFragment();
+  for (let d = 1; d <= days; d++) f.appendChild(new Option(d, d));
+
+  daySelect.appendChild(f);
+
+  if (prev && prev <= days) daySelect.value = prev;
+}
+
+/* ===================== DATE SELECTS (LEFT MINI BOXES) ===================== */
+function fillLeftYearSelect() {
+  
+const now = new Date().getFullYear();
+  for (let y = now - 10; y <= now + 2; y++) {
+    leftYearSelect.add(new Option(y, y));
+  }
+}
+
+function fillLeftMonthSelect() {
+  for (let m = 1; m <= 12; m++) {
+    leftMonthSelect.add(new Option(m, m));
+  }
+
+}
+
+
+/* ===================== FLOATING LABELS ===================== */
+function updateFilledState(el) {
+  const f = el.closest('.field');
+  if (!f) return;
+  el.value.trim() !== '' ? f.classList.add('filled') : f.classList.remove('filled');
+}
+
+function updateAllFilled() {
+  document.querySelectorAll('.field input, .field select').forEach(updateFilledState);
+}
+
+document.addEventListener('input', e => {
+  if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
+});
+document.addEventListener('change', e => {
+  if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
+});
+
+/* ===================== FILTER ===================== */
+function filterEntries() {
+  const year = parseInt(yearSelect.value);
+  const month = parseInt(monthSelect.value);
+  const day = parseInt(daySelect.value);
+
+  const cat = categoryFilterSelect.value;
+  const tag = tagFilterSelect.value;
+
+  const selectedDate = year && month && day ? new Date(year, month - 1, day) : null;
+
+  const filtered = entries.filter(e => {
+    const d = new Date(e.date);
+    return (!year || d.getFullYear() === year)
+        && (!month || d.getMonth() + 1 === month)
+        && (!day || d.getDate() === day)
+        && (!cat || e.category === cat)
+        && (!tag || e.tag === tag);
+  });
+
+  let basis = 0;
+  let basisDate = null;
+
+  if (selectedDate) {
+    basisDate = selectedDate.toISOString().split('T')[0];
+    for (const e of entries) {
+      const d = new Date(e.date);
+      if (d < selectedDate && (!cat || e.category === cat) && (!tag || e.tag === tag)) {
+        basis += e.type === 'income' ? e.amount : -e.amount;
+      }
+    }
+  }
+
+  renderEntries(filtered, basis, basisDate);
+}
+
+/* RIGHT PANEL LISTENERS */
+yearSelect.addEventListener('change', () => { fillDaySelect(); filterEntries(); updateAllFilled(); });
+monthSelect.addEventListener('change', () => { fillDaySelect(); filterEntries(); updateAllFilled(); });
+daySelect.addEventListener('change', () => { filterEntries(); updateAllFilled(); });
+categoryFilterSelect.addEventListener('change', filterEntries);
+tagFilterSelect.addEventListener('change', filterEntries);
+
+/* ===================== RENDER LIST ===================== */
+function renderEntries(list, basis = 0, transferDate = null) {
+  entriesList.innerHTML = '';
+  const f = document.createDocumentFragment();
+  let sum = basis;
+
+  if (basis !== 0 && transferDate) {
+    f.appendChild(buildEntry({
+      category: 'Übertrag',
+      tag: 'Vortag',
+      date: transferDate,
+      description: 'Saldo vom Vortag',
+      type: basis >= 0 ? 'income' : 'expense',
+      amount: Math.abs(basis),
+      id: null
+    }));
+  }
+
+  for (const e of list) {
+    sum += e.type === 'income' ? e.amount : -e.amount;
+    f.appendChild(buildEntry(e));
+  }
+
+  entriesList.appendChild(f);
+  dailyBalance.textContent = `💰 Bilanz: ${sum.toFixed(2)} €`;
+}
+
+function buildEntry(e) {
+  const div = document.createElement('div');
+  div.className = 'entry';
+
+  // ❌ Löschen-Icon nur anzeigen, wenn Eintrag eine echte ID hat
+  const deleteIcon = e.id ? `<span onclick="deleteEntry('${e.id}')">❌</span>` : ``;
+
+  div.innerHTML = `
+    <div class="meta">
+      <strong>${e.category} • ${e.tag}</strong>
+      <div class="small">${e.date} — ${e.description || ''}</div>
+    </div>
+
+    <div class="${e.type === 'income' ? 'amount-income' : 'amount-expense'}">
+      ${e.type === 'income' ? '+' : '-'}${e.amount.toFixed(2)} €
+    </div>
+
+    <div class="entry-actions">
+      ${deleteIcon}
+    </div>
+  `;
+
+  return div;
+}
+/* ===================== DELETE — MIT SICHERHEITSABFRAGE ===================== */
+window.deleteEntry = (id) => {
+  const e = entryMap.get(id);
+  if (!e) return;
+
+  // Betrag formatiert (EUR, de-DE)
+  const fmt = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+  const betrag = fmt.format(e.amount);
+
+  // Typ-Text
+  const typText = e.type === 'income' ? 'Einnahme' : 'Ausgabe';
+
+  // Aussagekräftige Bestätigungs-Meldung
+  const msg =
+    `Diesen Eintrag wirklich löschen?\n\n` +
+    `${e.date} — ${typText}\n` +
+    `${e.category} • ${e.tag}\n` +
+    (e.description ? `„${e.description}“\n` : '') +
+    `Betrag: ${betrag}\n\n` +
+    `⚠️ Dieser Vorgang kann nicht rückgängig gemacht werden.`;
+
+  if (!confirm(msg)) return;
+
+  // Wenn bestätigt → wirklich löschen
+  entries = entries.filter(x => x.id !== id);
+  entryMap.delete(id);
+  save();
+  filterEntries();
+};
+/* ===================== ADD ===================== */
+addBtn.onclick = () => {
+  const amount = parseFloat(amountInput.value);
+  if (!amount) return alert("Ungültiger Betrag");
+
+  const category = newCategoryInput.value.trim() || categorySelect.value;
+  const tag = newTagInput.value.trim() || tagSelect.value;
+
+  if (!category) return alert("Kategorie fehlt");
+  if (!tag) return alert("Tag fehlt");
+
+  if (newCategoryInput.value && !categories.includes(category)) categories.push(category);
+  if (newTagInput.value && !tags.includes(tag)) tags.push(tag);
+
+  const obj = {
+    id: generateId(),
+    date: dateInput.value || today(),
+    type: document.querySelector('[name=type]:checked').value,
+    amount,
+    description: descriptionInput.value,
+    category,
+    tag
+  };
+
+  entries.push(obj);
+  entryMap.set(obj.id, obj);
+  save();
+
+  newCategoryInput.value = '';
+  newTagInput.value = '';
+
+  updateSelects();
+  filterEntries();
+  updateAllFilled();
+};
+
+/* ===================== CLEAR ALL ===================== */
+clearBtn.onclick = () => {
+  if (!confirm("Wirklich alles löschen?")) return;
+
+  entries = [];
+  entryMap.clear();
+  categories = [];
+  tags = [];
+
+  save();
+  updateSelects();
+  entriesList.innerHTML = '';
+  dailyBalance.textContent = '💰 Bilanz: 0.00 €';
+};
+
+/* ===================== ANALYSE ===================== */
+
+let analysisMode = {
+  category: false,
+  tag: false
+};
+
+const btnCat = document.getElementById('modeCategoryBtn');
+const btnTag = document.getElementById('modeTagBtn');
+
+
+
+
+function toggle(btn, key) {
+  analysisMode[key] = !analysisMode[key];
+  btn.classList.toggle('active', analysisMode[key]);
+}
+
+btnCat.addEventListener('click', () => toggle(btnCat, 'category'));
+btnTag.addEventListener('click', () => toggle(btnTag, 'tag'));
+document.getElementById("analysisCloseBtn").classList.remove("active");
+const analysisBtn = document.getElementById('analysisBtn');
+const analysisModal = document.getElementById('analysisModal');
+const analysisBody = document.getElementById('analysisBody');
+const analysisCloseX = document.getElementById('analysisCloseX');
+const analysisCloseBtn = document.getElementById('analysisCloseBtn');
+
+analysisCloseX.addEventListener('click', () => analysisModal.style.display = 'none');
+analysisCloseBtn.addEventListener('click', () => analysisModal.style.display = 'none');
+
+const eur = (n) => new Intl.NumberFormat('de-DE', { style:'currency', currency:'EUR' }).format(n);
+const dmy = (d) => d.toLocaleDateString('de-DE', { day:'2-digit', month:'2-digit', year:'numeric' });
+const monthName = (m) => new Date(2000, m-1, 1).toLocaleString('de-DE', { month:'long' });
+
+function balanceAt(stichtag) {
+  let sum = 0;
+  for (const e of entries) {
+    const dt = new Date(e.date);
+    if (dt <= stichtag) sum += e.type === 'income' ? e.amount : -e.amount;
+  }
+  return sum;
+}
+
+function groupKey(e) {
+  let keys = [];
+  if (analysisMode.category) keys.push(e.category);
+  if (analysisMode.tag)      keys.push(e.tag);
+  return keys.join(' • '); // wenn keine Gruppierung: leerer String
+}
+
+function entriesInRange(start, end) {
+  return entries.filter(e => {
+    const dt = new Date(e.date);
+    return dt >= start && dt <= end;
+  });
+}
+
+
+// Analyse basiert auf dem linken Jahr/Monat
+analysisBtn.addEventListener('click', () => {
+  const year = parseInt(leftYearSelect.value);
+  const month = parseInt(leftMonthSelect.value);
+
+  if (!year) {
+    alert("Bitte links ein Datum auswählen.");
+    return;
+  }
+
+  let start, end, prevStart, prevEnd, label, prevLabel;
+
+  if (month) {
+    start = new Date(year, month - 1, 1);
+    end   = new Date(year, month, 0);
+    label = `${monthName(month)} ${year}`;
+
+    const pm = month === 1 ? 12 : month - 1;
+    const py = month === 1 ? year - 1 : year;
+
+    prevStart = new Date(py, pm - 1, 1);
+    prevEnd   = new Date(py, pm, 0);
+    prevLabel = `${monthName(pm)} ${py}`;
+  } else {
+    start = new Date(year, 0, 1);
+    end   = new Date(year, 11, 31);
+    label = `Jahr ${year}`;
+
+    prevStart = new Date(year - 1, 0, 1);
+    prevEnd   = new Date(year - 1, 11, 31);
+    prevLabel = `Jahr ${year - 1}`;
+  }
+
+  const scoped = entriesInRange(start, end);
+  const zeitLabel = month ? 'diesem Monat' : 'diesem Jahr';
+  const net = (e) => (e.type === 'income' ? e.amount : -e.amount);
+  const signWord = (sum) =>
+      sum > 0 ? 'eingenommen'
+    : sum < 0 ? 'ausgegeben'
+    : 'weder ausgegeben noch eingenommen';
+
+  const groupCat = analysisMode.category;
+  const groupTag = analysisMode.tag;
+
+  let out = `📅 Analyse für ${label}\n\n`;
+
+  if (scoped.length === 0) {
+    out += "Für das ausgewählte Datum wurden keine Einträge gefunden.\n\n";
+  } else {
+    out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
+
+    if (groupCat && !groupTag) {
+      // NUR Kategorie
+      const byCat = new Map();
+      for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
+
+      const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      if (cats.length === 0) {
+        out += "Keine Einträge.";
+      } else {
+        for (const c of cats) {
+          
+const sum = byCat.get(c);
+const verb = signWord(sum);
+
+const coloredAmount =
+    sum >= 0
+        ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+        : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
+// HEADER
+out += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
+
+// STATEMENT
+out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
+
+// DIVIDER
+out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+
+
+        }
+      }
+
+    } else if (!groupCat && groupTag) {
+      // NUR Tag
+      const byTag = new Map();
+      for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
+
+      const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      if (tagsList.length === 0) {
+        out += "Keine Einträge.\n\n";
+      } else {
+        for (const t of tagsList) {
+          
+const sum = byTag.get(t);
+const verb = signWord(sum);
+
+const coloredAmount =
+    sum >= 0
+        ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+        : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
+// HEADER
+out += `Tag: <span class="analysis-tag-green">${t}</span><br>`;
+
+// STATEMENT
+out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
+out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+
+        }
+      }
+
+    } 
+
+else if (groupCat && groupTag) {
+    // Kategorie + Tag verschachtelt
+    const byCatTag = new Map();
+    for (const e of scoped) {
+        if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
+        const inner = byCatTag.get(e.category);
+        inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
+    }
+
+    const cats = [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+
+    for (const c of cats) {
+
+        const inner = byCatTag.get(c);
+        const tagsList = [...inner.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+
+        for (const t of tagsList) {
+
+            const sum = inner.get(t);
+            const verb = signWord(sum);
+
+            const coloredAmount =
+                sum >= 0
+                    ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                    : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
+            // HEADER (eine Zeile)
+           
+out += ` Kategorie: <span class="analysis-blue">${c}</span> - Tag: <span class="analysis-tag-green">${t}</span><br>`;
+
+
+            // STATEMENT-ZEILE
+            out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
+
+            // ZENTRIERTER TRENnSTRICH
+            out += `
+                <div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+        }
+    }
+
+
+
+    } else {
+      // Weder Kategorie noch Tag aktiv
+      out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Tag). Es wird nur der Bilanzvergleich angezeigt.\n\n";
+    }
+  }
+
+  // Bilanzvergleich
+ 
+
+
+// Bilanzvergleich
+const prevBal = balanceAt(prevEnd);
+
+  const curBal  = balanceAt(end);
+  const delta   = curBal - prevBal;
+
+  out += ` <div style="text-align:center; opacity:10; margin:6px 0 12px 0; font-size: 20px;">Bilanzvergleich</div>`;
+
+  out += `• Bilanz am ${dmy(prevEnd)}: ${eur(prevBal)}\n`;
+  out += `• Bilanz am ${dmy(end)}: ${eur(curBal)}\n`;
+  out += `• Veränderung: ${delta >= 0 ? "+" : "–"}${eur(Math.abs(delta))}\n`;
+
+  analysisBody.innerHTML = out;
+  analysisModal.style.display = "flex";
+});/* ===================== INIT ===================== */
+load();
+updateSelects();
+
+fillYearSelect();
+fillMonthSelect();
+fillDaySelect();
+
+fillLeftYearSelect();
+fillLeftMonthSelect();
+
+dateInput.value = today();
+
+const now = new Date();
+yearSelect.value = now.getFullYear();
+monthSelect.value = now.getMonth() + 1;
+fillDaySelect();
+daySelect.value = now.getDate();
+
+
+
+updateAllFilled();
+filterEntries();
+
+dateInput.onkeydown = () => false;
+dateInput.onpaste = () => false;
+dateInput.oninput = function() { this.value = this.value; };
+
+</script>
+</body>
+</html>
