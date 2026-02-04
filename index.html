@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Finanz Tracker</title>
+
+  <!-- Manifest für Android/Chrome (Cache-Busting mit ?v=2) -->
+  <link rel="manifest" href="./manifest.json?v=2">
+
+  <!-- iOS: Home-Screen-Icons (Safari ignoriert Manifest-Icons) -->
+  <!-- Empfohlen: eigenes 180x180 PNG erzeugen (icon-180.png) -->
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <!-- Falls du (noch) kein 180er hast, kannst du zur Not das 192er referenzieren: -->
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <!-- Optional zusätzlich: -->
+  <link rel="apple-touch-icon" sizes="512x512" href="./icon-512.png">
+
+  <!-- iOS: PWA-Optik -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Finanz Tracker">
+
+  <!-- Farben (Android Task-Switcher / Adressleiste) -->
+  <meta name="theme-color" content="#00d4ff">
+  <meta name="background-color" content="#0b1220">
 
   <style>
     /* ============ Globales Layout / Scroll-Verhalten ============ */
