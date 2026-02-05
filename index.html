@@ -91,6 +91,11 @@
       color: #e6eef8;
       font-size: 1rem;
       outline: none;
+      
+ -webkit-text-size-adjust: 100%;
+  
+  line-height: 1.2rem;
+
     }
 
     .field input:hover,
@@ -107,6 +112,14 @@
       outline: none !important;
       border: none !important;
     }
+    
+.field input[type="text"] {
+  -webkit-text-size-adjust: 100%;
+  font-size: 1rem;
+  line-height: 1.2rem;  /* verhindert das nach-unten-rutschen */
+  padding-top: 14px;    /* absolut perfekter Wert für 48px Höhe */
+}
+
 
     /* Floating Label */
    
@@ -1186,6 +1199,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
