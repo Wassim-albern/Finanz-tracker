@@ -114,10 +114,20 @@
     }
     
 
-.field input {
-  padding-top: 14px !important;
+
+.field input[type="text"] {
+  -webkit-text-size-adjust: 100%;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  padding-top: 14px;
+}
+    
+#newCategoryInput,
+#newTagInput {
+  padding-top: 12px !important;
   line-height: 1.2rem;
 }
+
 
 
 
@@ -1199,6 +1209,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
