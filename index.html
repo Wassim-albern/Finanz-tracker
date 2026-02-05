@@ -113,6 +113,61 @@
       border: none !important;
     }
   
+.field input:focus,
+.field input:focus-visible,
+.field select:focus,
+.field select:focus-visible,
+select.minimal:focus,
+select.minimal:focus-visible,
+.mini-select:focus,
+.mini-select:focus-visible {
+  outline: none !important;                 /* entferne Standard-Outline */
+  border-color: transparent !important;     /* keine harte 1px-Linie */
+  background: rgba(255,255,255,0.08) !important;
+
+  /* Dein „Glow + Unterlinie“-Effekt – identisch überall */
+  box-shadow:
+    0 0 0 2px rgba(0, 212, 255, 0.20),      /* weicher Außen-Glow */
+    0 0.5px 0 0 #00d4ff;                    /* dünne Unterlinie */
+}
+
+/* 2) Speziell für .minimal (rechte Seite) – stelle sicher, dass kein Rest-Rand erscheint */
+select.minimal {
+  border: 1px solid rgba(255,255,255,0.12); /* wie links; Basis-Rand sehr dezent */
+  background-color: rgba(255,255,255,0.06);
+}
+select.minimal:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* 3) Speziell für .mini-select (linke kleine Auswahltoggles) – gleicher Fokus */
+.mini-select {
+  border: 1px solid rgba(255,255,255,0.12);
+  background-color: rgba(255,255,255,0.06);
+}
+.mini-select:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* 4) Cross-Browser Feinheiten für <select> */
+.field select,
+select.minimal,
+.mini-select {
+  -webkit-appearance: none;    /* Safari/Chromium: native Fokus/Inner-Border weg */
+  appearance: none;
+}
+.field select:focus::-ms-value {
+  color: inherit;               /* Edge/IE alt: Fokus-Farbwechsel verhindern */
+  background: none;
+}
+
+/* 5) Optional: Firefox Zugänglichkeit-Outline ersetzen, damit Optik konsistent bleibt */
+.field select:-moz-focusring,
+select.minimal:-moz-focusring,
+.mini-select:-moz-focusring {
+  outline: none !important;
+}
+
 
 
     /* Floating Label */
@@ -1205,6 +1260,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
