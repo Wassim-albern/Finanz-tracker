@@ -150,12 +150,19 @@
 #newTagInput + label {
   top: 10px !important; /* optisch korrekt zentriert */
 }
+    
 
 
     .field.filled label::first-letter,
     .field label:focus-within::first-letter {
       color: #6ecbff;
     }
+    
+.field.filled #newCategoryInput + label,
+.field.filled #newTagInput + label {
+  top: -10px !important; /* muss exakt zum Rest passen */
+}
+
 
     .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
 
@@ -1206,4 +1213,5 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
