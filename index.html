@@ -228,15 +228,22 @@ select.minimal:-moz-focusring,
 
 #newCategoryInput + label,
 #newTagInput + label {
-  top: 8px !important; /* vorher 14px */
+  top: 10px !important;
 }
 
 .field.filled #newCategoryInput + label,
-.field:focus-within #newCategoryInput + label,
-.field.filled #newTagInput + label,
-.field:focus-within #newTagInput + label {
-  top: -20px !important;  /* vorher -10px */
+.field.filled #newTagInput + label {
+  top: -10px !important;
 }
+
+#newCategoryInput:focus + label,
+#newTagInput:focus + label {
+  top: -10px !important;
+}
+
+
+
+
     /* fix: floatet jetzt zuverlässig bei Fokus des Containers */
     
 .field.filled label,
@@ -1304,6 +1311,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
