@@ -791,11 +791,17 @@ function fillLeftMonthSelect() {
 }
 
 /* ===================== FLOATING LABELS ===================== */
+
 function updateFilledState(el) {
   const f = el.closest('.field');
   if (!f) return;
-  (el.value ?? '').toString().trim() !== '' ? f.classList.add('filled') : f.classList.remove('filled');
+  if (el.value.trim().length > 0) {
+    f.classList.add('filled');
+  } else {
+    f.classList.remove('filled');
+  }
 }
+
 
 function updateAllFilled() {
   document.querySelectorAll('.field input, .field select').forEach(updateFilledState);
@@ -1183,5 +1189,6 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
