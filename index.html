@@ -109,26 +109,28 @@
     }
 
     /* Floating Label */
-    .field label {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #cfeffd;
-      pointer-events: none;
-      transition: 0.18s ease;
-      background: transparent;
-    }
+   
+.field label {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  font-size: 1rem;
+  color: #cfeffd;
+  pointer-events: none;
+  transition: 0.18s ease;
+}
+
 
     /* fix: floatet jetzt zuverlässig bei Fokus des Containers */
-    .field:focus-within label,
-    .field.filled label {
-      top: -10px;
-      transform: none;
-      left: 10px;
-      font-size: 0.8rem;
-      color: #00d4ff;
-    }
+    
+.field.filled label,
+.field:focus-within label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #00d4ff;
+}
+
 
     .field.filled label::first-letter,
     .field label:focus-within::first-letter {
@@ -1189,6 +1191,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
