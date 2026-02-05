@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -10,11 +9,8 @@
   <link rel="manifest" href="./manifest.json?v=2">
 
   <!-- iOS: Home-Screen-Icons (Safari ignoriert Manifest-Icons) -->
-  <!-- Empfohlen: eigenes 180x180 PNG erzeugen (icon-180.png) -->
   <link rel="apple-touch-icon" href="./icon-180.png">
-  <!-- Falls du (noch) kein 180er hast, kannst du zur Not das 192er referenzieren: -->
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <!-- Optional zusätzlich: -->
   <link rel="apple-touch-icon" sizes="512x512" href="./icon-512.png">
 
   <!-- iOS: PWA-Optik -->
@@ -51,13 +47,12 @@
       max-width: 1400px;
       margin: 0 auto;
       display: flex;
-      gap: 20px;
+      gap: 20px; /* Desktop Gap */
     }
 
     .panel-left, .panel-right {
       background: #161a22;
       border-radius: 16px;
-      /* height: calc(100vh - 190px);  <-- entfernt, Body übernimmt das Scrollen */
       border: none !important;
       box-shadow: 0 2px 30px rgba(0,0,0,0.55);
     }
@@ -65,20 +60,15 @@
     .panel-left {
       flex: 0 0 38%;
       padding: 18px;
-      /* overflow-y: auto;  <-- entfernt */
-      /* overflow: hidden;  <-- entfernt */
     }
 
     .panel-right {
       flex: 0 0 62%;
-      /* overflow: hidden;  <-- entfernt */
       padding: 18px;
       border-radius: 16px;
     }
 
     .paper {
-      /* height: 100%;         <-- entfernt */
-      /* overflow-y: auto;     <-- entfernt */
       padding-right: 10px;
     }
 
@@ -89,10 +79,12 @@
       min-width: 150px;
     }
 
+    /* Einheitliche Höhe für Inputs & Selects (inkl. Neue Kategorie/Tag) */
     .field input,
     .field select {
       width: 100%;
-      padding: 14px 12px 10px;
+      height: 48px; /* vereinheitlicht */
+      padding: 12px 12px 10px;
       border-radius: 10px;
       border: none;
       background: rgba(255,255,255,0.06);
@@ -116,8 +108,6 @@
       border: none !important;
     }
 
-    .panel-left .field select { height: 48px; }
-
     /* Floating Label */
     .field label {
       position: absolute;
@@ -127,10 +117,11 @@
       color: #cfeffd;
       pointer-events: none;
       transition: 0.18s ease;
+      background: transparent;
     }
 
-    .field input:focus + label,
-    .field select:focus + label,
+    /* fix: floatet jetzt zuverlässig bei Fokus des Containers */
+    .field:focus-within label,
     .field.filled label {
       top: -10px;
       transform: none;
@@ -164,6 +155,7 @@
     #addBtn { flex: 2; }
     #clearBtn { flex: 1; }
 
+    /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) */
     #clearBtn {
       background: rgba(255, 0, 0, 0.45);
       border: 1px solid rgba(255, 0, 0, 0.3);
@@ -224,6 +216,9 @@
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
+      color: #e6eef8;
+      cursor: pointer;
+      font-weight: 600;
     }
 
     .analysis-controls .controls-row .toggle-btn:hover:not(.active),
@@ -463,22 +458,17 @@
     .analysis-pos { color: #218838; font-weight: 600; }
     .analysis-neg { color: #c82333; font-weight: 600; }
 
-    /* ============ Responsive: Mobile-Stack & nur Body-Scroll ============ */
+    /* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
     @media (max-width: 900px) {
-      .container {
-        flex-direction: column;  /* Panels untereinander */
-        gap: 14px;
-      }
+      /* Panels untereinander + mehr Abstand */
+      .container { flex-direction: column; gap: 22px; } /* größerer Abstand */
+      .panel-left, .panel-right { flex: 1 1 auto; width: 100%; }
 
-      .panel-left, .panel-right {
-        flex: 1 1 auto;
-        width: 100%;
-      }
+      /* Breiter auf Mobile: weniger äußeres Padding */
+      html, body { padding: 14px; }
 
-      /* Sicherstellen: innen kein eigener Scroll/keine feste Höhe */
-      .panel-left,
-      .panel-right,
-      .paper {
+      /* Innen kein eigener Scroll/keine feste Höhe */
+      .panel-left, .panel-right, .paper {
         height: auto !important;
         overflow: visible !important;
       }
@@ -494,10 +484,11 @@
         min-width: 160px;
       }
 
-      /* Kompaktere Inputs */
+      /* Kompaktere Inputs bei gleicher Höhe: */
       .field input,
       .field select {
-        padding: 12px 10px 8px;
+        height: 44px;
+        padding: 10px 10px 8px;
         font-size: 0.98rem;
       }
 
@@ -508,15 +499,25 @@
       }
     }
 
-    /* Feinschliff für sehr kleine Screens */
+    /* Feinschliff für sehr kleine Screens: noch breiter durch weniger Padding */
     @media (max-width: 480px) {
-      html, body { padding: 16px; }
+      html, body { padding: 10px; }
       h1 { font-size: 1.35rem; margin-bottom: 18px; }
       .analysis-sheet { width: 94vw; padding: 14px; }
       .analysis-body { max-height: 66vh; }
     }
   </style>
 </head>
+
+
+
+
+
+
+
+
+
+
 
 <body>
   <h1>💰 Finanz Tracker</h1>
@@ -572,30 +573,30 @@
       <!-- Add / Clear -->
       <div class="action-row">
         <button class="primary" id="addBtn">➕ Eintrag</button>
-        <button class="ghost" id="clearBtn">🗑️ ALLES LÖSCHEN</button>
+        <!-- Emoji geändert: 🗑️ -> ➖ -->
+        <button class="ghost" id="clearBtn">➖ ALLES LÖSCHEN</button>
       </div>
 
-      <!-- MINI SELECTS: Jahr + Monat (wie Buttons) -->
-<!-- MINI SELECTS + TOGGLE BUTTONS: eine Zeile -->
-<div class="analysis-controls">
-  <div class="controls-row">
-    <select id="leftYearSelect" class="mini-select">
-      <option value="">Jahr</option>
-    </select>
+      <!-- MINI SELECTS + TOGGLE BUTTONS -->
+      <div class="analysis-controls">
+        <div class="controls-row">
+          <select id="leftYearSelect" class="mini-select">
+            <option value="">Jahr</option>
+          </select>
 
-    <select id="leftMonthSelect" class="mini-select">
-      <option value="">Monat</option>
-    </select>
+          <select id="leftMonthSelect" class="mini-select">
+            <option value="">Monat</option>
+          </select>
 
-    <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-    <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
-  </div>
-</div>
+          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+          <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
+        </div>
+      </div>
 
-<!-- Analyse -->
-<div class="analysis-controls">
-  <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
-</div>
+      <!-- Analyse -->
+      <div class="analysis-controls">
+        <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
+      </div>
 
       <!-- Analysis Modal -->
       <div id="analysisModal" class="modal" style="display:none;">
@@ -641,7 +642,6 @@
 
         <div id="entriesList"></div>
         <div class="balance" id="dailyBalance">💰 Bilanz: 0.00 €</div>
-	
       </div>
     </div>
 
@@ -778,8 +778,7 @@ function fillDaySelect() {
 
 /* ===================== DATE SELECTS (LEFT MINI BOXES) ===================== */
 function fillLeftYearSelect() {
-  
-const now = new Date().getFullYear();
+  const now = new Date().getFullYear();
   for (let y = now - 10; y <= now + 2; y++) {
     leftYearSelect.add(new Option(y, y));
   }
@@ -789,15 +788,13 @@ function fillLeftMonthSelect() {
   for (let m = 1; m <= 12; m++) {
     leftMonthSelect.add(new Option(m, m));
   }
-
 }
-
 
 /* ===================== FLOATING LABELS ===================== */
 function updateFilledState(el) {
   const f = el.closest('.field');
   if (!f) return;
-  el.value.trim() !== '' ? f.classList.add('filled') : f.classList.remove('filled');
+  (el.value ?? '').toString().trim() !== '' ? f.classList.add('filled') : f.classList.remove('filled');
 }
 
 function updateAllFilled() {
@@ -905,45 +902,30 @@ function buildEntry(e) {
 
   return div;
 }
-/* ===================== DELETE — MIT SICHERHEITSABFRAGE ===================== */
+
+/* ===================== DELETE — VEREINFACHTE SICHERHEITSABFRAGE ===================== */
 window.deleteEntry = (id) => {
   const e = entryMap.get(id);
   if (!e) return;
 
-  // Betrag formatiert (EUR, de-DE)
-  const fmt = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
-  const betrag = fmt.format(e.amount);
+  if (!confirm('Eintrag löschen?')) return;
 
-  // Typ-Text
-  const typText = e.type === 'income' ? 'Einnahme' : 'Ausgabe';
-
-  // Aussagekräftige Bestätigungs-Meldung
-  const msg =
-    `Diesen Eintrag wirklich löschen?\n\n` +
-    `${e.date} — ${typText}\n` +
-    `${e.category} • ${e.tag}\n` +
-    (e.description ? `„${e.description}“\n` : '') +
-    `Betrag: ${betrag}\n\n` +
-    `⚠️ Dieser Vorgang kann nicht rückgängig gemacht werden.`;
-
-  if (!confirm(msg)) return;
-
-  // Wenn bestätigt → wirklich löschen
   entries = entries.filter(x => x.id !== id);
   entryMap.delete(id);
   save();
   filterEntries();
 };
+
 /* ===================== ADD ===================== */
 addBtn.onclick = () => {
   const amount = parseFloat(amountInput.value);
-  if (!amount) return alert("Ungültiger Betrag");
+  if (!amount || isNaN(amount)) return alert('Betrag fehlt');
 
   const category = newCategoryInput.value.trim() || categorySelect.value;
   const tag = newTagInput.value.trim() || tagSelect.value;
 
-  if (!category) return alert("Kategorie fehlt");
-  if (!tag) return alert("Tag fehlt");
+  if (!category) return alert('Kategorie fehlt');
+  if (!tag) return alert('Tag fehlt');
 
   if (newCategoryInput.value && !categories.includes(category)) categories.push(category);
   if (newTagInput.value && !tags.includes(tag)) tags.push(tag);
@@ -972,7 +954,7 @@ addBtn.onclick = () => {
 
 /* ===================== CLEAR ALL ===================== */
 clearBtn.onclick = () => {
-  if (!confirm("Wirklich alles löschen?")) return;
+  if (!confirm('Alles löschen?')) return;
 
   entries = [];
   entryMap.clear();
@@ -995,9 +977,6 @@ let analysisMode = {
 const btnCat = document.getElementById('modeCategoryBtn');
 const btnTag = document.getElementById('modeTagBtn');
 
-
-
-
 function toggle(btn, key) {
   analysisMode[key] = !analysisMode[key];
   btn.classList.toggle('active', analysisMode[key]);
@@ -1006,6 +985,7 @@ function toggle(btn, key) {
 btnCat.addEventListener('click', () => toggle(btnCat, 'category'));
 btnTag.addEventListener('click', () => toggle(btnTag, 'tag'));
 document.getElementById("analysisCloseBtn").classList.remove("active");
+
 const analysisBtn = document.getElementById('analysisBtn');
 const analysisModal = document.getElementById('analysisModal');
 const analysisBody = document.getElementById('analysisBody');
@@ -1028,13 +1008,6 @@ function balanceAt(stichtag) {
   return sum;
 }
 
-function groupKey(e) {
-  let keys = [];
-  if (analysisMode.category) keys.push(e.category);
-  if (analysisMode.tag)      keys.push(e.tag);
-  return keys.join(' • '); // wenn keine Gruppierung: leerer String
-}
-
 function entriesInRange(start, end) {
   return entries.filter(e => {
     const dt = new Date(e.date);
@@ -1042,18 +1015,17 @@ function entriesInRange(start, end) {
   });
 }
 
-
-// Analyse basiert auf dem linken Jahr/Monat
+// Analyse (vereinfachte Meldung, wenn kein Datum gewählt)
 analysisBtn.addEventListener('click', () => {
   const year = parseInt(leftYearSelect.value);
   const month = parseInt(leftMonthSelect.value);
 
   if (!year) {
-    alert("Bitte links ein Datum auswählen.");
+    alert('Datum wählen');
     return;
   }
 
-  let start, end, prevStart, prevEnd, label, prevLabel;
+  let start, end, prevStart, prevEnd, label;
 
   if (month) {
     start = new Date(year, month - 1, 1);
@@ -1065,7 +1037,6 @@ analysisBtn.addEventListener('click', () => {
 
     prevStart = new Date(py, pm - 1, 1);
     prevEnd   = new Date(py, pm, 0);
-    prevLabel = `${monthName(pm)} ${py}`;
   } else {
     start = new Date(year, 0, 1);
     end   = new Date(year, 11, 31);
@@ -1073,7 +1044,6 @@ analysisBtn.addEventListener('click', () => {
 
     prevStart = new Date(year - 1, 0, 1);
     prevEnd   = new Date(year - 1, 11, 31);
-    prevLabel = `Jahr ${year - 1}`;
   }
 
   const scoped = entriesInRange(start, end);
@@ -1090,7 +1060,7 @@ analysisBtn.addEventListener('click', () => {
   let out = `📅 Analyse für ${label}\n\n`;
 
   if (scoped.length === 0) {
-    out += "Für das ausgewählte Datum wurden keine Einträge gefunden.\n\n";
+    out += "Keine Einträge.\n\n";
   } else {
     out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
 
@@ -1104,25 +1074,15 @@ analysisBtn.addEventListener('click', () => {
         out += "Keine Einträge.";
       } else {
         for (const c of cats) {
-          
-const sum = byCat.get(c);
-const verb = signWord(sum);
-
-const coloredAmount =
-    sum >= 0
-        ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-        : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-
-// HEADER
-out += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
-
-// STATEMENT
-out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
-
-// DIVIDER
-out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
-
-
+          const sum = byCat.get(c);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
+          out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
         }
       }
 
@@ -1136,94 +1096,66 @@ out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">──
         out += "Keine Einträge.\n\n";
       } else {
         for (const t of tagsList) {
-          
-const sum = byTag.get(t);
-const verb = signWord(sum);
-
-const coloredAmount =
-    sum >= 0
-        ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-        : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-
-// HEADER
-out += `Tag: <span class="analysis-tag-green">${t}</span><br>`;
-
-// STATEMENT
-out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
-out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
-
+          const sum = byTag.get(t);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += `Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
         }
       }
 
-    } 
-
-else if (groupCat && groupTag) {
-    // Kategorie + Tag verschachtelt
-    const byCatTag = new Map();
-    for (const e of scoped) {
+    } else if (groupCat && groupTag) {
+      // Kategorie + Tag verschachtelt
+      const byCatTag = new Map();
+      for (const e of scoped) {
         if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
         const inner = byCatTag.get(e.category);
         inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
-    }
+      }
 
-    const cats = [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      const cats = [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
 
-    for (const c of cats) {
-
+      for (const c of cats) {
         const inner = byCatTag.get(c);
         const tagsList = [...inner.keys()].sort((a, b) => a.localeCompare(b, 'de'));
 
         for (const t of tagsList) {
-
-            const sum = inner.get(t);
-            const verb = signWord(sum);
-
-            const coloredAmount =
-                sum >= 0
-                    ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-                    : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-
-            // HEADER (eine Zeile)
-           
-out += ` Kategorie: <span class="analysis-blue">${c}</span> - Tag: <span class="analysis-tag-green">${t}</span><br>`;
-
-
-            // STATEMENT-ZEILE
-            out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
-
-            // ZENTRIERTER TRENnSTRICH
-            out += `
-                <div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+          const sum = inner.get(t);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += ` Kategorie: <span class="analysis-blue">${c}</span> - Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
         }
-    }
-
-
+      }
 
     } else {
-      // Weder Kategorie noch Tag aktiv
       out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Tag). Es wird nur der Bilanzvergleich angezeigt.\n\n";
     }
   }
 
   // Bilanzvergleich
- 
-
-
-// Bilanzvergleich
-const prevBal = balanceAt(prevEnd);
-
+  const prevBal = balanceAt(prevEnd);
   const curBal  = balanceAt(end);
   const delta   = curBal - prevBal;
 
   out += ` <div style="text-align:center; opacity:10; margin:6px 0 12px 0; font-size: 20px;">Bilanzvergleich</div>`;
-
   out += `• Bilanz am ${dmy(prevEnd)}: ${eur(prevBal)}\n`;
   out += `• Bilanz am ${dmy(end)}: ${eur(curBal)}\n`;
   out += `• Veränderung: ${delta >= 0 ? "+" : "–"}${eur(Math.abs(delta))}\n`;
 
   analysisBody.innerHTML = out;
   analysisModal.style.display = "flex";
-});/* ===================== INIT ===================== */
+});
+
+/* ===================== INIT ===================== */
 load();
 updateSelects();
 
@@ -1242,15 +1174,12 @@ monthSelect.value = now.getMonth() + 1;
 fillDaySelect();
 daySelect.value = now.getDate();
 
-
-
 updateAllFilled();
 filterEntries();
 
 dateInput.onkeydown = () => false;
 dateInput.onpaste = () => false;
 dateInput.oninput = function() { this.value = this.value; };
-
 </script>
 </body>
 </html>
