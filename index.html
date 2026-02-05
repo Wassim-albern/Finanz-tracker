@@ -97,7 +97,51 @@
   line-height: 1.2rem;
 
     }
+    /* ================== EINHEITLICHER FOKUS FÜR ALLE FELDER ================== */
 
+.field input,
+.field select,
+select.minimal,
+.mini-select {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Fokuszustand */
+.field input:focus,
+.field input:focus-visible,
+.field select:focus,
+.field select:focus-visible,
+select.minimal:focus,
+select.minimal:focus-visible,
+.mini-select:focus,
+.mini-select:focus-visible {
+  
+  background: rgba(255,255,255,0.08) !important;
+
+  box-shadow:
+      0 0 0 2px rgba(0,212,255,0.20),
+      0 0.5px 0 0 #00d4ff !important;
+
+  outline: none !important;
+  border: none !important;
+}
+
+/* Hover */
+.field select:hover,
+select.minimal:hover,
+.mini-select:hover {
+  background: rgba(255,255,255,0.12) !important;
+}
+
+/* Firefox Fix */
+.field select:-moz-focusring,
+select.minimal:-moz-focusring,
+.mini-select:-moz-focusring {
+  outline: none !important;
+}
     .field input:hover,
     .field select:hover {
       background: rgba(255,255,255,0.12);
@@ -1260,6 +1304,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
