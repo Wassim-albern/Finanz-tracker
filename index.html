@@ -266,6 +266,1380 @@
     line-height: 1.2;
   }
 
+  #clearBtn { font-size: 0.85rem; }
+
+/* ===================== Entries ===================== */
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    align-items: center;
+    gap: 22px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .meta { color: #002366; flex: 1; }
+  .small { font-size: 0.85rem; color:black; }
+
+  .amount-income { color: #218838; font-weight: 700; }
+  .amount-expense { color: #c82333; font-weight: 700; }
+
+  .balance {
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  /* ===================== RIGHT FILTER AREA ===================== */
+  .field-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  select.minimal {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.06);
+  }
+
+  select.minimal option {
+    background-color: #161a22 !important;
+    color: #e6eef8 !important;
+  }
+
+  /* MINI SELECTS */
+  .mini-select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e6eef8;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+    height: 38px;
+    line-height: 1;
+    transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+
+  .mini-select:hover { background: rgba(255,255,255,0.12); }
+
+  .mini-select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+    background: rgba(255,255,255,0.08);
+    color: #e6eef8;
+  }
+
+  .mini-select option {
+    background-color: #161a22 !important;
+    color: #e6eef8 !important;
+  }
+
+  /* ANALYSE BUTTONS */
+  .analysis-controls { margin: 14px 0 4px; }
+  .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+
+  .toggle-btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #e6eef8;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .toggle-btn.active {
+    background: linear-gradient(135deg, #0a7a36, #024d20);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  .toggle-btn:hover:not(.active) { background: rgba(255,255,255,0.12); }
+
+  .analysis-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .analysis-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
+    border: 1px solid rgba(0, 212, 255, 0.5);
+  }
+
+  /* ===================== ANALYSIS MODAL ===================== */
+  #analysisModal {
+    position: fixed; inset: 0; display: none;
+    justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+    z-index: 1100;
+  }
+
+  .analysis-sheet {
+    position: relative;
+    background: #fff; color: #222;
+    border-radius: 16px;
+    width: min(820px, 92vw);
+    padding: 18px 20px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+    animation: pop .2s ease;
+  }
+
+  .analysis-sheet h2 { margin: 0 0 10px; color: #111; }
+
+  .analysis-body {
+    max-height: 60vh; overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 0.98rem;
+  }
+
+  .close-x {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+
+  .analysis-close-btn {
+    border: 1px solid black !important;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: block;
+    margin: 20px auto 0 auto;
+    color: #e6eef8;
+    background: #161a22;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .analysis-close-btn:hover { background: #161a22; }
+
+  .panel-left h2,
+  .panel-right h2,
+  .analysis-panel h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 27px;
+  }
+
+  /* (Optional) Desktop: dezente Scrollbar in Panel-Inhalten */
+  @media (min-width: 901px) {
+    .paper::-webkit-scrollbar,
+    .panel-left::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .paper::-webkit-scrollbar-track,
+    .panel-left::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+    }
+
+    .paper::-webkit-scrollbar-thumb,
+    .panel-left::-webkit-scrollbar-thumb {
+      background: rgba(0, 212, 255, 0.35);
+      border-radius: 10px;
+    }
+
+    .paper::-webkit-scrollbar-thumb:hover,
+    .panel-left::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 212, 255, 0.55);
+    }
+  }
+
+  .analysis-blue { color: #4da3ff; font-weight: 600; }
+  .analysis-tag-green { color: #d16e00; font-weight: 600; }
+  .analysis-pos { color: #218838; font-weight: 600; }
+  .analysis-neg { color: #c82333; font-weight: 600; }
+
+/* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
+  @media (max-width: 900px) {
+    /* Panels untereinander + deutlich mehr Abstand */
+    .container { flex-direction: column; gap: 34px; } /* größerer Abstand */
+    .panel-left, .panel-right, .analysis-panel { flex: 1 1 auto; width: 100%; }
+
+    /* Breiter auf Mobile: weniger äußeres Padding */
+    html, body { padding: 14px; }
+
+    /* Innen kein eigener Scroll/keine feste Höhe */
+    .panel-left, .panel-right, .analysis-panel, .paper {
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* Titel mittig – mehr Abstand bei Neue Eingabe */
+    .panel-left h2 { margin-bottom: 34px; }
+    .panel-right h2 { text-align: center; }
+    .analysis-panel h2 { text-align: center; }
+
+    /* ===== Abstände — Linkes Panel ===== */
+    /* kleinerer Abstand zw. Radio-Gruppe (Ausgabe/Einnahme) und Betrag */
+    .radio-group { margin: 8px 0 8px !important; }
+
+    /* kleiner Abstand zwischen Betrag und Beschreibung */
+    #amountInput { margin-bottom: 6px !important; }
+    #descriptionInput { margin-bottom: 8px !important; }
+
+    /* kleiner Abstand zwischen Kategorie und Neue Kategorie */
+    #newCategoryInput { margin-top: 6px !important; margin-bottom: 10px !important; }
+
+    /* kleiner Abstand zwischen Tag und Neuer Tag */
+    #newTagInput { margin-top: 6px !important; margin-bottom: 10px !important; }
+
+    /* ===== Buttons im linken Panel (2:1), volle Feldbreite, Farbe gesetzt ===== */
+    .action-row {
+      display: flex;
+      gap: 12px;
+      justify-content: stretch;
+      margin-top: 20px;
+    }
+    #addBtn, #clearBtn {
+      height: 48px !important;
+      border-radius: 10px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    #addBtn {
+      flex: 2;
+      background: linear-gradient(135deg, #00d4ff, #007bff) !important;
+      color: #fff !important;
+    }
+    #clearBtn {
+      flex: 1;
+      background: rgba(255,0,0,0.35) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255,0,0,0.3) !important;
+    }
+
+    /* Nur "Löschen" zeigen – alten Text ausblenden */
+    #clearBtn { font-size: 0 !important; position: relative; }
+    #clearBtn::after {
+      content: "Löschen";
+      font-size: 1rem;
+      line-height: 48px;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* ===== Kassenbon-Filter =====
+       1. Zeile: Jahr/Monat/Tag -> 3 Spalten, je 1/3
+       2. Zeile: Kategorie/Tag -> 2 Spalten, je 1/2
+       Gesamthöhe/Optik wie linke Felder */
+    .panel-right .field-group {
+      gap: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* 1. Reihe */
+    .panel-right .field-group .field:nth-child(1),
+    .panel-right .field-group .field:nth-child(2),
+    .panel-right .field-group .field:nth-child(3) {
+      flex: 1 1 calc(33.333% - 10px);
+      min-width: 0;
+    }
+
+    /* 2. Reihe */
+    .panel-right .field-group .field:nth-child(4),
+    .panel-right .field-group .field:nth-child(5) {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 0;
+    }
+
+    /* Höhe angleichen */
+    .field input,
+    .field select,
+    select.minimal,
+    .mini-select {
+      height: 48px !important;
+      padding: 10px 10px 8px;
+      font-size: 0.98rem;
+    }
+
+    /* ===== Analyse-Panel =====
+       Controls in EINER Zeile, 4 Elemente => 1:4 (gleich breit),
+       Analyse-Button volle Breite (1:1) */
+    .analysis-panel .analysis-controls .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .analysis-panel .controls-row > * {
+      flex: 1 1 calc(25% - 10px);
+      min-width: 0;
+      height: 48px !important;
+      font-size: 1rem !important;
+    }
+
+    .analysis-panel .analysis-btn {
+      width: 100% !important;
+      height: 48px !important;
+      font-size: 1rem !important;
+      margin-top: 6px;
+    }
+
+    /* Panel-spezifische Scrollbars auf Mobile ausblenden */
+    .paper::-webkit-scrollbar,
+    .panel-left::-webkit-scrollbar { display: none; }
+  }
+
+  /* Feinschliff für sehr kleine Screens: noch breiter durch weniger Padding */
+  @media (max-width: 480px) {
+    html, body { padding: 10px; }
+    h1 { font-size: 1.35rem; margin-bottom: 18px; }
+    .analysis-sheet { width: 94vw; padding: 14px; }
+    .analysis-body { max-height: 66vh; }
+  }
+
+
+
+/* ==== Zusätzliche Konsistenz: Hover/Focus in Mobile vereinheitlichen ==== */
+  @media (max-width: 900px) {
+    .field input:hover,
+    .field select:hover,
+    select.minimal:hover,
+    .mini-select:hover {
+      background: rgba(255,255,255,0.12);
+    }
+    .field input:focus,
+    .field select:focus,
+    select.minimal:focus,
+    .mini-select:focus {
+      background: rgba(255,255,255,0.08) !important;
+      box-shadow:
+        0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+        0px 0.5px 0px 0px #00d4ff !important;
+      outline: none !important;
+      border: none !important;
+    }
+  }
+
+
+/* ===============================
+   ANALYSE-PANEL OPTIMIERUNG
+   (Wassim Spezial Edition)
+================================ */
+
+/* Panel insgesamt größer wirken lassen */
+.analysis-panel {
+  padding: 26px !important;   /* vorher 18 */
+}
+
+/* Abstand zum unteren Rand für Analyse-Button */
+.analysis-panel .analysis-btn {
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+/* Layout ändern:
+   - 2 Buttons pro Zeile
+   - Jahr / Monat oben
+   - Kategorie / Tag unten
+*/
+.analysis-panel .analysis-controls .controls-row {
+  display: flex;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+/* JEDE Box = 1/2 breite */
+.analysis-panel .controls-row > * {
+  flex: 1 1 calc(50% - 12px) !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  min-width: 0 !important;
+}
+
+/* Buttons sauber zentrieren */
+.analysis-panel .toggle-btn,
+.analysis-panel .mini-select {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 48px !important;
+}
+
+/* Analyse Button Vollbreite */
+.analysis-panel .analysis-btn {
+  width: 100% !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  border-radius: 10px !important;
+}
+
+</style>
+
+
+
+
+<body>
+  <h1>💰 Finanz Tracker</h1>
+
+  <div class="container">
+
+    <!-- PANEL 1 — Neue Eingabe -->
+    <div class="panel-left">
+      <h2>📝 Neue Eingabe</h2>
+
+      <div class="field">
+        <input type="date" id="dateInput" onkeydown="return false;" onpaste="return false;">
+        <label>Datum</label>
+      </div>
+
+      <div class="radio-group">
+        <label><input type="radio" name="type" value="expense" checked> 💸 Ausgabe</label>
+        <label><input type="radio" name="type" value="income"> 💰 Einnahme</label>
+      </div>
+
+      <div class="field">
+        <input type="number" id="amountInput" step="0.01">
+        <label>Betrag (€)</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="descriptionInput">
+        <label>Beschreibung</label>
+      </div>
+
+      <div class="field">
+        <select id="categorySelect" class="minimal"></select>
+        <label>Kategorie</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="newCategoryInput">
+        <label>➕ Neue Kategorie</label>
+      </div>
+
+      <div class="field">
+        <select id="tagSelect" class="minimal"></select>
+        <label>Tag</label>
+      </div>
+
+      <div class="field">
+        <input type="text" id="newTagInput">
+        <label>➕ Neuer Tag</label>
+      </div>
+
+      <div class="action-row">
+        <button class="primary" id="addBtn">➕ Eintrag</button>
+        <button class="ghost" id="clearBtn">➖ ALLES LÖSCHEN</button>
+      </div>
+    </div>
+
+
+
+    <!-- PANEL 2 — Einträge / Kassenbon -->
+    <div class="panel-right">
+      <div class="paper">
+        <h2>🧾 Kassenbon</h2>
+
+        <div class="field-group">
+          <div class="field">
+            <select id="yearSelect" class="minimal"></select>
+            <label>Jahr</label>
+          </div>
+          <div class="field">
+            <select id="monthSelect" class="minimal"></select>
+            <label>Monat</label>
+          </div>
+          <div class="field">
+            <select id="daySelect" class="minimal"></select>
+            <label>Tag</label>
+          </div>
+          <div class="field">
+            <select id="categoryFilterSelect" class="minimal"></select>
+            <label>Kategorie</label>
+          </div>
+          <div class="field">
+            <select id="tagFilterSelect" class="minimal"></select>
+            <label>Tag</label>
+          </div>
+        </div>
+
+        <div id="entriesList"></div>
+        <div class="balance" id="dailyBalance">💰 Bilanz: 0.00 €</div>
+      </div>
+    </div>
+
+
+
+    <!-- PANEL 3 — ANALYSE (komplett separiert!) -->
+    <div class="analysis-panel">
+      <h2>📊 Analyse</h2>
+
+      <div class="analysis-controls">
+        <div class="controls-row">
+          <select id="leftYearSelect" class="mini-select">
+            <option value="">Jahr</option>
+          </select>
+
+          <select id="leftMonthSelect" class="mini-select">
+            <option value="">Monat</option>
+          </select>
+
+          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+          <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
+        </div>
+      </div>
+
+      <div class="analysis-controls">
+        <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
+      </div>
+    </div>
+
+  </div> <!-- container ENDE -->
+
+
+
+  <!-- ANALYSE MODAL (unverändert) -->
+  <div id="analysisModal" class="modal" style="display:none;">
+    <div class="analysis-sheet">
+      <button class="close-x" id="analysisCloseX">✖</button>
+      <h2>📊 Analyse</h2>
+      <div id="analysisBody" class="analysis-body"></div>
+      <div class="actions">
+        <button class="analysis-close-btn" id="analysisCloseBtn">Schließen</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* ===================== STATE / STORAGE ===================== */
+let entries = [];
+let categories = [];
+let tags = [];
+
+let entryMap = new Map(); // schneller Lookup
+
+const storageKey = 'finanztracker_v3';
+
+const today = () => new Date().toISOString().split('T')[0];
+const generateId = () =>
+  'e_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+/* ===================== STORAGE ===================== */
+function load() {
+  const d = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  entries = d.entries || [];
+  categories = d.categories || ['Essen', 'Miete', 'Freizeit'];
+  tags = d.tags || ['Fix', 'Variabel', 'Abo'];
+
+  entryMap.clear();
+  for (const e of entries) {
+    if (!e.id) e.id = generateId();
+    entryMap.set(e.id, e);
+  }
+}
+
+function save() {
+  localStorage.setItem(storageKey, JSON.stringify({ entries, categories, tags }));
+}
+
+/* ===================== SELECT HELPERS ===================== */
+function addEmptyPlaceholder(select) {
+  const opt = document.createElement('option');
+  opt.value = '';
+  opt.textContent = '\u00A0';
+  opt.selected = true;
+  select.appendChild(opt);
+}
+
+function fillSelectWithPlaceholder(select, items = []) {
+  select.innerHTML = '';
+  addEmptyPlaceholder(select);
+
+  const f = document.createDocumentFragment();
+  items.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item;
+    opt.textContent = item;
+    f.appendChild(opt);
+  });
+
+  select.appendChild(f);
+}
+
+/* ===================== UPDATE SELECTS ===================== */
+function updateSelects() {
+  fillSelectWithPlaceholder(categorySelect, categories);
+  fillSelectWithPlaceholder(tagSelect, tags);
+
+  fillSelectWithPlaceholder(categoryFilterSelect, categories);
+  fillSelectWithPlaceholder(tagFilterSelect, tags);
+}
+
+/* ===================== DATE SELECTS (RIGHT PANEL) ===================== */
+function fillYearSelect() {
+  yearSelect.innerHTML = '';
+  addEmptyPlaceholder(yearSelect);
+
+  const nowY = new Date().getFullYear();
+  const f = document.createDocumentFragment();
+
+  for (let y = nowY - 10; y <= nowY + 2; y++) {
+    f.appendChild(new Option(y, y));
+  }
+  yearSelect.appendChild(f);
+}
+
+function fillMonthSelect() {
+  fillSelectWithPlaceholder(monthSelect, Array.from({ length: 12 }, (_, i) => i + 1));
+}
+
+function getDaysInMonth(year, month) {
+  if (!year || !month) return 31;
+  return new Date(year, month, 0).getDate();
+}
+
+function fillDaySelect() {
+  const y = parseInt(yearSelect.value);
+  const m = parseInt(monthSelect.value);
+
+  const days = getDaysInMonth(y, m);
+  const prev = daySelect.value;
+
+  daySelect.innerHTML = '';
+  addEmptyPlaceholder(daySelect);
+
+  const f = document.createDocumentFragment();
+  for (let d = 1; d <= days; d++) f.appendChild(new Option(d, d));
+
+  daySelect.appendChild(f);
+
+  if (prev && prev <= days) daySelect.value = prev;
+}
+
+/* ===================== DATE SELECTS (LEFT MINI BOXES) ===================== */
+function fillLeftYearSelect() {
+  const now = new Date().getFullYear();
+  for (let y = now - 10; y <= now + 2; y++) {
+    leftYearSelect.add(new Option(y, y));
+  }
+}
+
+function fillLeftMonthSelect() {
+  for (let m = 1; m <= 12; m++) {
+    leftMonthSelect.add(new Option(m, m));
+  }
+}
+
+/* ===================== FLOATING LABELS ===================== */
+
+function updateFilledState(el) {
+  const f = el.closest('.field');
+  if (!f) return;
+  if (el.value.trim().length > 0) {
+    f.classList.add('filled');
+  } else {
+    f.classList.remove('filled');
+  }
+}
+
+
+function updateAllFilled() {
+  document.querySelectorAll('.field input, .field select').forEach(updateFilledState);
+}
+
+document.addEventListener('input', e => {
+  if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
+});
+document.addEventListener('change', e => {
+  if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
+});
+
+/* ===================== FILTER ===================== */
+function filterEntries() {
+  const year = parseInt(yearSelect.value);
+  const month = parseInt(monthSelect.value);
+  const day = parseInt(daySelect.value);
+
+  const cat = categoryFilterSelect.value;
+  const tag = tagFilterSelect.value;
+
+  const selectedDate = year && month && day ? new Date(year, month - 1, day) : null;
+
+  const filtered = entries.filter(e => {
+    const d = new Date(e.date);
+    return (!year || d.getFullYear() === year)
+        && (!month || d.getMonth() + 1 === month)
+        && (!day || d.getDate() === day)
+        && (!cat || e.category === cat)
+        && (!tag || e.tag === tag);
+  });
+
+  let basis = 0;
+  let basisDate = null;
+
+  if (selectedDate) {
+    basisDate = selectedDate.toISOString().split('T')[0];
+    for (const e of entries) {
+      const d = new Date(e.date);
+      if (d < selectedDate && (!cat || e.category === cat) && (!tag || e.tag === tag)) {
+        basis += e.type === 'income' ? e.amount : -e.amount;
+      }
+    }
+  }
+
+  renderEntries(filtered, basis, basisDate);
+}
+
+/* RIGHT PANEL LISTENERS */
+yearSelect.addEventListener('change', () => { fillDaySelect(); filterEntries(); updateAllFilled(); });
+monthSelect.addEventListener('change', () => { fillDaySelect(); filterEntries(); updateAllFilled(); });
+daySelect.addEventListener('change', () => { filterEntries(); updateAllFilled(); });
+categoryFilterSelect.addEventListener('change', filterEntries);
+tagFilterSelect.addEventListener('change', filterEntries);
+
+/* ===================== RENDER LIST ===================== */
+function renderEntries(list, basis = 0, transferDate = null) {
+  entriesList.innerHTML = '';
+  const f = document.createDocumentFragment();
+  let sum = basis;
+
+  if (basis !== 0 && transferDate) {
+    f.appendChild(buildEntry({
+      category: 'Übertrag',
+      tag: 'Vortag',
+      date: transferDate,
+      description: 'Saldo vom Vortag',
+      type: basis >= 0 ? 'income' : 'expense',
+      amount: Math.abs(basis),
+      id: null
+    }));
+  }
+
+  for (const e of list) {
+    sum += e.type === 'income' ? e.amount : -e.amount;
+    f.appendChild(buildEntry(e));
+  }
+
+  entriesList.appendChild(f);
+  dailyBalance.textContent = `💰 Bilanz: ${sum.toFixed(2)} €`;
+}
+
+function buildEntry(e) {
+  const div = document.createElement('div');
+  div.className = 'entry';
+
+  // ❌ Löschen-Icon nur anzeigen, wenn Eintrag eine echte ID hat
+  const deleteIcon = e.id ? `<span onclick="deleteEntry('${e.id}')">❌</span>` : ``;
+
+  div.innerHTML = `
+    <div class="meta">
+      <strong>${e.category} • ${e.tag}</strong>
+      <div class="small">${e.date} — ${e.description || ''}</div>
+    </div>
+
+    <div class="${e.type === 'income' ? 'amount-income' : 'amount-expense'}">
+      ${e.type === 'income' ? '+' : '-'}${e.amount.toFixed(2)} €
+    </div>
+
+    <div class="entry-actions">
+      ${deleteIcon}
+    </div>
+  `;
+
+  return div;
+}
+
+/* ===================== DELETE — VEREINFACHTE SICHERHEITSABFRAGE ===================== */
+window.deleteEntry = (id) => {
+  const e = entryMap.get(id);
+  if (!e) return;
+
+  if (!confirm('Eintrag löschen?')) return;
+
+  entries = entries.filter(x => x.id !== id);
+  entryMap.delete(id);
+  save();
+  filterEntries();
+};
+
+/* ===================== ADD ===================== */
+addBtn.onclick = () => {
+  const amount = parseFloat(amountInput.value);
+  if (!amount || isNaN(amount)) return alert('Betrag fehlt');
+
+  const category = newCategoryInput.value.trim() || categorySelect.value;
+  const tag = newTagInput.value.trim() || tagSelect.value;
+
+  if (!category) return alert('Kategorie fehlt');
+  if (!tag) return alert('Tag fehlt');
+
+  if (newCategoryInput.value && !categories.includes(category)) categories.push(category);
+  if (newTagInput.value && !tags.includes(tag)) tags.push(tag);
+
+  const obj = {
+    id: generateId(),
+    date: dateInput.value || today(),
+    type: document.querySelector('[name=type]:checked').value,
+    amount,
+    description: descriptionInput.value,
+    category,
+    tag
+  };
+
+  entries.push(obj);
+  entryMap.set(obj.id, obj);
+  save();
+
+  newCategoryInput.value = '';
+  newTagInput.value = '';
+
+  updateSelects();
+  filterEntries();
+  updateAllFilled();
+};
+
+/* ===================== CLEAR ALL ===================== */
+clearBtn.onclick = () => {
+  if (!confirm('Alles löschen?')) return;
+
+  entries = [];
+  entryMap.clear();
+  categories = [];
+  tags = [];
+
+  save();
+  updateSelects();
+  entriesList.innerHTML = '';
+  dailyBalance.textContent = '💰 Bilanz: 0.00 €';
+};
+
+/* ===================== ANALYSE ===================== */
+
+let analysisMode = {
+  category: false,
+  tag: false
+};
+
+const btnCat = document.getElementById('modeCategoryBtn');
+const btnTag = document.getElementById('modeTagBtn');
+
+function toggle(btn, key) {
+  analysisMode[key] = !analysisMode[key];
+  btn.classList.toggle('active', analysisMode[key]);
+}
+
+btnCat.addEventListener('click', () => toggle(btnCat, 'category'));
+btnTag.addEventListener('click', () => toggle(btnTag, 'tag'));
+document.getElementById("analysisCloseBtn").classList.remove("active");
+
+const analysisBtn = document.getElementById('analysisBtn');
+const analysisModal = document.getElementById('analysisModal');
+const analysisBody = document.getElementById('analysisBody');
+const analysisCloseX = document.getElementById('analysisCloseX');
+const analysisCloseBtn = document.getElementById('analysisCloseBtn');
+
+analysisCloseX.addEventListener('click', () => analysisModal.style.display = 'none');
+analysisCloseBtn.addEventListener('click', () => analysisModal.style.display = 'none');
+
+const eur = (n) => new Intl.NumberFormat('de-DE', { style:'currency', currency:'EUR' }).format(n);
+const dmy = (d) => d.toLocaleDateString('de-DE', { day:'2-digit', month:'2-digit', year:'numeric' });
+const monthName = (m) => new Date(2000, m-1, 1).toLocaleString('de-DE', { month:'long' });
+
+function balanceAt(stichtag) {
+  let sum = 0;
+  for (const e of entries) {
+    const dt = new Date(e.date);
+    if (dt <= stichtag) sum += e.type === 'income' ? e.amount : -e.amount;
+  }
+  return sum;
+}
+
+function entriesInRange(start, end) {
+  return entries.filter(e => {
+    const dt = new Date(e.date);
+    return dt >= start && dt <= end;
+  });
+}
+
+// Analyse (vereinfachte Meldung, wenn kein Datum gewählt)
+analysisBtn.addEventListener('click', () => {
+  const year = parseInt(leftYearSelect.value);
+  const month = parseInt(leftMonthSelect.value);
+
+  if (!year) {
+    alert('Datum wählen');
+    return;
+  }
+
+  let start, end, prevStart, prevEnd, label;
+
+  if (month) {
+    start = new Date(year, month - 1, 1);
+    end   = new Date(year, month, 0);
+    label = `${monthName(month)} ${year}`;
+
+    const pm = month === 1 ? 12 : month - 1;
+    const py = month === 1 ? year - 1 : year;
+
+    prevStart = new Date(py, pm - 1, 1);
+    prevEnd   = new Date(py, pm, 0);
+  } else {
+    start = new Date(year, 0, 1);
+    end   = new Date(year, 11, 31);
+    label = `Jahr ${year}`;
+
+    prevStart = new Date(year - 1, 0, 1);
+    prevEnd   = new Date(year - 1, 11, 31);
+  }
+
+  const scoped = entriesInRange(start, end);
+  const zeitLabel = month ? 'diesem Monat' : 'diesem Jahr';
+  const net = (e) => (e.type === 'income' ? e.amount : -e.amount);
+  const signWord = (sum) =>
+      sum > 0 ? 'eingenommen'
+    : sum < 0 ? 'ausgegeben'
+    : 'weder ausgegeben noch eingenommen';
+
+  const groupCat = analysisMode.category;
+  const groupTag = analysisMode.tag;
+
+  let out = `📅 Analyse für ${label}\n\n`;
+
+  if (scoped.length === 0) {
+    out += "Keine Einträge.\n\n";
+  } else {
+    out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
+
+    if (groupCat && !groupTag) {
+      // NUR Kategorie
+      const byCat = new Map();
+      for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
+
+      const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      if (cats.length === 0) {
+        out += "Keine Einträge.";
+      } else {
+        for (const c of cats) {
+          const sum = byCat.get(c);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
+          out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+        }
+      }
+
+    } else if (!groupCat && groupTag) {
+      // NUR Tag
+      const byTag = new Map();
+      for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
+
+      const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      if (tagsList.length === 0) {
+        out += "Keine Einträge.\n\n";
+      } else {
+        for (const t of tagsList) {
+          const sum = byTag.get(t);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += `Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+        }
+      }
+
+    } else if (groupCat && groupTag) {
+      // Kategorie + Tag verschachtelt
+      const byCatTag = new Map();
+      for (const e of scoped) {
+        if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
+        const inner = byCatTag.get(e.category);
+        inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
+      }
+
+      const cats = [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+
+      for (const c of cats) {
+        const inner = byCatTag.get(c);
+        const tagsList = [...inner.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+
+        for (const t of tagsList) {
+          const sum = inner.get(t);
+          const verb = signWord(sum);
+          const coloredAmount =
+              sum >= 0
+                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+          out += ` Kategorie: <span class="analysis-blue">${c}</span> - Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
+          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
+        }
+      }
+
+    } else {
+      out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Tag). Es wird nur der Bilanzvergleich angezeigt.\n\n";
+    }
+  }
+
+  // Bilanzvergleich
+  const prevBal = balanceAt(prevEnd);
+  const curBal  = balanceAt(end);
+  const delta   = curBal - prevBal;
+
+  out += ` <div style="text-align:center; opacity:10; margin:6px 0 12px 0; font-size: 20px;">Bilanzvergleich</div>`;
+  out += `• Bilanz am ${dmy(prevEnd)}: ${eur(prevBal)}\n`;
+  out += `• Bilanz am ${dmy(end)}: ${eur(curBal)}\n`;
+  out += `• Veränderung: ${delta >= 0 ? "+" : "–"}${eur(Math.abs(delta))}\n`;
+
+  analysisBody.innerHTML = out;
+  analysisModal.style.display = "flex";
+});
+
+/* ===================== INIT ===================== */
+load();
+updateSelects();
+
+fillYearSelect();
+fillMonthSelect();
+fillDaySelect();
+
+fillLeftYearSelect();
+fillLeftMonthSelect();
+
+dateInput.value = today();
+
+const now = new Date();
+yearSelect.value = now.getFullYear();
+monthSelect.value = now.getMonth() + 1;
+fillDaySelect();
+daySelect.value = now.getDate();
+
+updateAllFilled();
+filterEntries();
+
+dateInput.onkeydown = () => false;
+dateInput.onpaste = () => false;
+dateInput.oninput = function() { this.value = this.value; };
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Finanz Tracker</title>
+
+  <!-- Manifest für Android/Chrome (Cache-Busting mit ?v=2) -->
+  <link rel="manifest" href="./manifest.json?v=2">
+
+  <!-- iOS: Home-Screen-Icons (Safari ignoriert Manifest-Icons) -->
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="./icon-512.png">
+
+  <!-- iOS: PWA-Optik -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Finanz Tracker">
+
+  <!-- Farben (Android Task-Switcher / Adressleiste) -->
+  <meta name="theme-color" content="#00d4ff">
+  <meta name="background-color" content="#0b1220">
+
+<style>
+  /* ============ Globales Layout / Scroll-Verhalten ============ */
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: auto;        /* statt 100% – verhindert Scroll-Probleme auf Mobile */
+    min-height: 100%;
+    margin: 0;
+    padding: 24px;
+    overflow-y: auto;    /* nur EINE große Scrollbar (global) */
+    font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0b1220;
+    color: #e6eef8;
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 300;
+    margin: 6px 0 30px;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px; /* Desktop Gap */
+  }
+
+  .panel-left, .panel-right {
+    background: #161a22;
+    border-radius: 16px;
+    border: none !important;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  }
+
+  /* Analyse-Panel (separates Panel) – gleiche Optik */
+  .analysis-panel {
+    background: #161a22;
+    border-radius: 16px;
+    border: none !important;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    padding: 18px;
+  }
+
+  .panel-left {
+    flex: 0 0 38%;
+    padding: 18px;
+  }
+
+  .panel-right {
+    flex: 0 0 62%;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .paper { padding-right: 10px; }
+
+  /* ===================== Inputs & Floating Labels ===================== */
+  .field {
+    position: relative;
+    margin-bottom: 14px;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  /* Einheitliche Höhe für Inputs & Selects (inkl. Neue Kategorie/Tag) */
+  .field input,
+  .field select {
+    width: 100%;
+    height: 48px; /* vereinheitlicht */
+    padding: 12px 12px 10px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,0.06);
+    color: #e6eef8;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  .field input:hover,
+  .field select:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .field input:focus,
+  .field select:focus {
+    background: rgba(255,255,255,0.08) !important;
+    box-shadow:
+      0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+      0px 0.5px 0px 0px #00d4ff; /* nur Unterlinie */
+    outline: none !important;
+    border: none !important;
+  }
+
+  /* Floating Label – Basis */
+  .field label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #cfeffd;
+    pointer-events: none;
+    transition: all 0.18s ease;
+    background: transparent;
+    padding: 0 2px;
+  }
+
+  /* Floating Label – bei Fokus / gefüllt */
+  .field:focus-within label,
+  .field.filled label {
+    top: -10px !important;
+    transform: none !important;
+    left: 10px !important;
+    font-size: 0.8rem !important;
+    color: #00d4ff !important;
+  }
+
+  .field.filled label::first-letter,
+  .field label:focus-within::first-letter {
+    color: #6ecbff;
+  }
+
+  /* ===================== Radios & Buttons (Basis) ===================== */
+  .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
+
+  .action-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
+  .action-row button {
+    flex: 1;
+    max-width: 2000px;
+    height: 48px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  #addBtn { flex: 2; }
+  #clearBtn { flex: 1; }
+
+  /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) – Basisfarben */
+  #clearBtn {
+    background: rgba(255, 0, 0, 0.45);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 1);
+    font-size: 0.85rem;
+    transition: 0.2s ease;
+  }
+  #clearBtn:hover {
+    background: rgba(255, 0, 0, 0.22);
+    border-color: rgba(255, 0, 0, 0.5);
+  }
+
+  #addBtn:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
+    border: 1px solid rgba(0, 212, 255, 0.5);
+  }
+
+  /* ==== Controls Row (Analyse-Controls Grundlayout) ==== */
+  .controls-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .analysis-controls .controls-row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+  }
+
+  .analysis-controls .controls-row > * {
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .analysis-controls .controls-row .mini-select,
+  .analysis-controls .controls-row .toggle-btn {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+    font-size: 0.95rem;
+  }
+
+  .analysis-controls .controls-row .toggle-btn.active {
+    background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+  }
+
+  .analysis-controls .controls-row .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #e6eef8;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .analysis-controls .controls-row .toggle-btn:hover:not(.active),
+  .analysis-controls .controls-row .mini-select:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .analysis-controls .controls-row .toggle-btn:focus-visible,
+  .analysis-controls .controls-row .mini-select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+    background: rgba(255,255,255,0.08);
+    color: #e6eef8;
+  }
+
+  button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .primary {
+    background: linear-gradient(135deg, #00d4ff, #007bff);
+    color: #fff;
+  }
+
+  .ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: inherit;
+    line-height: 1.2;
+  }
+
   #clearBtn { font-size: 0.85rem; }</head>
 
 /* ===================== Entries ===================== */
@@ -1372,3 +2746,4 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
