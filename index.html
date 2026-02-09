@@ -921,7 +921,117 @@ select.minimal option {
 }
 
 
+/* ==========================================
+   THEME TOGGLE BUTTON (Sun / Moon)
+========================================== */
 
+.theme-toggle {
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  margin: 30px auto 0 auto;  /* zentriert */
+  width: fit-content;
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15);
+}
+
+/* LIGHT MODE */
+.light-mode {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Panels im Lightmode */
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  background: #f3f3f3 !important;
+  color: #000 !important;
+}
+
+/* Inputs + Labels im Lightmode */
+.light-mode .field input,
+.light-mode .field select {
+  background: rgba(0,0,0,0.06) !important;
+  color: #000 !important;
+}
+
+.light-mode .field label {
+  color: #333 !important;
+}
+
+.light-mode .field.filled label,
+.light-mode .field:focus-within label {
+  background: #f3f3f3 !important;
+  color: #0077cc !important;
+}
+
+/* Buttons im Lightmode */
+.light-mode button {
+  color: #000 !important;
+}
+
+
+.field:focus-within label,
+.field.filled label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  color: #00d4ff !important;
+  background: transparent !important; /* <<< WIE GEWÜNSCHT */
+  padding: 0 4px !important;
+}
+
+
+
+/* =========================================================
+   2) SELECT-FELDER (Kategorie & Tag) – 
+      Label bleibt UNTEN bis etwas ausgewählt wird
+========================================================= */
+
+/* Normalzustand → Label bleibt unten */
+.field select:not(:focus):not(.has-value) + label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+  color: #cfeffd !important;
+  background: transparent !important;
+}
+
+/* Floating nur wenn Fokus ODER Wert vorhanden */
+.field select:focus + label,
+.field select.has-value + label {
+  top: -8px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  color: #00d4ff !important;
+  background: transparent !important;
+}
+
+
+
+/* =========================================================
+   3) SMALL FLOAT – Nur für Neue Kategorie / Neuer Tag
+   Weniger Sprung (leicht höher als unten, aber kleiner als Standard)
+========================================================= */
+
+.small-float.filled label,
+.small-float:focus-within label {
+  top: -4px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  background: transparent !important;
+}
+
+
+	
 </style>
 </head>
 
@@ -1042,7 +1152,7 @@ select.minimal option {
         <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
       </div>
     </div>
-
+	<div id="themeToggle" class="theme-toggle">☀️</div>
   </div> <!-- container ENDE -->
 
 
@@ -1226,6 +1336,17 @@ document.addEventListener('input', e => {
 document.addEventListener('change', e => {
   if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
 });
+	
+document.querySelectorAll(".field select").forEach(sel => {
+  sel.addEventListener("change", () => {
+    if (sel.value.trim() !== "") {
+      sel.classList.add("has-value");
+    } else {
+      sel.classList.remove("has-value");
+    }
+  });
+});
+
 
 /* ===================== FILTER ===================== */
 function filterEntries() {
@@ -1574,6 +1695,20 @@ analysisBtn.addEventListener('click', () => {
   analysisModal.style.display = "flex";
 });
 
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+
+  // Emoji wechseln
+  if (document.body.classList.contains("light-mode")) {
+    themeToggle.textContent = "🌙"; // Mond
+  } else {
+    themeToggle.textContent = "☀️"; // Sonne
+  }
+});
+
+
 /* ===================== INIT ===================== */
 load();
 updateSelects();
@@ -1602,6 +1737,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
