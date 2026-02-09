@@ -124,32 +124,49 @@ background: #161a22 !important;
   }
 
   /* Floating Label – Basis */
-  .field label {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #cfeffd;
-    pointer-events: none;
-    transition: all 0.18s ease;
-    background: transparent;
-    padding: 0 2px;
-  }
+  
+.field label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0 4px;
+  pointer-events: none;
+  font-size: 1rem;
+  color: #cfeffd;
+  background: transparent;
+  transition: all 0.20s ease;
+  line-height: 1;
+}
+
 
   /* Floating Label – bei Fokus / gefüllt */
   .field:focus-within label,
   .field.filled label {
-    top: -10px !important;
-    transform: none !important;
-    left: 10px !important;
-    font-size: 0.8rem !important;
-    color: #00d4ff !important;
-  }
 
-  .field.filled label::first-letter,
-  .field label:focus-within::first-letter {
-    color: #6ecbff;
-  }
+top: 0;                     /* exakt gleiche Höhe bei ALLEN Feldern */
+  transform: translateY(-50%);/* perfekte mittige Ausrichtung */
+  left: 10px;
+  font-size: 0.78rem;
+  color: #00d4ff;
+  background: #161a22;        /* Hintergrund fix, damit es nicht „klemmt“ */
+  padding: 0 4px;
+}
+
+
+.field select:not([value=""]) ~ label,
+.field select:focus ~ label {
+  top: 0 !important;
+  left: 10px !important;
+  font-size: 0.78rem !important;
+  transform: translateY(-50%) !important;
+  color: #00d4ff !important;
+  background: #161a22 !important;
+  padding: 0 4px !important;
+}
+
+ 
 
   /* ===================== Radios & Buttons (Basis) ===================== */
   .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
@@ -1558,6 +1575,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
