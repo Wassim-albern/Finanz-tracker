@@ -159,19 +159,21 @@ background: #161a22 !important;
 
 
 
-.field select:not([value=""]) ~ label,
-.field select:focus ~ label {
 
+.field select:not([value=""]) ~ label,
+.field select:not([value=" "]) ~ label,
+.field select:focus ~ label {
+  /* FLOATEN */
   top: -8px !important;
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
   color: #00d4ff !important;
-  background: transparent !important;      /* Hintergrund */
+  background: #161a22 !important;
   padding: 0 6px !important;
   border-radius: 4px !important;
-
 }
+
 
  
 
@@ -901,6 +903,24 @@ select.minimal option {
   font-size: 0.8rem !important;
 }
 
+	
+.small-float label {
+  /* bleibt unten wie normal */
+}
+
+/* beim Füllen oder Fokus → kleiner Sprung */
+.small-float.filled label,
+.small-float:focus-within label {
+  top: -4px !important;          /* << HIER wird Sprunghöhe gesteuert */
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  background: #161a22 !important;
+  padding: 0 4px !important;
+  border-radius: 4px !important;
+}
+
+
 
 </style>
 </head>
@@ -941,7 +961,7 @@ select.minimal option {
         <label>Kategorie</label>
       </div>
 
-      <div class="field">
+      <div class="field small-float">
         <input type="text" id="newCategoryInput">
         <label> Neue Kategorie</label>
       </div>
@@ -951,7 +971,7 @@ select.minimal option {
         <label>Tag</label>
       </div>
 
-      <div class="field">
+      <div class="field small-float">
         <input type="text" id="newTagInput">
         <label> Neuer Tag</label>
       </div>
@@ -1582,6 +1602,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
