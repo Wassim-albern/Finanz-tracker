@@ -77,10 +77,9 @@
     border-radius: 16px;
   }
 
-  .paper {
-    padding-right: 10px;
-  }
+  .paper { padding-right: 10px; }
 
+  /* ===================== Inputs & Floating Labels ===================== */
   .field {
     position: relative;
     margin-bottom: 14px;
@@ -117,7 +116,7 @@
     border: none !important;
   }
 
-  /* Floating Label */
+  /* Floating Label – Basis */
   .field label {
     position: absolute;
     left: 12px;
@@ -125,18 +124,19 @@
     transform: translateY(-50%);
     color: #cfeffd;
     pointer-events: none;
-    transition: 0.18s ease;
+    transition: all 0.18s ease;
     background: transparent;
+    padding: 0 2px;
   }
 
-  /* fix: floatet jetzt zuverlässig bei Fokus des Containers */
+  /* Floating Label – bei Fokus / gefüllt */
   .field:focus-within label,
   .field.filled label {
-    top: -10px;
-    transform: none;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #00d4ff;
+    top: -10px !important;
+    transform: none !important;
+    left: 10px !important;
+    font-size: 0.8rem !important;
+    color: #00d4ff !important;
   }
 
   .field.filled label::first-letter,
@@ -144,6 +144,7 @@
     color: #6ecbff;
   }
 
+  /* ===================== Radios & Buttons (Basis) ===================== */
   .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
 
   .action-row {
@@ -164,7 +165,7 @@
   #addBtn { flex: 2; }
   #clearBtn { flex: 1; }
 
-  /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) */
+  /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) – Basisfarben */
   #clearBtn {
     background: rgba(255, 0, 0, 0.45);
     border: 1px solid rgba(255, 0, 0, 0.3);
@@ -182,6 +183,7 @@
     border: 1px solid rgba(0, 212, 255, 0.5);
   }
 
+  /* ==== Controls Row (Analyse-Controls Grundlayout) ==== */
   .controls-row {
     display: flex;
     justify-content: space-between;
@@ -264,8 +266,9 @@
     line-height: 1.2;
   }
 
-  #clearBtn { font-size: 0.85rem; }
+  #clearBtn { font-size: 0.85rem; }</head>
 
+/* ===================== Entries ===================== */
   .entry {
     display: flex;
     justify-content: space-between;
@@ -292,7 +295,7 @@
     font-weight: 700;
   }
 
-  /* RIGHT FILTER AREA */
+  /* ===================== RIGHT FILTER AREA ===================== */
   .field-group {
     display: flex;
     gap: 10px;
@@ -376,7 +379,7 @@
     border: 1px solid rgba(0, 212, 255, 0.5);
   }
 
-  /* ANALYSIS MODAL */
+  /* ===================== ANALYSIS MODAL ===================== */
   #analysisModal {
     position: fixed; inset: 0; display: none;
     justify-content: center; align-items: center;
@@ -431,7 +434,8 @@
   .analysis-close-btn:hover { background: #161a22; }
 
   .panel-left h2,
-  .panel-right h2 {
+  .panel-right h2,
+  .analysis-panel h2 {
     text-align: center;
     width: 100%;
     margin-bottom: 27px;
@@ -467,7 +471,7 @@
   .analysis-pos { color: #218838; font-weight: 600; }
   .analysis-neg { color: #c82333; font-weight: 600; }
 
-  /* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
+/* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
   @media (max-width: 900px) {
     /* Panels untereinander + deutlich mehr Abstand */
     .container { flex-direction: column; gap: 34px; } /* größerer Abstand */
@@ -487,17 +491,21 @@
     .panel-right h2 { text-align: center; }
     .analysis-panel h2 { text-align: center; }
 
-    /* Feintuning Abstände linkes Panel:
-       - nach Beschreibung: minimal spürbar
-       - nach Neue Kategorie & Neuer Tag: spürbar mehr */
-    #descriptionInput { margin-bottom: 8px; }
-    #newCategoryInput { margin-bottom: 14px; }
-    #newTagInput { margin-bottom: 14px; }
+    /* ===== Abstände — Linkes Panel ===== */
+    /* kleinerer Abstand zw. Radio-Gruppe (Ausgabe/Einnahme) und Betrag */
+    .radio-group { margin: 8px 0 8px !important; }
 
-    /* Buttons im linken Panel:
-       - gleiche Höhe wie Felder
-       - volle Feldbreite im Panel
-       - Verhältnis Eintrag : Löschen = 2 : 1 */
+    /* kleiner Abstand zwischen Betrag und Beschreibung */
+    #amountInput { margin-bottom: 6px !important; }
+    #descriptionInput { margin-bottom: 8px !important; }
+
+    /* kleiner Abstand zwischen Kategorie und Neue Kategorie */
+    #newCategoryInput { margin-top: 6px !important; margin-bottom: 10px !important; }
+
+    /* kleiner Abstand zwischen Tag und Neuer Tag */
+    #newTagInput { margin-top: 6px !important; margin-bottom: 10px !important; }
+
+    /* ===== Buttons im linken Panel (2:1), volle Feldbreite, Farbe gesetzt ===== */
     .action-row {
       display: flex;
       gap: 12px;
@@ -505,73 +513,99 @@
       margin-top: 20px;
     }
     #addBtn, #clearBtn {
-      height: 48px;
+      height: 48px !important;
       border-radius: 10px;
       font-size: 1rem;
       width: 100%;
     }
-    #addBtn { flex: 2; }
-    #clearBtn { flex: 1; }
+    #addBtn {
+      flex: 2;
+      background: linear-gradient(135deg, #00d4ff, #007bff) !important;
+      color: #fff !important;
+    }
+    #clearBtn {
+      flex: 1;
+      background: rgba(255,0,0,0.35) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255,0,0,0.3) !important;
+    }
 
-    /* Kassenbon-Filter:
-       - Jahr/Monat/Tag in EINER Zeile (je 1/3)
-       - exakt wie Feldbreite links
-       - Kategorie/Tag in einer zweiten Zeile (je 1/2) */
+    /* Nur "Löschen" zeigen – alten Text ausblenden */
+    #clearBtn { font-size: 0 !important; position: relative; }
+    #clearBtn::after {
+      content: "Löschen";
+      font-size: 1rem;
+      line-height: 48px;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* ===== Kassenbon-Filter =====
+       1. Zeile: Jahr/Monat/Tag -> 3 Spalten, je 1/3
+       2. Zeile: Kategorie/Tag -> 2 Spalten, je 1/2
+       Gesamthöhe/Optik wie linke Felder */
     .panel-right .field-group {
       gap: 10px;
       margin-bottom: 20px;
       display: flex;
       flex-wrap: wrap;
     }
-    /* 1. Reihe: die ersten drei .field-Elemente */
+
+    /* 1. Reihe */
     .panel-right .field-group .field:nth-child(1),
     .panel-right .field-group .field:nth-child(2),
     .panel-right .field-group .field:nth-child(3) {
-      flex: 1 1 calc(33.333% - 7px);
-      min-width: 0;
-    }
-    /* 2. Reihe: die letzten zwei .field-Elemente */
-    .panel-right .field-group .field:nth-child(4),
-    .panel-right .field-group .field:nth-child(5) {
-      flex: 1 1 calc(50% - 5px);
+      flex: 1 1 calc(33.333% - 10px);
       min-width: 0;
     }
 
-    /* Alle Selects gleiche Höhe wie Inputs */
+    /* 2. Reihe */
+    .panel-right .field-group .field:nth-child(4),
+    .panel-right .field-group .field:nth-child(5) {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 0;
+    }
+
+    /* Höhe angleichen */
     .field input,
     .field select,
     select.minimal,
     .mini-select {
-      height: 44px;
+      height: 48px !important;
       padding: 10px 10px 8px;
       font-size: 0.98rem;
     }
 
-    /* Analyse-Panel: Buttons/Selects 100% breit, gleich hoch,
-       Analyse-Button ebenfalls wie ein Feld */
+    /* ===== Analyse-Panel =====
+       Controls in EINER Zeile, 4 Elemente => 1:4 (gleich breit),
+       Analyse-Button volle Breite (1:1) */
     .analysis-panel .analysis-controls .controls-row {
-      flex-direction: column;
-      gap: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: stretch;
     }
+
     .analysis-panel .controls-row > * {
-      width: 100%;
-      height: 44px;
-      font-size: 1rem;
-      line-height: 44px;
+      flex: 1 1 calc(25% - 10px);
+      min-width: 0;
+      height: 48px !important;
+      font-size: 1rem !important;
     }
+
     .analysis-panel .analysis-btn {
-      width: 100%;
-      height: 44px;
-      font-size: 1rem;
+      width: 100% !important;
+      height: 48px !important;
+      font-size: 1rem !important;
       margin-top: 6px;
-      line-height: 44px;
     }
 
     /* Panel-spezifische Scrollbars auf Mobile ausblenden */
     .paper::-webkit-scrollbar,
-    .panel-left::-webkit-scrollbar {
-      display: none;
-    }
+    .panel-left::-webkit-scrollbar { display: none; }
   }
 
   /* Feinschliff für sehr kleine Screens: noch breiter durch weniger Padding */
@@ -581,16 +615,30 @@
     .analysis-sheet { width: 94vw; padding: 14px; }
     .analysis-body { max-height: 66vh; }
   }
+
+
+
+/* ==== Zusätzliche Konsistenz: Hover/Focus in Mobile vereinheitlichen ==== */
+  @media (max-width: 900px) {
+    .field input:hover,
+    .field select:hover,
+    select.minimal:hover,
+    .mini-select:hover {
+      background: rgba(255,255,255,0.12);
+    }
+    .field input:focus,
+    .field select:focus,
+    select.minimal:focus,
+    .mini-select:focus {
+      background: rgba(255,255,255,0.08) !important;
+      box-shadow:
+        0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+        0px 0.5px 0px 0px #00d4ff !important;
+      outline: none !important;
+      border: none !important;
+    }
+  }
 </style>
-</head>
-
-
-
-
-
-
-
-
 
 
 
@@ -1270,5 +1318,3 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
-
