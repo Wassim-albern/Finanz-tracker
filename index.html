@@ -820,6 +820,25 @@ select.minimal option {
   margin-bottom: 14px !important;
 }
 
+panel-right .paper {
+  padding: 0 !important;
+}
+
+/* Damit die Überschrift und der Inhalt nicht kleben,
+   geben wir innen wieder deinen Standard-Abstand: */
+.panel-right .paper > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Falls Überschrift oben klebt → gleichen Abstand wie links */
+.panel-right .paper h2 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 
 </style>
 </head>
@@ -1501,6 +1520,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
