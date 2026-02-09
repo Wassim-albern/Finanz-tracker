@@ -863,6 +863,20 @@ select.minimal option {
   padding-right: 0 !important;
 }
 
+.field label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Fix: Geschwebte Labels exakt gleiche Höhe */
+.field.filled label,
+.field:focus-within label {
+  top: -10px !important;    /* gleiche Höhe für ALLE */
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.8rem !important;
+}
+
 
 </style>
 </head>
@@ -1544,6 +1558,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
