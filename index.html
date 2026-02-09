@@ -745,6 +745,37 @@ analysis-panel .mini-select {
     -webkit-appearance: none !important;
   }
 }
+	/* =========================================================
+   GLOBAL FIX – Blauen Rand überall entfernen
+   (Inputs, Selects, minimal, mini-select, field)
+========================================================= */
+
+/* Alle Felder: KEIN blauer Rand, KEIN blauer Glow */
+.field input:hover,
+.field select:hover,
+select.minimal:hover,
+.mini-select:hover,
+.field input:focus,
+.field select:focus,
+select.minimal:focus,
+.mini-select:focus {
+  box-shadow: none !important;             /* Rand weg */
+  outline: none !important;                /* Focus Outline weg */
+  border: none !important;                 /* Edge Cases */
+  background: rgba(255,255,255,0.12) !important;  /* Standard Hover */
+}
+
+/* Dropdown-Optionen nicht anfassen */
+.mini-select option,
+select.minimal option {
+  text-align: left;
+}
+
+/* Falls irgendein alter Fokus-Stil aktiv war → entfernen */
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 
 </style>
@@ -1427,6 +1458,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
