@@ -538,16 +538,23 @@ background: #161a22 !important;
     }
 
     /* Nur "Löschen" zeigen – alten Text ausblenden */
-    #clearBtn { font-size: 0 !important; position: relative; }
-    #clearBtn::after {
-      content: "Löschen";
-      font-size: 1rem;
-      line-height: 48px;
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      color: #fff;
-    }
+    
+#clearBtn {
+  display: flex !important;
+  align-items: center !important;   /* vertikal mittig */
+  justify-content: center !important;/* horizontal mittig */
+  height: 48px !important;
+  font-size: 0 !important;          /* alten Text ausblenden */
+  position: relative !important;
+}
+
+#clearBtn::after {
+  content: "Löschen";
+  font-size: 1rem;
+  line-height: 1;                   /* kein „unten kleben“ */
+  color: #fff;
+}
+
 
     /* ===== Kassenbon-Filter =====
        1. Zeile: Jahr/Monat/Tag -> 3 Spalten, je 1/3
@@ -1485,6 +1492,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
