@@ -840,6 +840,35 @@ panel-right .paper {
 }
 
 
+.panel-left {
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+/* Analyse Panel */
+.analysis-panel {
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+/* Rechtes Panel — wie Master */
+.panel-right {
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+/* Papier im rechten Panel darf NICHT extra einrücken */
+.panel-right .paper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* OPTIONAL: Überschrift im right Panel nicht einrücken */
+.panel-right .paper h2 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
 </style>
 </head>
 
@@ -1520,6 +1549,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
