@@ -930,7 +930,7 @@ select.minimal option {
   cursor: pointer;
   user-select: none;
   text-align: center;
-  margin: 30px auto 0 auto;  /* zentriert */
+  margin: 10px auto 0 auto;  /* zentriert */
   width: fit-content;
   transition: transform 0.2s ease;
 }
@@ -1023,7 +1023,7 @@ select.minimal option {
 
 .small-float.filled label,
 .small-float:focus-within label {
-  top: -4px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
+  top: -8px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
@@ -1197,8 +1197,9 @@ select.minimal option {
       <div class="analysis-controls">
         <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
       </div>
-	  <div id="themeToggle" class="theme-toggle">☀️</div>
+	  
     </div>
+	  <div id="themeToggle" class="theme-toggle">☀️</div>
 	
   </div> <!-- container ENDE -->
 
@@ -1754,6 +1755,19 @@ themeToggle.addEventListener("click", () => {
     themeToggle.textContent = "☀️"; // Sonne
   }
 });
+	
+function markSelectFilled(select) {
+  if (select.value && select.value.trim() !== "") {
+    select.classList.add("has-value");
+    select.closest('.field').classList.add("filled");
+  }
+}
+
+// Nach Initialisierung des Datums:
+markSelectFilled(yearSelect);
+markSelectFilled(monthSelect);
+markSelectFilled(daySelect);
+
 
 
 /* ===================== INIT ===================== */
@@ -1784,6 +1798,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
