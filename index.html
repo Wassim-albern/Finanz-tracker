@@ -22,19 +22,20 @@
   <meta name="theme-color" content="#00d4ff">
   <meta name="background-color" content="#0b1220">
 
- <style>
-/* ============ Globales Layout / Scroll-Verhalten ============ */
+<style>
+
+/* ────────────────────────────────
+   GLOBAL
+──────────────────────────────── */
 * { box-sizing: border-box; }
 
 html, body {
-  height: auto;
-  min-height: 100%;
   margin: 0;
   padding: 24px;
-  overflow-y: auto;
-  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
   background: #0b1220;
   color: #e6eef8;
+  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+  overflow-y: auto;
 }
 
 h1 {
@@ -45,41 +46,38 @@ h1 {
 
 .container {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
-  gap: 20px; /* Desktop Gap */
+  gap: 20px;
 }
 
-.panel-left, .panel-right, .analysis-panel {
+.panel-left,
+.panel-right,
+.analysis-panel {
   background: #161a22;
-  border-radius: 16px;
-  border: none !important;
-  box-shadow: 0 2px 30px rgba(0,0,0,0.55);
   padding: 18px;
+  border-radius: 16px;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.55);
 }
 
-/* Papier / Entries Scrollbereich */
-.paper { padding-right: 10px; }
-
-/* Input Fields */
+/* ────────────────────────────────
+   INPUT FIELDS
+──────────────────────────────── */
 .field {
   position: relative;
-  margin-bottom: 14px;
-  flex: 1;
-  min-width: 150px;
+  margin-bottom: 16px;
 }
 
 .field input,
 .field select {
   width: 100%;
   height: 48px;
-  padding: 12px 12px 10px;
+  padding: 12px;
   border-radius: 10px;
   border: none;
   background: rgba(255,255,255,0.06);
   color: #e6eef8;
   font-size: 1rem;
-  outline: none;
 }
 
 .field input:hover,
@@ -87,228 +85,147 @@ h1 {
   background: rgba(255,255,255,0.12);
 }
 
-.field input:focus,
-.field select:focus {
-  background: rgba(255,255,255,0.08) !important;
-  box-shadow:
-    0px 0px 0px 2px rgba(0, 212, 255, 0.20),
-    0px 0.5px 0px 0px #00d4ff;
-}
-
-/* Floating Labels */
 .field label {
   position: absolute;
-  left: 12px;
   top: 50%;
+  left: 12px;
   transform: translateY(-50%);
   color: #cfeffd;
   pointer-events: none;
-  transition: 0.18s;
+  transition: .2s;
 }
 
-.field:focus-within label,
-.field.filled label {
+.field.filled label,
+.field:focus-within label {
   top: -10px;
-  transform: none;
   left: 10px;
-  font-size: 0.8rem;
+  font-size: .8rem;
   color: #00d4ff;
 }
 
-/* Radios */
-.radio-group {
-  display: flex;
-  gap: 16px;
-  margin: 8px 0 14px;
-}
-
-/* Buttons */
-.action-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.primary {
-  background: linear-gradient(135deg, #00d4ff, #007bff);
-  color: #fff;
-}
-
-.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: inherit;
-}
-
-#clearBtn {
-  font-size: 0.85rem;
-  background: rgba(255, 0, 0, 0.45);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-}
-#clearBtn:hover {
-  background: rgba(255, 0, 0, 0.22);
-}
-
-/* Einträge */
+/* ────────────────────────────────
+   ENTRY LIST
+──────────────────────────────── */
 .entry {
   display: flex;
   justify-content: space-between;
   padding: 12px;
+  background: rgba(255,255,255,0.8);
   margin: 8px 0;
-  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  align-items: center;
-  gap: 22px;
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Balance */
+.meta { color: #002366; flex: 1; }
+.small { font-size: .85rem; color: black; }
+
+.amount-income { color: #218838; font-weight: 700; }
+.amount-expense { color: #c82333; font-weight: 700; }
+
 .balance {
-  margin-top: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;
   text-align: center;
   font-weight: 700;
+  margin-top: 14px;
+  padding-bottom: 20px;
 }
 
-/* Filter */
-.field-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-/* Mini Selects */
-.mini-select {
-  appearance: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e6eef8;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  height: 38px;
-  font-weight: 600;
-}
-
-/* Toggle Buttons */
-.toggle-btn {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: #e6eef8;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20);
-  color: #fff;
-}
-
-/* Modal */
-#analysisModal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(3px);
-  z-index: 1100;
-}
-
-.analysis-sheet {
-  position: relative;
-  background: #fff;
-  color: #222;
-  border-radius: 16px;
-  width: min(820px, 92vw);
-  padding: 18px 20px;
-}
-
-/* =================== MOBILE VERSION =================== */
+/* ────────────────────────────────
+   MOBILE VIEW  — WASSIMS ANPASSUNGEN
+──────────────────────────────── */
 @media (max-width: 900px) {
 
   html, body { padding: 14px; }
 
   .container {
     flex-direction: column;
-    gap: 40px !important;
+    gap: 34px;
   }
 
-  .panel-left { order: 1; }
-  .panel-right { order: 2; }
-  .analysis-panel { order: 3; }
-
-  .panel-left,
-  .panel-right,
-  .analysis-panel {
-    margin-bottom: 42px !important;
+  /* PANELS */
+  .panel-left, .panel-right, .analysis-panel {
     width: 100%;
+    margin-bottom: 38px;
   }
 
-  .panel-left,
-  .panel-right,
-  .analysis-panel,
-  .paper {
-    height: auto !important;
-    overflow: visible !important;
-  }
-
-  .field input,
-  .field select {
-    height: 44px;
-    font-size: 0.98rem;
-  }
-
-  /* ================================
-     🔥 ANALYSE-PANEL BUTTON FIX
-     ================================ */
-
-  /* Container untereinander */
-  .analysis-panel .controls-row {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px !important;
-  }
-
-  /* Alle Buttons & Selects: gleiche Größe */
-  .analysis-panel .controls-row > * {
-    width: 100% !important;
-    flex: none !important;
-    height: 50px !important;
-    font-size: 1rem !important;
+  .panel-left h2,
+  .panel-right h2,
+  .analysis-panel h2 {
     text-align: center;
+    margin-bottom: 26px;
   }
 
-  /* Der Analyse-Button ebenfalls Panel-breit */
-  .analysis-panel .analysis-btn {
-    width: 100% !important;
-    height: 52px !important;
-    font-size: 1.05rem;
-    margin-top: 16px;
+  /* Abstand: Titel → Datum */
+  .panel-left h2 { margin-bottom: 34px; }
+
+  /* Abstand nach Beschreibung */
+  #descriptionInput { margin-bottom: 10px; }
+
+  /* Abstand nach Neuer Kategorie */
+  #newCategoryInput { margin-bottom: 18px; }
+
+  /* Abstand nach Neuer Tag */
+  #newTagInput { margin-bottom: 18px; }
+
+  /* BUTTONS LINKS */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
   }
 
+  #addBtn,
+  #clearBtn {
+    height: 48px;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  #addBtn { flex: 2; width: 100%; }
+  #clearBtn { flex: 1; width: 100%; }
+
+  /* KASSENBON — FILTER REIHE */
+  .field-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* 3 Elemente pro Reihe (1/3 pro Element) */
+  #yearSelect, #monthSelect, #daySelect {
+    flex: 1 1 calc(33.33% - 12px);
+    min-width: 0;
+  }
+
+  #categoryFilterSelect,
+  #tagFilterSelect {
+    flex: 1 1 calc(50% - 12px);
+  }
+
+  /* ANALYSE PANEL */
+  .analysis-controls .controls-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .analysis-panel .controls-row > * {
+    height: 48px;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .analysis-btn {
+    height: 48px;
+    margin-top: 14px;
+    width: 100%;
+  }
 }
 
-/* Extra kleine Screens */
+/* VERY SMALL SCREENS */
 @media (max-width: 480px) {
   html, body { padding: 10px; }
-  h1 { font-size: 1.35rem; margin-bottom: 18px; }
-  .analysis-sheet { width: 94vw; padding: 14px; }
 }
+
 </style>
 </head>
 
@@ -998,3 +915,4 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
