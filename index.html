@@ -701,6 +701,47 @@ background: #161a22 !important;
   font-size: 1rem !important;
   border-radius: 10px !important;
 }
+	
+Analyse-Panel: Select-Text mittig
+   (Anzeige & Optionen soweit Browser es erlauben)
+================================= */
+
+/* Anzeige (ausgewählter Wert) mittig in allen modernen Browsern */
+.analysis-panel .mini-select {
+  text-align: center;              /* Basis */
+  text-align-last: center;         /* Chrome/Edge */
+  -moz-text-align-last: center;    /* Firefox */
+  padding-left: 0 !important;      /* verhindert optische Schieflage */
+  padding-right: 0 !important;
+}
+
+/* Einträge in der Dropdown-Liste mittig (unterstützt von vielen Browsern) */
+.analysis-panel .mini-select option {
+  text-align: center;
+}
+
+/* iOS/Safari-Verbesserung (zentriert zumindest die Anzeige zuverlässig) */
+@supports (-webkit-touch-callout: none) {
+  .analysis-panel .mini-select {
+    /* Safari-Workaround – beeinflusst Rendering, damit center greift */
+    -webkit-appearance: none;
+    appearance: none;
+    text-indent: 0;               /* keine Einrückung */
+    direction: ltr;               /* sicherstellen, dass LTR bleibt */
+  }
+  .analysis-panel .mini-select option {
+    text-align: center;
+  }
+}
+
+/* Kategorie/Tag-Buttons Text mittig erzwingen (falls überlagert) */
+.analysis-panel .toggle-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
 
 </style>
 </head>
@@ -1382,4 +1423,5 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
