@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -744,84 +745,7 @@ analysis-panel .mini-select {
     -webkit-appearance: none !important;
   }
 }
-/* =========================================================
-   1) Einheitlicher Abstand zum unteren Panel-Rand = 40px
-   ---------------------------------------------------------
-   Referenz (Analyse-Panel): padding-bottom(26) + margin-bottom(14) = 40
-   Wir gleichen die anderen Panels so an, dass sie ebenfalls 40 ergeben.
-   - Links: panel-left padding-bottom = 18 → action-row braucht +22
-   - Rechts:  .paper  padding-bottom = 18 → balance braucht    +22
-========================================================= */
 
-/* Analyse bleibt Referenz (hast du bereits so gesetzt) */
-.analysis-panel { padding-bottom: 26px !important; }
-.analysis-panel .analysis-btn { margin-bottom: 14px !important; }
-
-/* Linkes Panel: Abstand unterhalb der Button-Reihe angleichen */
-.panel-left { padding-bottom: 18px !important; }
-.action-row { margin-bottom: 22px !important; }
-
-/* Rechtes Panel (Kassenbon): Abstand unterhalb der Bilanz angleichen */
-.paper { padding-bottom: 18px !important; }
-.balance { padding-bottom: 0 !important; margin-bottom: 22px !important; }
-
-
-
-/* =========================================================
-   2) "Löschen" Button – Text wirklich mittig zentrieren
-   ---------------------------------------------------------
-   Wir zentrieren den Inhalt über Flex und ersetzen den Text
-   robust über ::after (damit keine alte Beschriftung stört).
-========================================================= */
-#clearBtn {
-  display: flex !important;
-  align-items: center !important;   /* vertikal mittig */
-  justify-content: center !important;/* horizontal mittig */
-  height: 48px !important;
-  font-size: 0 !important;          /* alten Text ausblenden */
-  position: relative !important;
-}
-
-#clearBtn::after {
-  content: "Löschen";
-  font-size: 1rem;
-  line-height: 1;                   /* kein „unten kleben“ */
-  color: #fff;
-}
-
-
-
-/* =========================================================
-   3) Blauer Rand beim Hover/Fokus für ALLE Felder & Listen
-   ---------------------------------------------------------
-   Gilt für: Inputs, Selects, .minimal, .mini-select, usw.
-   AUSNAHME: Analyse-Buttons (Kategorie/Tag) bekommen KEINEN
-   blauen Rand beim Hover/Fokus.
-========================================================= */
-
-/* Einheitlicher „blauer Rand“ als Box-Shadow (ohne echte Border) */
-.field input:hover,
-.field select:hover,
-select.minimal:hover,
-.mini-select:hover,
-.field input:focus,
-.field select:focus,
-select.minimal:focus,
-.mini-select:focus {
-  /* zarter Glow außen + dünner „Rand“ innen */
-  box-shadow:
-    0 0 0 2px rgba(0, 212, 255, 0.20),
-    0 0 0 1px #00d4ff inset !important;
-  background: rgba(255,255,255,0.08) !important; /* leicht angehoben wie bei dir */
-}
-
-/* AUSNAHME: Analyse-Panel Kategorie/Tag-Buttons NICHT blau umranden */
-.analysis-panel .toggle-btn:hover,
-.analysis-panel .toggle-btn:focus {
-  box-shadow: none !important;
-  /* bestehende Optik beibehalten */
-  border-color: rgba(255,255,255,0.12) !important;
-}
 
 
 </style>
@@ -1504,7 +1428,6 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
 
 
 
