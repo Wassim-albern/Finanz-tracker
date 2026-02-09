@@ -638,6 +638,60 @@
       border: none !important;
     }
   }
+
+
+/* ===============================
+   ANALYSE-PANEL OPTIMIERUNG
+   (Wassim Spezial Edition)
+================================ */
+
+/* Panel insgesamt größer wirken lassen */
+.analysis-panel {
+  padding: 26px !important;   /* vorher 18 */
+}
+
+/* Abstand zum unteren Rand für Analyse-Button */
+.analysis-panel .analysis-btn {
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+/* Layout ändern:
+   - 2 Buttons pro Zeile
+   - Jahr / Monat oben
+   - Kategorie / Tag unten
+*/
+.analysis-panel .analysis-controls .controls-row {
+  display: flex;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+/* JEDE Box = 1/2 breite */
+.analysis-panel .controls-row > * {
+  flex: 1 1 calc(50% - 12px) !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  min-width: 0 !important;
+}
+
+/* Buttons sauber zentrieren */
+.analysis-panel .toggle-btn,
+.analysis-panel .mini-select {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 48px !important;
+}
+
+/* Analyse Button Vollbreite */
+.analysis-panel .analysis-btn {
+  width: 100% !important;
+  height: 48px !important;
+  font-size: 1rem !important;
+  border-radius: 10px !important;
+}
+
 </style>
 
 
