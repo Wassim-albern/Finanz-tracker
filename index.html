@@ -1767,7 +1767,7 @@ fillLeftYearSelect();
 fillLeftMonthSelect();
 
 dateInput.value = today();
-
+updateFilledState(dateInput);
 const now = new Date();
 yearSelect.value = now.getFullYear();
 monthSelect.value = now.getMonth() + 1;
@@ -1783,6 +1783,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
