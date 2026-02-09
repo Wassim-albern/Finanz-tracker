@@ -22,521 +22,272 @@
   <meta name="theme-color" content="#00d4ff">
   <meta name="background-color" content="#0b1220">
 
-  <style>
-    /* ============ Globales Layout / Scroll-Verhalten ============ */
-    * { box-sizing: border-box; }
+ <style>
+/* ============ Globales Layout / Scroll-Verhalten ============ */
+* { box-sizing: border-box; }
 
-    html, body {
-      height: auto;        /* statt 100% – verhindert Scroll-Probleme auf Mobile */
-      min-height: 100%;
-      margin: 0;
-      padding: 24px;
-      overflow-y: auto;    /* nur EINE große Scrollbar (global) */
-      font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
-      background: #0b1220;
-      color: #e6eef8;
-    }
-
-    h1 {
-      text-align: center;
-      font-weight: 300;
-      margin: 6px 0 30px;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      gap: 20px; /* Desktop Gap */
-    }
-
-    .panel-left, .panel-right {
-      background: #161a22;
-      border-radius: 16px;
-      border: none !important;
-      box-shadow: 0 2px 30px rgba(0,0,0,0.55);
-    }
-
-    .panel-left {
-      flex: 0 0 38%;
-      padding: 18px;
-    }
-
-    .panel-right {
-      flex: 0 0 62%;
-      padding: 18px;
-      border-radius: 16px;
-    }
-
-    .paper {
-      padding-right: 10px;
-    }
-
-    .field {
-      position: relative;
-      margin-bottom: 14px;
-      flex: 1;
-      min-width: 150px;
-    }
-
-    /* Einheitliche Höhe für Inputs & Selects (inkl. Neue Kategorie/Tag) */
-    .field input,
-    .field select {
-      width: 100%;
-      height: 48px; /* vereinheitlicht */
-      padding: 12px 12px 10px;
-      border-radius: 10px;
-      border: none;
-      background: rgba(255,255,255,0.06);
-      color: #e6eef8;
-      font-size: 1rem;
-      outline: none;
-      
- -webkit-text-size-adjust: 100%;
-  
-  line-height: 1.2rem;
-
-    }
-
-    .field input:hover,
-    .field select:hover {
-      background: rgba(255,255,255,0.12);
-    }
-
-    .field input:focus,
-    .field select:focus {
-      background: rgba(255,255,255,0.08) !important;
-      box-shadow:
-        0px 0px 0px 2px rgba(0, 212, 255, 0.20),
-        0px 0.5px 0px 0px #00d4ff; /* nur Unterlinie */
-      outline: none !important;
-      border: none !important;
-    }
-    
-.field input[type="text"] {
-  -webkit-text-size-adjust: 100%;
-  font-size: 1rem;
-  line-height: 1.2rem;  /* verhindert das nach-unten-rutschen */
-  padding-top: 14px;    /* absolut perfekter Wert für 48px Höhe */
+html, body {
+  height: auto;
+  min-height: 100%;
+  margin: 0;
+  padding: 24px;
+  overflow-y: auto;
+  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #0b1220;
+  color: #e6eef8;
 }
 
+h1 {
+  text-align: center;
+  font-weight: 300;
+  margin: 6px 0 30px;
+}
 
-    /* Floating Label */
-   
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px; /* Desktop Gap */
+}
+
+.panel-left, .panel-right, .analysis-panel {
+  background: #161a22;
+  border-radius: 16px;
+  border: none !important;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  padding: 18px;
+}
+
+/* Papier / Entries Scrollbereich */
+.paper { padding-right: 10px; }
+
+/* Input Fields */
+.field {
+  position: relative;
+  margin-bottom: 14px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: 48px;
+  padding: 12px 12px 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+  font-size: 1rem;
+  outline: none;
+}
+
+.field input:hover,
+.field select:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.field input:focus,
+.field select:focus {
+  background: rgba(255,255,255,0.08) !important;
+  box-shadow:
+    0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+    0px 0.5px 0px 0px #00d4ff;
+}
+
+/* Floating Labels */
 .field label {
   position: absolute;
   left: 12px;
-  top: 14px;
-  font-size: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: #cfeffd;
   pointer-events: none;
-  transition: 0.18s ease;
+  transition: 0.18s;
 }
 
-
-    /* fix: floatet jetzt zuverlässig bei Fokus des Containers */
-    
-.field.filled label,
-.field:focus-within label {
+.field:focus-within label,
+.field.filled label {
   top: -10px;
+  transform: none;
   left: 10px;
   font-size: 0.8rem;
   color: #00d4ff;
 }
 
-
-    
-#newCategoryInput + label,
-#newTagInput + label {
-  top: 10px !important; /* optisch korrekt zentriert */
-}
-    .field.filled #newCategoryInput + label,
-.field.filled #newTagInput + label {
-  top: -10px !important; /* muss exakt zum Rest passen */
+/* Radios */
+.radio-group {
+  display: flex;
+  gap: 16px;
+  margin: 8px 0 14px;
 }
 
-
-#newCategoryInput:focus + label,
-#newTagInput:focus + label {
-  top: -10px !important;
+/* Buttons */
+.action-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
 }
 
-    .field.filled label::first-letter,
-    .field label:focus-within::first-letter {
-      color: #6ecbff;
-    }
-    
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
 
+.primary {
+  background: linear-gradient(135deg, #00d4ff, #007bff);
+  color: #fff;
+}
 
+.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: inherit;
+}
 
-    .radio-group { display: flex; gap: 16px; margin: 8px 0 14px; }
+#clearBtn {
+  font-size: 0.85rem;
+  background: rgba(255, 0, 0, 0.45);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+#clearBtn:hover {
+  background: rgba(255, 0, 0, 0.22);
+}
 
-    .action-row {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
-    }
+/* Einträge */
+.entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
 
-    .action-row button {
-      flex: 1;
-      max-width: 2000px;
-      height: 48px;
-      font-size: 1rem;
-      border-radius: 10px;
-    }
+/* Balance */
+.balance {
+  margin-top: 12px;
+  padding-top: 12px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
 
-    #addBtn { flex: 2; }
-    #clearBtn { flex: 1; }
+/* Filter */
+.field-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
 
-    /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) */
-    #clearBtn {
-      background: rgba(255, 0, 0, 0.45);
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      color: rgba(255, 255, 255, 1);
-      font-size: 0.85rem;
-      transition: 0.2s ease;
-    }
-    #clearBtn:hover {
-      background: rgba(255, 0, 0, 0.22);
-      border-color: rgba(255, 0, 0, 0.5);
-    }
+/* Mini Selects */
+.mini-select {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 38px;
+  font-weight: 600;
+}
 
-    #addBtn:hover {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
-      border: 1px solid rgba(0, 212, 255, 0.5);
-    }
+/* Toggle Buttons */
+.toggle-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+  cursor: pointer;
+  font-weight: 600;
+}
 
-    .controls-row {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
+.toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20);
+  color: #fff;
+}
 
-    .analysis-controls .controls-row {
-      display: flex;
-      width: 100%;
-      gap: 10px;
-      justify-content: center;
-      align-items: stretch;
-      flex-wrap: nowrap;
-      box-sizing: border-box;
-    }
+/* Modal */
+#analysisModal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1100;
+}
 
-    .analysis-controls .controls-row > * {
-      flex: 1 1 0;
-      min-width: 0;
-      box-sizing: border-box;
-    }
+.analysis-sheet {
+  position: relative;
+  background: #fff;
+  color: #222;
+  border-radius: 16px;
+  width: min(820px, 92vw);
+  padding: 18px 20px;
+}
 
-    .analysis-controls .controls-row .mini-select,
-    .analysis-controls .controls-row .toggle-btn {
-      height: 40px;
-      line-height: 40px;
-      padding: 0 12px;
-      font-size: 0.95rem;
-    }
+/* =================== MOBILE VERSION =================== */
+@media (max-width: 900px) {
 
-    .analysis-controls .controls-row .toggle-btn.active {
-      background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-      border-color: transparent !important;
-      color: #fff !important;
-    }
+  html, body { padding: 14px; }
 
-    .analysis-controls .controls-row .toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: #e6eef8;
-      cursor: pointer;
-      font-weight: 600;
-    }
+  /* Panels untereinander + VIEL Abstand */
+  .container {
+    flex-direction: column;
+    gap: 40px !important;
+  }
 
-    .analysis-controls .controls-row .toggle-btn:hover:not(.active),
-    .analysis-controls .controls-row .mini-select:hover {
-      background: rgba(255,255,255,0.12);
-    }
+  /* Reihenfolge: 1 Eingabe → 2 Einträge → 3 Analyse */
+  .panel-left { order: 1; }
+  .panel-right { order: 2; }
+  .analysis-panel { order: 3; }
 
-    .analysis-controls .controls-row .toggle-btn:focus-visible,
-    .analysis-controls .controls-row .mini-select:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-      background: rgba(255,255,255,0.08);
-      color: #e6eef8;
-    }
+  /* Abstand zwischen Panels */
+  .panel-left,
+  .panel-right,
+  .analysis-panel {
+    margin-bottom: 42px !important;
+    width: 100%;
+  }
 
-    button {
-      padding: 10px 14px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+  /* Keine Scrollbereiche auf Mobile */
+  .panel-left,
+  .panel-right,
+  .analysis-panel,
+  .paper {
+    height: auto !important;
+    overflow: visible !important;
+  }
 
-    .primary {
-      background: linear-gradient(135deg, #00d4ff, #007bff);
-      color: #fff;
-    }
+  /* Inputs kompakter */
+  .field input,
+  .field select {
+    height: 44px;
+    font-size: 0.98rem;
+  }
+}
 
-    .ghost {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: inherit;
-      line-height: 1.2;
-    }
-
-    #clearBtn { font-size: 0.85rem; }
-
-    .entry {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px;
-      margin: 8px 0;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      align-items: center;
-      gap: 22px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .meta { color: #002366; flex: 1; }
-    .small { font-size: 0.85rem; color:black; }
-
-    .amount-income { color: #218838; font-weight: 700; }
-    .amount-expense { color: #c82333; font-weight: 700; }
-
-    .balance {
-      margin-top: 12px;
-      padding-top: 12px;
-      padding-bottom: 20px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    /* RIGHT FILTER AREA */
-    .field-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    select.minimal {
-      font-size: 0.9rem;
-      padding: 8px 10px;
-      width: 100%;
-      background-color: rgba(255,255,255,0.06);
-    }
-
-    select.minimal option {
-      background-color: #161a22 !important;
-      color: #e6eef8 !important;
-    }
-
-    /* MINI SELECTS */
-    .mini-select {
-      appearance: none;
-      background: rgba(255, 255, 255, 0.06);
-      color: #e6eef8;
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-weight: 600;
-      height: 38px;
-      line-height: 1;
-      transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
-    }
-
-    .mini-select:hover { background: rgba(255,255,255,0.12); }
-
-    .mini-select:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-      background: rgba(255,255,255,0.08);
-      color: #e6eef8;
-    }
-
-    .mini-select option {
-      background-color: #161a22 !important;
-      color: #e6eef8 !important;
-    }
-
-    /* ANALYSE BUTTONS */
-    .analysis-controls { margin: 14px 0 4px; }
-    .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-
-    .toggle-btn {
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: #e6eef8;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .toggle-btn.active {
-      background: linear-gradient(135deg, #0a7a36, #024d20);
-      border-color: transparent;
-      color: #fff;
-    }
-
-    .toggle-btn:hover:not(.active) { background: rgba(255,255,255,0.12); }
-
-    .analysis-btn {
-      width: 100%;
-      padding: 12px 16px;
-      font-size: 1rem;
-    }
-
-    .analysis-btn:hover {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
-      border: 1px solid rgba(0, 212, 255, 0.5);
-    }
-
-    /* ANALYSIS MODAL */
-    #analysisModal {
-      position: fixed; inset: 0; display: none;
-      justify-content: center; align-items: center;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
-      z-index: 1100;
-    }
-
-    .analysis-sheet {
-      position: relative;
-      background: #fff; color: #222;
-      border-radius: 16px;
-      width: min(820px, 92vw);
-      padding: 18px 20px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-      animation: pop .2s ease;
-    }
-
-    .analysis-sheet h2 { margin: 0 0 10px; color: #111; }
-
-    .analysis-body {
-      max-height: 60vh; overflow-y: auto;
-      white-space: pre-wrap;
-      line-height: 1.5;
-      font-size: 0.98rem;
-    }
-
-    .close-x {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #333;
-      font-size: 1.1rem;
-      padding: 4px 6px;
-      border-radius: 8px;
-    }
-
-    .analysis-close-btn {
-      border: 1px solid black !important;
-      padding: 10px 20px;
-      border-radius: 10px;
-      display: block;
-      margin: 20px auto 0 auto;
-      color: #e6eef8;
-      background: #161a22;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .analysis-close-btn:hover { background: #161a22; }
-
-    .panel-left h2,
-    .panel-right h2 {
-      text-align: center;
-      width: 100%;
-      margin-bottom: 27px;
-    }
-
-    /* (Optional) Desktop: dezente Scrollbar in Panel-Inhalten */
-    @media (min-width: 901px) {
-      .paper::-webkit-scrollbar,
-      .panel-left::-webkit-scrollbar {
-        width: 3px;
-      }
-
-      .paper::-webkit-scrollbar-track,
-      .panel-left::-webkit-scrollbar-track {
-        background: rgba(255,255,255,0.04);
-        border-radius: 10px;
-      }
-
-      .paper::-webkit-scrollbar-thumb,
-      .panel-left::-webkit-scrollbar-thumb {
-        background: rgba(0, 212, 255, 0.35);
-        border-radius: 10px;
-      }
-
-      .paper::-webkit-scrollbar-thumb:hover,
-      .panel-left::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 212, 255, 0.55);
-      }
-    }
-
-    .analysis-blue { color: #4da3ff; font-weight: 600; }
-    .analysis-tag-green { color: #d16e00; font-weight: 600; }
-    .analysis-pos { color: #218838; font-weight: 600; }
-    .analysis-neg { color: #c82333; font-weight: 600; }
-
-    /* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
-    @media (max-width: 900px) {
-      /* Panels untereinander + mehr Abstand */
-      .container { flex-direction: column; gap: 22px; } /* größerer Abstand */
-      .panel-left, .panel-right { flex: 1 1 auto; width: 100%; }
-
-      /* Breiter auf Mobile: weniger äußeres Padding */
-      html, body { padding: 14px; }
-
-      /* Innen kein eigener Scroll/keine feste Höhe */
-      .panel-left, .panel-right, .paper {
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      /* Controls klüger umbrechen */
-      .analysis-controls .controls-row {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .analysis-controls .controls-row > * {
-        flex: 1 1 calc(50% - 8px);
-        min-width: 160px;
-      }
-
-      /* Kompaktere Inputs bei gleicher Höhe: */
-     
-
-      /* Panel-spezifische Scrollbars auf Mobile ausblenden */
-      .paper::-webkit-scrollbar,
-      .panel-left::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    /* Feinschliff für sehr kleine Screens: noch breiter durch weniger Padding */
-    @media (max-width: 480px) {
-      html, body { padding: 10px; }
-      h1 { font-size: 1.35rem; margin-bottom: 18px; }
-      .analysis-sheet { width: 94vw; padding: 14px; }
-      .analysis-body { max-height: 66vh; }
-    }
-  </style>
+/* Extra kleine Screens */
+@media (max-width: 480px) {
+  html, body { padding: 10px; }
+  h1 { font-size: 1.35rem; margin-bottom: 18px; }
+  .analysis-sheet { width: 94vw; padding: 14px; }
+}
+</style>
 </head>
+
 
 
 
@@ -553,12 +304,12 @@
 
   <div class="container">
 
-    <!-- Left Panel -->
+    <!-- PANEL 1 — Neue Eingabe -->
     <div class="panel-left">
       <h2>📝 Neue Eingabe</h2>
 
       <div class="field">
-        <input type="date" id="dateInput" onkeydown="return false;" onpaste="return false;" oninput="this.value=this.value;">
+        <input type="date" id="dateInput" onkeydown="return false;" onpaste="return false;">
         <label>Datum</label>
       </div>
 
@@ -577,7 +328,6 @@
         <label>Beschreibung</label>
       </div>
 
-      <!-- Kategorie -->
       <div class="field">
         <select id="categorySelect" class="minimal"></select>
         <label>Kategorie</label>
@@ -588,7 +338,6 @@
         <label>➕ Neue Kategorie</label>
       </div>
 
-      <!-- Tag -->
       <div class="field">
         <select id="tagSelect" class="minimal"></select>
         <label>Tag</label>
@@ -599,49 +348,15 @@
         <label>➕ Neuer Tag</label>
       </div>
 
-      <!-- Add / Clear -->
       <div class="action-row">
         <button class="primary" id="addBtn">➕ Eintrag</button>
-        <!-- Emoji geändert: 🗑️ -> ➖ -->
-        <button class="ghost" id="clearBtn">Löschen</button>
+        <button class="ghost" id="clearBtn">➖ ALLES LÖSCHEN</button>
       </div>
-
-      <!-- MINI SELECTS + TOGGLE BUTTONS -->
-      <div class="analysis-controls">
-        <div class="controls-row">
-          <select id="leftYearSelect" class="mini-select">
-            <option value="">Jahr</option>
-          </select>
-
-          <select id="leftMonthSelect" class="mini-select">
-            <option value="">Monat</option>
-          </select>
-
-          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-          <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
-        </div>
-      </div>
-
-      <!-- Analyse -->
-      <div class="analysis-controls">
-        <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
-      </div>
-
-      <!-- Analysis Modal -->
-      <div id="analysisModal" class="modal" style="display:none;">
-        <div class="analysis-sheet">
-          <button class="close-x" id="analysisCloseX">✖</button>
-          <h2>📊 Analyse</h2>
-          <div id="analysisBody" class="analysis-body"></div>
-          <div class="actions">
-            <button class="analysis-close-btn" id="analysisCloseBtn">Schließen</button>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Right Panel -->
+
+
+    <!-- PANEL 2 — Einträge / Kassenbon -->
     <div class="panel-right">
       <div class="paper">
         <h2>🧾 Kassenbon</h2>
@@ -674,7 +389,48 @@
       </div>
     </div>
 
+
+
+    <!-- PANEL 3 — ANALYSE (komplett separiert!) -->
+    <div class="analysis-panel">
+      <h2>📊 Analyse</h2>
+
+      <div class="analysis-controls">
+        <div class="controls-row">
+          <select id="leftYearSelect" class="mini-select">
+            <option value="">Jahr</option>
+          </select>
+
+          <select id="leftMonthSelect" class="mini-select">
+            <option value="">Monat</option>
+          </select>
+
+          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+          <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
+        </div>
+      </div>
+
+      <div class="analysis-controls">
+        <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
+      </div>
+    </div>
+
+  </div> <!-- container ENDE -->
+
+
+
+  <!-- ANALYSE MODAL (unverändert) -->
+  <div id="analysisModal" class="modal" style="display:none;">
+    <div class="analysis-sheet">
+      <button class="close-x" id="analysisCloseX">✖</button>
+      <h2>📊 Analyse</h2>
+      <div id="analysisBody" class="analysis-body"></div>
+      <div class="actions">
+        <button class="analysis-close-btn" id="analysisCloseBtn">Schließen</button>
+      </div>
+    </div>
   </div>
+
 
 
 
@@ -1218,6 +974,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
