@@ -92,6 +92,7 @@ background: #161a22 !important;
     margin-bottom: 14px;
     flex: 1;
     min-width: 150px;
+	position: relative;
   }
 
   /* Einheitliche Höhe für Inputs & Selects (inkl. Neue Kategorie/Tag) */
@@ -135,7 +136,7 @@ background: #161a22 !important;
   pointer-events: none;
   font-size: 1rem;
   color: #cfeffd;
-  background: transparent;
+  background: transparent !important;
   transition: all 0.20s ease;
   line-height: 1;
 }
@@ -145,25 +146,31 @@ background: #161a22 !important;
   .field:focus-within label,
   .field.filled label {
 
-top: 0;                     /* exakt gleiche Höhe bei ALLEN Feldern */
-  transform: translateY(-50%);/* perfekte mittige Ausrichtung */
+
+  top: -8px;                           /* perfekt gleiche Höhe */
   left: 10px;
+  transform: none;
   font-size: 0.78rem;
   color: #00d4ff;
-  background: #161a22;        /* Hintergrund fix, damit es nicht „klemmt“ */
-  padding: 0 4px;
+  background: #161a22;                 /* ← kleiner Hintergrund */
+  padding: 0 6px;                      /* etwas breiter, damit es schöner aussieht */
+  border-radius: 4px;                  /* leicht rund wie modern UI */
 }
+
 
 
 .field select:not([value=""]) ~ label,
 .field select:focus ~ label {
-  top: 0 !important;
+
+  top: -8px !important;
   left: 10px !important;
+  transform: none !important;
   font-size: 0.78rem !important;
-  transform: translateY(-50%) !important;
   color: #00d4ff !important;
-  background: #161a22 !important;
-  padding: 0 4px !important;
+  background: #161a22 !important;      /* Hintergrund */
+  padding: 0 6px !important;
+  border-radius: 4px !important;
+
 }
 
  
@@ -1575,6 +1582,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
