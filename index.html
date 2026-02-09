@@ -1023,7 +1023,7 @@ select.minimal option {
 
 .small-float.filled label,
 .small-float:focus-within label {
-  top: -1px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
+  top: -2px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
@@ -1756,12 +1756,20 @@ themeToggle.addEventListener("click", () => {
   }
 });
 	
-function markSelectFilled(select) {
-  if (select.value && select.value.trim() !== "") {
-    select.classList.add("has-value");
-    select.closest('.field').classList.add("filled");
-  }
+
+function hasMeaningfulValue(v) {
+  return v != null && v !== "" && v !== "\u00A0";
 }
+
+function markSelectFilled(select) {
+  const filled = hasMeaningfulValue(select.value);
+  // Klasse am <select> selbst (für CSS-Selektor .has-value)
+  select.classList.toggle("has-value", filled);
+  // Klasse am umgebenden .field (für generische Floating-Regel)
+  const f = select.closest(".field");
+  if (f) f.classList.toggle("filled", filled);
+}
+
 
 // Nach Initialisierung des Datums:
 markSelectFilled(yearSelect);
@@ -1771,6 +1779,7 @@ markSelectFilled(daySelect);
 
 
 /* ===================== INIT ===================== */
+
 load();
 updateSelects();
 
@@ -1781,14 +1790,23 @@ fillDaySelect();
 fillLeftYearSelect();
 fillLeftMonthSelect();
 
+// Heutiges Datum in linkes Date-Input
 dateInput.value = today();
-updateFilledState(dateInput);
-const now = new Date();
-yearSelect.value = now.getFullYear();
-monthSelect.value = now.getMonth() + 1;
-fillDaySelect();
-daySelect.value = now.getDate();
+updateFilledState(dateInput); // damit linkes Label hochgeht
 
+// Rechts: Jahr/Monat/Tag setzen (als String!)
+const now = new Date();
+yearSelect.value  = String(now.getFullYear());
+monthSelect.value = String(now.getMonth() + 1);
+fillDaySelect(); // Tage neu befüllen, sonst passt der Tag nicht
+daySelect.value   = String(now.getDate());
+
+// >>> HIER: Jetzt markieren (erst JETZT stimmen die values!)
+markSelectFilled(yearSelect);
+markSelectFilled(monthSelect);
+markSelectFilled(daySelect);
+
+// Danach erst alles weitere
 updateAllFilled();
 filterEntries();
 
@@ -1798,6 +1816,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
