@@ -243,18 +243,15 @@ button {
 
   html, body { padding: 14px; }
 
-  /* Panels untereinander + VIEL Abstand */
   .container {
     flex-direction: column;
     gap: 40px !important;
   }
 
-  /* Reihenfolge: 1 Eingabe → 2 Einträge → 3 Analyse */
   .panel-left { order: 1; }
   .panel-right { order: 2; }
   .analysis-panel { order: 3; }
 
-  /* Abstand zwischen Panels */
   .panel-left,
   .panel-right,
   .analysis-panel {
@@ -262,7 +259,6 @@ button {
     width: 100%;
   }
 
-  /* Keine Scrollbereiche auf Mobile */
   .panel-left,
   .panel-right,
   .analysis-panel,
@@ -271,12 +267,40 @@ button {
     overflow: visible !important;
   }
 
-  /* Inputs kompakter */
   .field input,
   .field select {
     height: 44px;
     font-size: 0.98rem;
   }
+
+  /* ================================
+     🔥 ANALYSE-PANEL BUTTON FIX
+     ================================ */
+
+  /* Container untereinander */
+  .analysis-panel .controls-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px !important;
+  }
+
+  /* Alle Buttons & Selects: gleiche Größe */
+  .analysis-panel .controls-row > * {
+    width: 100% !important;
+    flex: none !important;
+    height: 50px !important;
+    font-size: 1rem !important;
+    text-align: center;
+  }
+
+  /* Der Analyse-Button ebenfalls Panel-breit */
+  .analysis-panel .analysis-btn {
+    width: 100% !important;
+    height: 52px !important;
+    font-size: 1.05rem;
+    margin-top: 16px;
+  }
+
 }
 
 /* Extra kleine Screens */
@@ -974,8 +998,3 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
-
-
-
-
