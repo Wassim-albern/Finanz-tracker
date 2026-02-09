@@ -776,7 +776,34 @@ select.minimal option {
   outline: none !important;
   box-shadow: none !important;
 }
+/* =========================================================
+   EINHEITLICHER PANEL-ABSCHLUSS (40px Abstand)
+   Referenz = Analyse-Panel: 26px padding + 14px margin = 40px
+========================================================= */
 
+/* ANALYSE-PANEL (Gold-Standard) – bleibt wie es ist */
+.analysis-panel {
+  padding-bottom: 26px !important;
+}
+.analysis-panel .analysis-btn {
+  margin-bottom: 14px !important;
+}
+
+/* LINKES PANEL — letzte Zeile = .action-row */
+.panel-left {
+  padding-bottom: 26px !important; /* Gleich wie Analyse */
+}
+.panel-left .action-row {
+  margin-bottom: 14px !important;   /* Auch 14px */
+}
+
+/* RECHTES PANEL (Kassenbon) — letztes Element = .balance */
+.panel-right {
+  padding-bottom: 26px !important;  /* Gleich wie Analyse */
+}
+.balance {
+  margin-bottom: 14px !important;   /* Auch 14px */
+}
 
 </style>
 </head>
@@ -1458,6 +1485,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
