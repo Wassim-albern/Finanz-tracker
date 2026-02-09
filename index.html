@@ -789,6 +789,49 @@ select.minimal option {
 ========================================================= */
 
 /* ANALYSE-PANEL (Gold-Standard) – bleibt wie es ist */
+
+.panel-left,
+.panel-right,
+.analysis-panel {
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+  padding-top: 18px !important;
+}
+
+/* =========================================================
+   OBERER ABSTAND — Überschriften bekommen KEIN extra margin
+========================================================= */
+.panel-left h2,
+.panel-right .paper h2,
+.analysis-panel h2 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* =========================================================
+   RECHTES PANEL (Kassenbon) — Papier korrekt ausrichten
+========================================================= */
+.panel-right .paper {
+  /* KEIN zusätzliches Padding links/rechts */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  /* Oberer Bereich nicht doppelt einrücken */
+  padding-top: 0 !important;
+
+  /* Margin-Collapsing verhindern (sauberste Lösung) */
+  display: flow-root !important;
+
+  /* Keine äußeren Ränder */
+  margin-top: 0 !important;
+}
+
+/* =========================================================
+   UNTERER ABSCHLUSS: überall 40px
+   26px padding-bottom + 14px margin-bottom
+========================================================= */
+
+/* Analyse */
 .analysis-panel {
   padding-bottom: 26px !important;
 }
@@ -796,78 +839,30 @@ select.minimal option {
   margin-bottom: 14px !important;
 }
 
-/* LINKES PANEL — letzte Zeile = .action-row */
+/* Links */
 .panel-left {
-  padding-bottom: 26px !important; /* Gleich wie Analyse */
+  padding-bottom: 26px !important;
 }
 .panel-left .action-row {
-  margin-bottom: 14px !important;   /* Auch 14px */
+  margin-bottom: 14px !important;
 }
 
-/* RECHTES PANEL (Kassenbon) — letztes Element = .balance */
-
-.balance {
-  margin-bottom: 14px !important;   /* Auch 14px */
-}
-	
-
+/* Rechts */
 .panel-right .paper {
   padding-bottom: 26px !important;
 }
-
-/* Bilanz erhält 14px Abstand */
 .panel-right .balance {
   margin-bottom: 14px !important;
 }
 
-panel-right .paper {
-  padding: 0 !important;
-}
-
-/* Damit die Überschrift und der Inhalt nicht kleben,
-   geben wir innen wieder deinen Standard-Abstand: */
+/* Sicherheit: alle direct children in paper ohne extra Einrückung */
 .panel-right .paper > * {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
-}
-
-/* Falls Überschrift oben klebt → gleichen Abstand wie links */
-.panel-right .paper h2 {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-
-.panel-left {
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-}
-
-/* Analyse Panel */
-.analysis-panel {
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-}
-
-/* Rechtes Panel — wie Master */
-.panel-right {
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-}
-
-/* Papier im rechten Panel darf NICHT extra einrücken */
-.panel-right .paper {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-/* OPTIONAL: Überschrift im right Panel nicht einrücken */
-.panel-right .paper h2 {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
 
 </style>
 </head>
@@ -1549,6 +1544,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
