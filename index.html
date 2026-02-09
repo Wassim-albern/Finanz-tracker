@@ -708,28 +708,43 @@ background: #161a22 !important;
 
 /* Anzeige (ausgewählter Wert) mittig in allen modernen Browsern */
 
-.analysis-panel .mini-select {
+
+analysis-panel .mini-select {
+  /* Anzeige des ausgewählten Textes zentrieren */
   text-align: center !important;
-  text-align-last: center !important;
-  -moz-text-align-last: center !important;
+  text-align-last: center !important;       /* Chromium, teils Edge */
+  -moz-text-align-last: center !important;  /* Firefox */
+  -webkit-text-align-last: center !important; /* WebKit (experimentell, aber hilft oft) */
+
+  /* WebKit "Kick", damit Zentrierung stattfindet */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+
+  /* Keine optische Schieflage durch Padding/Indent */
   padding-left: 0 !important;
   padding-right: 0 !important;
+  text-indent: 0 !important;
+
+  /* Sicherheit */
+  direction: ltr !important;
 }
 
-/* Zentrierte Dropdown-Einträge (Chrome/Edge/Firefox) */
+/* Dropdown-Optionen (Chrome/Edge/Firefox meist ok) */
 .analysis-panel .mini-select option {
   text-align: center !important;
+  direction: ltr !important;
 }
 
-/* Safari (iOS) fix – zwingt Darstellung neu */
+/* iOS/Safari: Anzeige sicher zentriert (Liste bleibt ggf. systembedingt links) */
 @supports (-webkit-touch-callout: none) {
   .analysis-panel .mini-select {
+    text-align: center !important;
+    text-align-last: center !important;
+    -webkit-text-align-last: center !important;
     -webkit-appearance: none !important;
-    appearance: none !important;
-    text-indent: 0 !important;
-    direction: ltr !important;
   }
 }
+
 
 
 </style>
@@ -1412,6 +1427,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
