@@ -1084,6 +1084,28 @@ select.minimal option {
 .field label {
   top: calc(50% - 2px) !important; /* 2–3px höher */
 }
+#resetInputsBtn {
+  background: rgba(255, 0, 0, 0.45);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: white;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+#resetInputsBtn:hover {
+  background: rgba(255, 0, 0, 0.22);
+}
+
+#clearAllRow {
+  margin-top: 20px;  /* Abstand zu oberen Buttons */
+}
+
+#clearBtn {
+  width: 100%;
+  height: 48px !important;
+  font-size: 1rem !important;
+}
 
 </style>
 </head>
@@ -1150,9 +1172,15 @@ select.minimal option {
       </div>
 
       <div class="action-row">
-        <button class="primary" id="addBtn">➕ Eintrag</button>
-        <button class="ghost" id="clearBtn">➖ ALLES LÖSCHEN</button>
+        <button class="primary" id="addBtn">📥 Eintrag</button>
+        <button class="ghost" id="resetInputsBtn">➕ Neu</button>
       </div>
+		
+<div class="action-row" id="clearAllRow">
+  <button class="ghost" id="clearBtn">🗑️ Alles Löschen</button>
+</div>
+
+		
     </div>
 
 
@@ -1556,6 +1584,28 @@ addBtn.onclick = () => {
   filterEntries();
   updateAllFilled();
 };
+
+resetInputsBtn.onclick = () => {
+  // Grund-Eingaben
+  dateInput.value = "";
+  amountInput.value = "";
+  descriptionInput.value = "";
+
+  // „Neue …“-Felder
+  newCategoryInput.value = "";
+  newTagInput.value = "";
+
+  // Dropdowns zurücksetzen (auf Placeholder)
+  categorySelect.value = "";
+  tagSelect.value = "";
+
+  // Labels/Floating-States aktualisieren
+  updateAllFilled();
+
+  // Optional: Radio wieder auf "Ausgabe" setzen (falls gewünscht)
+  // document.querySelector('input[name="type"][value="expense"]').checked = true;
+};
+
 amountInput.addEventListener("input", () => {
   // Komma zu Punkt umwandeln
   amountInput.value = amountInput.value.replace(/,/g, ".");
@@ -1584,6 +1634,7 @@ clearBtn.onclick = () => {
   entriesList.innerHTML = '';
   dailyBalance.textContent = '💰 Bilanz: 0.00 €';
 };
+	
 
 /* ===================== ANALYSE ===================== */
 
@@ -1846,6 +1897,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
