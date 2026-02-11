@@ -1771,6 +1771,7 @@ analysisBtn.addEventListener('click', () => {
 
     prevStart = new Date(py, pm - 1, 1);
     prevEnd   = new Date(py, pm, 0);
+
   } else {
     start = new Date(year, 0, 1);
     end   = new Date(year, 11, 31);
@@ -1779,77 +1780,69 @@ analysisBtn.addEventListener('click', () => {
     prevStart = new Date(year - 1, 0, 1);
     prevEnd   = new Date(year - 1, 11, 31);
   }
-  
+
   const scoped = entriesInRange(start, end);
-  const zeitLabel = month ? 'diesem Monat' : 'diesem Jahr';
-  const net = (e) => (e.type === 'income' ? e.amount : -e.amount);
+  const zeitLabel = month ? "diesem Monat" : "diesem Jahr";
+  const net = (e) => (e.type === "income" ? e.amount : -e.amount);
   const signWord = (sum) =>
-      sum > 0 ? 'eingenommen'
-    : sum < 0 ? 'ausgegeben'
-    : 'weder ausgegeben noch eingenommen';
+    sum > 0 ? "eingenommen" :
+    sum < 0 ? "ausgegeben" :
+              "weder ausgegeben noch eingenommen";
 
   const groupCat = analysisMode.category;
   const groupTag = analysisMode.tag;
 
-  let out = `📅 Analyse für ${label}\n\n`;
+  let out = `📅 Analyse für ${label}<br><br>`;
 
+  // ------------------------------------------
+  // FALL 1: Keine Einträge
+  // ------------------------------------------
   if (scoped.length === 0) {
-    out += "Keine Einträge.\n\n";
-  } else {
-    out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
-
-   } else if (groupCat && !groupTag) {
-
-  const byCat = new Map();
-  for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
-
-  const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, "de"));
-  if (cats.length === 0) {
     out += "Keine Einträge.<br><br>";
-  } else {
+  } 
+  // ------------------------------------------
+  // FALL 2: NUR Kategorie
+  // ------------------------------------------
+  else if (groupCat && !groupTag) {
+
+    const byCat = new Map();
+    for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
+
+    const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, "de"));
+
     for (const c of cats) {
       const sum = byCat.get(c);
       const verb = signWord(sum);
-      const coloredAmount =
+      const colored =
         sum >= 0
           ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
           : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
 
-      // BOX MITTIG
       out += `
         <div class="analysis-chip" style="margin:0 auto;">
           Kategorie: <span class="analysis-blue">${c}</span>
         </div>
-      `;
-
-      // LEERE ZEILE + ZWEITE ZEILE LINKS
-      out += `
-        <div class="analysis-line">
-          • In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.
-        </div>
-      `;
-
-      // TRENNLINIE IN VOLLER BREITE
-      out += `
-        <div class="analysis-separator"></div>
-      `;
+      <div class="analysis-line">
+        • In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span>
+          ${colored} ${verb}.
+      </div>
+      <div class="analysis-separator"></div>`;
     }
-  }
+  } 
+  // ------------------------------------------
+  // FALL 3: NUR Type
+  // ------------------------------------------
+  else if (!groupCat && groupTag) {
 
-   } else if (!groupCat && groupTag) {
+    const byTag = new Map();
+    for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
 
-  const byTag = new Map();
-  for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
+    const tags = [...byTag.keys()].sort((a, b) => a.localeCompare(b, "de"));
 
-  const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, "de"));
-
-  if (tagsList.length === 0) {
-    out += "Keine Einträge.<br><br>";
-  } else {
-    for (const t of tagsList) {
+    for (const t of tags) {
       const sum = byTag.get(t);
       const verb = signWord(sum);
-      const coloredAmount =
+      const colored =
         sum >= 0
           ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
           : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
@@ -1858,76 +1851,76 @@ analysisBtn.addEventListener('click', () => {
         <div class="analysis-chip" style="margin:0 auto;">
           Type: <span class="analysis-tag-green">${t}</span>
         </div>
-      `;
-
-      out += `
-        <div class="analysis-line">
-          • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span>
-            ${coloredAmount} ${verb}.
-        </div>
-      `;
-
-      out += `
-        <div class="analysis-separator"></div>
-      `;
+      <div class="analysis-line">
+        • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span>
+          ${colored} ${verb}.
+      </div>
+      <div class="analysis-separator"></div>`;
     }
   }
+  // ------------------------------------------
+  // FALL 4: Kategorie + Type verschachtelt
+  // ------------------------------------------
+  else if (groupCat && groupTag) {
 
-   } else if (groupCat && groupTag) {
+    const byCatTag = new Map();
+    for (const e of scoped) {
+      if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
+      const inner = byCatTag.get(e.category);
+      inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
+    }
 
-  const byCatTag = new Map();
-  for (const e of scoped) {
-    if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
-    const inner = byCatTag.get(e.category);
-    inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
-  }
+    for (const c of [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
+      const inner = byCatTag.get(c);
 
-  for (const c of [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
-    const inner = byCatTag.get(c);
-    for (const t of [...inner.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
+      for (const t of [...inner.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
 
-      const sum = inner.get(t);
-      const verb = signWord(sum);
-      const coloredAmount =
-        sum >= 0
-          ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-          : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+        const sum = inner.get(t);
+        const verb = signWord(sum);
+        const colored =
+          sum >= 0
+            ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+            : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
 
-      out += `
+        out += `
         <div class="analysis-chip" style="margin:0 auto;">
-          Kategorie: <span class="analysis-blue">${c}</span> - Type:
-          <span class="analysis-tag-green">${t}</span>
+          Kategorie: <span class="analysis-blue">${c}</span>
+          – Type: <span class="analysis-tag-green">${t}</span>
         </div>
-      `;
 
-      out += `
         <div class="analysis-line">
-          • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span>
+          • In ${zeitLabel} hast du für
+            <span class="analysis-tag-green">${t}</span>
             unter <span class="analysis-blue">${c}</span>
-            ${coloredAmount} ${verb}.
+            ${colored} ${verb}.
         </div>
-      `;
 
-      out += `
-        <div class="analysis-separator"></div>
-      `;
+        <div class="analysis-separator"></div>`;
+      }
     }
   }
-
-    } else {
-      out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Type). Es wird nur der Bilanzvergleich angezeigt.\n\n";
-    }
+  // ------------------------------------------
+  // FALL 5: Nichts ausgewählt
+  // ------------------------------------------
+  else {
+    out += "ℹ️ Keine Gruppierung aktiv.<br><br>";
   }
 
-  // Bilanzvergleich
+  // ------------------------------------------
+  // BILANZVERGLEICH
+  // ------------------------------------------
   const prevBal = balanceAt(prevEnd);
   const curBal  = balanceAt(end);
   const delta   = curBal - prevBal;
 
-  out += ` <div style="text-align:center; opacity:10; margin:6px 0 12px 0; font-size: 20px;">Bilanzvergleich</div>`;
-  out += `• Bilanz am ${dmy(prevEnd)}: ${eur(prevBal)}\n`;
-  out += `• Bilanz am ${dmy(end)}: ${eur(curBal)}\n`;
-  out += `• Veränderung: ${delta >= 0 ? "+" : "–"}${eur(Math.abs(delta))}\n`;
+  out += `
+    <div style="text-align:center; margin:20px 0; font-size:20px;">
+      Bilanzvergleich
+    </div>
+    • Bilanz am ${dmy(prevEnd)}: ${eur(prevBal)}<br>
+    • Bilanz am ${dmy(end)}: ${eur(curBal)}<br>
+    • Veränderung: ${delta >= 0 ? "+" : "–"}${eur(Math.abs(delta))}<br>
+  `;
 
   analysisBody.innerHTML = out;
   analysisModal.style.display = "flex";
@@ -2006,6 +1999,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
