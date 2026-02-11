@@ -1852,8 +1852,9 @@ analysisBtn.addEventListener('click', () => {
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
 			
-          out += `<div class="analysis-chip"> Kategorie: <span class="analysis-blue">${c}</span> - Type: <span class="analysis-tag-green">${t}</span> </div>`;
-          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
+          out += `<div class="analysis-chip"> Kategorie: <span class="analysis-blue">${c}</span> - Type: <span class="analysis-tag-green">${t}</span><br> </div>`;
+			
+          out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
           out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
         }
       }
@@ -1950,6 +1951,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
