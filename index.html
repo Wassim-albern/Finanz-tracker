@@ -1128,19 +1128,32 @@ select.minimal option {
 	
 .analysis-chip {
   display: inline-block;           /* an Inhalt ausrichten */
-  padding: 4px 6px;                /* 3–4 px Innenabstand */
+  padding: 4px 10px;                /* 3–4 px Innenabstand */
   border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
   margin-bottom: 10px;             /* = "leere Zeile" nach der Box */
   color: inherit;                  /* Dark/Light übernimmt Textfarbe */
   line-height: 1.25;               /* kompakt, aber lesbar */
+  font-size: 1rem;
+  text-align: center;
 }
 
 /* Zeile darunter ohne Einzug, links anfangen */
 .analysis-line {
-  margin: 0 0 6px 0;               /* unten etwas Luft, links 0 */
+ 
+argin: 0 0 10px 0;
+  text-align: left;
+             /* unten etwas Luft, links 0 */
 }
+	
+.analysis-separator {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.35);
+  margin: 14px 0;
+}
+
 
 </style>
 </head>
@@ -1785,78 +1798,121 @@ analysisBtn.addEventListener('click', () => {
   } else {
     out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
 
-    if (groupCat && !groupTag) {
-      // NUR Kategorie
-      const byCat = new Map();
-      for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
+   } else if (groupCat && !groupTag) {
 
-      const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, 'de'));
-      if (cats.length === 0) {
-        out += "Keine Einträge.";
-      } else {
-        for (const c of cats) {
-          const sum = byCat.get(c);
-          const verb = signWord(sum);
-          const coloredAmount =
-              sum >= 0
-                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += `<div class="analysis-chip"> Kategorie: <span class="analysis-blue">${c}</span><br> </div>`;
-          out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
-          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
-        }
-      }
+  const byCat = new Map();
+  for (const e of scoped) byCat.set(e.category, (byCat.get(e.category) || 0) + net(e));
 
-    } else if (!groupCat && groupTag) {
-      // NUR Tag
-      const byTag = new Map();
-      for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
+  const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, "de"));
+  if (cats.length === 0) {
+    out += "Keine Einträge.<br><br>";
+  } else {
+    for (const c of cats) {
+      const sum = byCat.get(c);
+      const verb = signWord(sum);
+      const coloredAmount =
+        sum >= 0
+          ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+          : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
 
-      const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
-      if (tagsList.length === 0) {
-        out += "Keine Einträge.\n\n";
-      } else {
-        for (const t of tagsList) {
-          const sum = byTag.get(t);
-          const verb = signWord(sum);
-          const coloredAmount =
-              sum >= 0
-                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += `<div class="analysis-chip"> Type: <span class="analysis-tag-green">${t}</span><br> </div>`;
-          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
-          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
-        }
-      }
+      // BOX MITTIG
+      out += `
+        <div class="analysis-chip" style="margin:0 auto;">
+          Kategorie: <span class="analysis-blue">${c}</span>
+        </div>
+      `;
 
-    } else if (groupCat && groupTag) {
-      // Kategorie + Tag verschachtelt
-      const byCatTag = new Map();
-      for (const e of scoped) {
-        if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
-        const inner = byCatTag.get(e.category);
-        inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
-      }
+      // LEERE ZEILE + ZWEITE ZEILE LINKS
+      out += `
+        <div class="analysis-line">
+          • In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.
+        </div>
+      `;
 
-      const cats = [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+      // TRENNLINIE IN VOLLER BREITE
+      out += `
+        <div class="analysis-separator"></div>
+      `;
+    }
+  }
 
-      for (const c of cats) {
-        const inner = byCatTag.get(c);
-        const tagsList = [...inner.keys()].sort((a, b) => a.localeCompare(b, 'de'));
+   } else if (!groupCat && groupTag) {
 
-        for (const t of tagsList) {
-          const sum = inner.get(t);
-          const verb = signWord(sum);
-          const coloredAmount =
-              sum >= 0
-                  ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
-                  : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-			
-          out += `<div class="analysis-chip"> Kategorie: <span class="analysis-blue">${c}</span> - Type: <span class="analysis-tag-green">${t}</span> </div>`;
-          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
-          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
-        }
-      }
+  const byTag = new Map();
+  for (const e of scoped) byTag.set(e.tag, (byTag.get(e.tag) || 0) + net(e));
+
+  const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, "de"));
+
+  if (tagsList.length === 0) {
+    out += "Keine Einträge.<br><br>";
+  } else {
+    for (const t of tagsList) {
+      const sum = byTag.get(t);
+      const verb = signWord(sum);
+      const coloredAmount =
+        sum >= 0
+          ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+          : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
+      out += `
+        <div class="analysis-chip" style="margin:0 auto;">
+          Type: <span class="analysis-tag-green">${t}</span>
+        </div>
+      `;
+
+      out += `
+        <div class="analysis-line">
+          • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span>
+            ${coloredAmount} ${verb}.
+        </div>
+      `;
+
+      out += `
+        <div class="analysis-separator"></div>
+      `;
+    }
+  }
+
+   } else if (groupCat && groupTag) {
+
+  const byCatTag = new Map();
+  for (const e of scoped) {
+    if (!byCatTag.has(e.category)) byCatTag.set(e.category, new Map());
+    const inner = byCatTag.get(e.category);
+    inner.set(e.tag, (inner.get(e.tag) || 0) + net(e));
+  }
+
+  for (const c of [...byCatTag.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
+    const inner = byCatTag.get(c);
+    for (const t of [...inner.keys()].sort((a, b) => a.localeCompare(b, "de"))) {
+
+      const sum = inner.get(t);
+      const verb = signWord(sum);
+      const coloredAmount =
+        sum >= 0
+          ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
+          : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
+      out += `
+        <div class="analysis-chip" style="margin:0 auto;">
+          Kategorie: <span class="analysis-blue">${c}</span> - Type:
+          <span class="analysis-tag-green">${t}</span>
+        </div>
+      `;
+
+      out += `
+        <div class="analysis-line">
+          • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span>
+            unter <span class="analysis-blue">${c}</span>
+            ${coloredAmount} ${verb}.
+        </div>
+      `;
+
+      out += `
+        <div class="analysis-separator"></div>
+      `;
+    }
+  }
 
     } else {
       out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Type). Es wird nur der Bilanzvergleich angezeigt.\n\n";
@@ -1950,6 +2006,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
