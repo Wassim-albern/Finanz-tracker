@@ -1097,6 +1097,10 @@ select.minimal option {
   background: rgba(255, 0, 0, 0.22);
 }
 
+#newBtn {
+  color: #218838;      /* dieselbe Grün wie Kategorie */
+}
+
 #clearAllRow {
   margin-top: 20px;  /* Abstand zu oberen Buttons */
 }
@@ -1173,7 +1177,7 @@ select.minimal option {
 
       <div class="action-row">
         <button class="primary" id="addBtn">📥 Eintrag</button>
-        <button class="ghost" id="resetInputsBtn">➕ Neu</button>
+        <button class="ghost" id="newBtn">➕ Neu</button>
       </div>
 		
 <div class="action-row" id="clearAllRow">
@@ -1897,6 +1901,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
