@@ -136,7 +136,7 @@ background: #161a22 !important;
   padding: 0 4px;
   pointer-events: none;
   font-size: 1rem;
-  color: #cfeffd;
+ 
   background: transparent !important;
   transition: all 0.20s ease;
   line-height: 1;
@@ -152,7 +152,7 @@ background: #161a22 !important;
   left: 10px;
   transform: none;
   font-size: 0.78rem;
-  color: #00d4ff;
+
   background: #161a22;                 /* ← kleiner Hintergrund */
   padding: 0 6px;                      /* etwas breiter, damit es schöner aussieht */
   border-radius: 4px;                  /* leicht rund wie modern UI */
@@ -201,22 +201,13 @@ background: #161a22 !important;
 
   /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) – Basisfarben */
   #clearBtn {
-    background: rgba(255, 0, 0, 0.45);
+    background:rgba(165, 0, 0, 1);
     border: 1px solid rgba(255, 0, 0, 0.3);
     color: rgba(255, 255, 255, 1);
     font-size: 0.85rem;
     transition: 0.2s ease;
   }
-  #clearBtn:hover {
-    background: rgba(255, 0, 0, 0.22);
-    border-color: rgba(255, 0, 0, 0.5);
-  }
-
-  #addBtn:hover {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
-    border: 1px solid rgba(0, 212, 255, 0.5);
-  }
-
+ 
   /* ==== Controls Row (Analyse-Controls Grundlayout) ==== */
   .controls-row {
     display: flex;
@@ -947,107 +938,74 @@ select.minimal option {
       LIGHT MODE (NEU & FIX)
 ============================= */
 
-.light-mode {
-  background: #ffffff !important;   /* GANZE SEITE weiß */
-  color: #000000 !important;        /* Standard Text schwarz */
-}
 
-/* PANELS */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #f3f3f3 !important;   /* hellgrau */
-  color: #002366 !important;        /* dunkelblau */
-  box-shadow: 0 2px 18px rgba(0,0,0,0.08) !important;
-}
-
-/* HEADLINES */
-.light-mode h1 {
-  color: #000 !important;
-}
-.light-mode h2 {
-  color: #002366 !important;
-}
-
-/* INPUTS + SELECTS */
 .light-mode .field input,
 .light-mode .field select,
 .light-mode select.minimal,
 .light-mode .mini-select {
-  background: #ffffff !important;   /* weiß */
-  color: #002366 !important;        /* dunkelblau */
-  border: 1px solid rgba(0,0,0,0.15) !important;
+  background: transparent !important;  /* Kein weiß/grau hinter Text */
+  color: #00d4ff !important;           /* Dunkelblau überall */
+  border: 1px solid rgba(0,0,0,0.0.3) !important;
 }
 
-/* LABELS */
+.light-mode .field input[type="date"] {
+  color: #002366 !important;              /* Fallback/Fx */
+}
+
+/* Label Farbe in Light Mode */
 .light-mode .field label {
-  color: #002366 !important;
-  background: #f3f3f3 !important;
+  color: #002366 !important;           /* Dunkelblau */
+  background: transparent !important;  /* Keine graue Box mehr */
 }
 
-/* Floating Zustand */
+/* Floating Label (oben) auch dunkelblau + transparent */
 .light-mode .field.filled label,
 .light-mode .field:focus-within label,
 .light-mode .field select.has-value + label {
-  color: #0077cc !important;         /* Blauton */
-  background: #f3f3f3 !important;
+  color: #002366 !important;           /* Dunkelblau */
+  background: transparent !important;  /* Transparent */
+  font-size: 0.78rem !important;
 }
 
-/* DROPDOWN OPTIONEN */
+/* Kategorie / Tag Select fix:
+   - Label bleibt unten bis value vorhanden
+   - Farbe dunkelblau
+*/
+.light-mode .field select:not(:focus):not(.has-value) + label {
+  
+  background: transparent !important;
+  color: #002366 !important;
+}
+
+/* Optionen in Select-Menüs */
 .light-mode .field select option,
 .light-mode select.minimal option,
 .light-mode .mini-select option {
-  background: #ffffff !important;
+  background: #ffffff !important;  /* Dropdown weiß */
+  color: #002366 !important;       /* TEXT dunkelblau */
+}
+
+/* Analyse-Buttons (Kategorie/Tag) Light Mode: richtig dunkelblau */
+.light-mode .analysis-panel .toggle-btn {
+  background: transparent !important;
   color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
 }
 
-/* TEXT IN DER LISTE (Kassenbon) */
-.light-mode .entry {
-  background: #ffffff !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
-  color: #002366 !important;
-}
-
-.light-mode .entry .small {
-  color: #333 !important;
-}
-
-.light-mode .amount-income {
-  color: #218838 !important;  /* Grün bleibt */
-}
-.light-mode .amount-expense {
-  color: #c82333 !important;  /* Rot bleibt */
-}
-
-/* ANALYSE MODAL */
-.light-mode .analysis-sheet {
-  background: #ffffff !important;
-  color: #002366 !important;
-}
-
-.light-mode .analysis-line {
-  color: #002366 !important;
-}
-
-.light-mode .analysis-chip {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.2) !important;
-  color: #002366 !important;
-}
-
-/* BUTTONS sollen bleiben wie sie sind */
-.light-mode button.primary {
-  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
-}
-
-.light-mode #resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c) !important;
-}
-
-.light-mode #clearBtn {
-  background: rgba(255, 0, 0, 0.45) !important;
+.light-mode .analysis-panel .toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
   color: #fff !important;
+  border: none !important;
+}
+
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  background: #e6e6e6 !important;   /* schönes hellgrau */
+  color: #002366 !important;        /* dunkelblau */
+  border: none !important;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.08) !important;
 }
 
 
@@ -1114,32 +1072,39 @@ select.minimal option {
   color: #000000 !important;           /* Standard-Text schwarz */
 }
 
-/* Panels bleiben dunkel (Dark-Design beibehalten!) */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #161a22 !important;
-  color: #e6eef8 !important;
-}
+
 
 /* Inputs bleiben dunkel */
+
 .light-mode .field input,
-.light-mode .field select {
-  background: rgba(255,255,255,0.06) !important;
-  color: #e6eef8 !important;
+.light-mode .field select,
+.light-mode select.minimal,
+.light-mode .mini-select {
+  background: white !important;     /* dunkelblauer Hintergrund */
+  color: #e6eef8 !important;          /* helle Schrift */
+  border: 1px solid rgba(0,0,0,0.35) !important;
 }
 
 /* Floating Label – normal/dark bleiben */
 .light-mode .field label {
-  color: #cfeffd !important;
+  
+color: #002366 !important;
+  background: transparent !important;
 }
 
+
 /* Floating Zustand bleibt auch dark */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label {
-  color: #00d4ff !important;
-  background: transparent !important; /* wie du wolltest */
+
+light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label,
+.light-mode .field select:focus + label {
+  color: #0077cc !important;
+  background: transparent !important;
+  font-size: 0.78rem !important;
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
 }
 
 /* Buttons bleiben dunkel */
@@ -2021,84 +1986,4 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
