@@ -201,9 +201,12 @@ background: #161a22 !important;
 
   /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) – Basisfarben */
   #clearBtn {
-    background: rgba(255, 0, 0, 0.45);
-    border: 1px solid rgba(255, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 1);
+   
+background: #c82333 !important;    /* kräftiges Rot */
+  border: 1px solid #a71d2a !important;
+  color: #fff !important;
+  opacity: 1 !important;
+
     font-size: 0.85rem;
     transition: 0.2s ease;
   }
@@ -991,22 +994,69 @@ select.minimal option {
   background: #e6e6e6 !important;
 }
 
+.light-mode .field select:focus + label,
+.light-mode .field select.has-value + label {
+  color: #00aaff !important;     /* Neon Hellblau */
+  background: transparent !important;
+}
+
+.light-mode .field select option {
+  color: #002366 !important;
+  background: #ffffff !important;
+}
+
 .light-mode .field.filled label,
 .light-mode .field:focus-within label,
 .light-mode .field select.has-value + label {
   color: #0077cc !important;
-  background: #e6e6e6 !important;
+  background: transparent !important;
 }
 
 /* Chips + Analysis */
 .light-mode .analysis-chip {
-  background: #ffffff !important;
+  background: transparent !important;
   color: #002366 !important;
   border-color: rgba(0,0,0,0.2) !important;
 }
 
 .light-mode .analysis-line {
   color: #002366 !important;
+}
+
+
+.dark-mode .analysis-panel .toggle-btn {
+  background: #161a22 !important;
+  color: #e6eef8 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+/* ANALYSE-BUTTONS LIGHT MODE */
+.light-mode .analysis-panel .toggle-btn {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.2) !important;
+}
+
+/* HOOVER-EFFEKTE DEAKTIVIEREN */
+.analysis-panel .toggle-btn:hover,
+.light-mode .analysis-panel .toggle-btn:hover {
+  background: inherit !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
+
+	
+.light-mode body,
+.light-mode html {
+  background: #ffffff !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Falls Container einen dunkelblauen Rahmen hatte */
+.light-mode .container {
+  background: #ffffff !important;
+  border: none !important;
 }
 
 
@@ -1934,6 +1984,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
