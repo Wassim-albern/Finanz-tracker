@@ -1124,11 +1124,39 @@ select.minimal option {
   height: 48px !important;
   font-size: 1rem !important;
 }
+	
+.analysis-chip {
+  display: inline-block;           /* an Inhalt ausrichten */
+  padding: 4px 6px;                /* 3–4 px Innenabstand */
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 10px;             /* = "leere Zeile" nach der Box */
+  color: inherit;                  /* Dark/Light übernimmt Textfarbe */
+  line-height: 1.25;               /* kompakt, aber lesbar */
+}
+
+/* Zeile darunter ohne Einzug, links anfangen */
+.analysis-line {
+  margin: 0 0 6px 0;               /* unten etwas Luft, links 0 */
+}
 
 </style>
 </head>
 
 
+
+
+
+
+
+
+
+
+
+
+
+	
 
 <body>
   <h1>💰 Finanz Tracker</h1>
@@ -1927,6 +1955,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
