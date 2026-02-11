@@ -577,9 +577,9 @@ background: #161a22 !important;
 }
 
 #clearBtn::after {
-  content: "Löschen";
+  content: "Alles Löschen";
   font-size: 1rem;
-  line-height: 1;                   /* kein „unten kleben“ */
+  line-height: 1;
   color: #fff;
 }
 
@@ -1085,16 +1085,23 @@ select.minimal option {
   top: calc(50% - 2px) !important; /* 2–3px höher */
 }
 #resetInputsBtn {
-  background: rgba(255, 0, 0, 0.45);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: white;
+  
+color: #fff; 
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
   height: 48px;
   border-radius: 10px;
-  font-size: 0.85rem;
+  font-size: 1rem;
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+
 }
 
 #resetInputsBtn:hover {
-  background: rgba(255, 0, 0, 0.22);
+  
+ background: linear-gradient(135deg, #218838, #1a662c); /* Kategorie-Grün */
+  border-color: transparent;
+  color: #fff;
+
 }
 
 #newBtn {
@@ -1175,14 +1182,17 @@ select.minimal option {
         <label> Neuer Tag</label>
       </div>
 
-      <div class="action-row">
-        <button class="primary" id="addBtn">📥 Eintrag</button>
-        <button class="ghost" id="newBtn">➕ Neu</button>
-      </div>
-		
+     
+<div class="action-row">
+  <button class="primary" id="addBtn">📥 Eintrag</button>
+  <!-- Zurück zu resetInputsBtn + Beschriftung 'Leeren' -->
+  <button class="ghost" id="resetInputsBtn">🧹 Leeren</button>
+</div>
+
 <div class="action-row" id="clearAllRow">
   <button class="ghost" id="clearBtn">🗑️ Alles Löschen</button>
 </div>
+
 
 		
     </div>
@@ -1592,18 +1602,20 @@ addBtn.onclick = () => {
 resetInputsBtn.onclick = () => {
   // Grund-Eingaben
   
-  amountInput.value = "";
+ 
+ amountInput.value = "";
   descriptionInput.value = "";
 
-  // „Neue …“-Felder
   newCategoryInput.value = "";
   newTagInput.value = "";
 
-  // Dropdowns zurücksetzen (auf Placeholder)
+  // Selects auf Placeholder zurücksetzen (Items bleiben erhalten!)
   categorySelect.value = "";
   tagSelect.value = "";
 
-  // Labels/Floating-States aktualisieren
+  // 'has-value' und 'filled' korrekt setzen, damit Labels wieder unten stehen
+  markSelectFilled(categorySelect);
+  markSelectFilled(tagSelect);
   updateAllFilled();
 
   // Optional: Radio wieder auf "Ausgabe" setzen (falls gewünscht)
@@ -1901,6 +1913,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
