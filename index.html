@@ -1547,6 +1547,19 @@ addBtn.onclick = () => {
   filterEntries();
   updateAllFilled();
 };
+amountInput.addEventListener("input", () => {
+  // Komma zu Punkt umwandeln
+  amountInput.value = amountInput.value.replace(",", ".");
+});
+	
+amountInput.addEventListener("blur", () => {
+  if (amountInput.value.trim() !== "") {
+    let val = parseFloat(amountInput.value.replace(",", "."));
+    if (!isNaN(val)) {
+      amountInput.value = val.toFixed(2);
+    }
+  }
+});
 
 /* ===================== CLEAR ALL ===================== */
 clearBtn.onclick = () => {
@@ -1824,6 +1837,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
