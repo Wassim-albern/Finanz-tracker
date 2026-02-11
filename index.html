@@ -104,7 +104,7 @@ background: #161a22 !important;
     padding: 12px 12px 10px;
     border-radius: 10px;
     border: none;
-    background: rgba(255,255,255,0.06);
+   background: transparent !important;
     color: #e6eef8;
     font-size: 1rem;
     outline: none;
@@ -112,7 +112,7 @@ background: #161a22 !important;
 
   .field input:hover,
   .field select:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.10) !important;
   }
 
   .field input:focus,
@@ -855,6 +855,8 @@ select.minimal option {
 
   /* Keine äußeren Ränder */
   margin-top: 0 !important;
+  background: transparent !important;
+	
 }
 
 /* =========================================================
@@ -1024,25 +1026,24 @@ select.minimal option {
 }
 
 
+
 .dark-mode .analysis-panel .toggle-btn {
-  background: #161a22 !important;
+  background: rgba(255,255,255,0.06) !important;
   color: #e6eef8 !important;
   border: 1px solid rgba(255,255,255,0.12) !important;
 }
 
-/* ANALYSE-BUTTONS LIGHT MODE */
+.dark-mode .analysis-panel .toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* LIGHT MODE */
 .light-mode .analysis-panel .toggle-btn {
   background: #ffffff !important;
   color: #002366 !important;
   border: 1px solid rgba(0,0,0,0.2) !important;
-}
-
-/* HOOVER-EFFEKTE DEAKTIVIEREN */
-.analysis-panel .toggle-btn:hover,
-.light-mode .analysis-panel .toggle-btn:hover {
-  background: inherit !important;
-  color: inherit !important;
-  border-color: inherit !important;
 }
 
 	
@@ -1117,6 +1118,9 @@ select.minimal option {
 	
 .field label {
   top: calc(50% - 2px) !important; /* 2–3px höher */
+	
+ color: #cfeffd !important;
+
 }
 
 #resetInputsBtn {
@@ -1174,6 +1178,10 @@ select.minimal option {
 /* Zeile darunter ohne Einzug, links anfangen */
 .analysis-line {
   margin: 0 0 6px 0;               /* unten etwas Luft, links 0 */
+}
+
+* {
+  border-color: transparent !important;
 }
 
 </style>
@@ -1984,6 +1992,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
