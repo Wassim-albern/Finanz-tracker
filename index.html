@@ -1737,7 +1737,7 @@ analysisBtn.addEventListener('click', () => {
     prevStart = new Date(year - 1, 0, 1);
     prevEnd   = new Date(year - 1, 11, 31);
   }
-
+  
   const scoped = entriesInRange(start, end);
   const zeitLabel = month ? 'diesem Monat' : 'diesem Jahr';
   const net = (e) => (e.type === 'income' ? e.amount : -e.amount);
@@ -1794,7 +1794,7 @@ analysisBtn.addEventListener('click', () => {
               sum >= 0
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += `Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += `Type: <span class="analysis-tag-green">${t}</span><br>`;
           out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
           out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
         }
@@ -1822,7 +1822,7 @@ analysisBtn.addEventListener('click', () => {
               sum >= 0
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += ` Kategorie: <span class="analysis-blue">${c}</span> - Tag: <span class="analysis-tag-green">${t}</span><br>`;
+          out += ` Kategorie: <span class="analysis-blue">${c}</span> - Type: <span class="analysis-tag-green">${t}</span><br>`;
           out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
           out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────────────────────</div>`;
         }
@@ -1920,6 +1920,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
