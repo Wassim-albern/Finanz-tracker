@@ -106,7 +106,7 @@ background: #161a22 !important;
     background: rgba(255,255,255,0.06);
     color: #e6eef8;
     font-size: 1rem;
-    outline: none;
+    line: none;
   }
 
   .field input:hover,
@@ -120,7 +120,7 @@ background: #161a22 !important;
     box-shadow:
       0px 0px 0px 2px rgba(0, 212, 255, 0.20),
       0px 0.5px 0px 0px #00d4ff; /* nur Unterlinie */
-    outline: none !important;
+    line: none !important;
     border: none !important;
   }
 
@@ -216,7 +216,7 @@ background: #161a22 !important;
     border: 1px solid rgba(0, 212, 255, 0.5);
   }
 
-  /* ==== Controls Row (Analyse-Controls Grundlayout) ==== */
+  /* ==== Controls Row (Analyse-Controls Grundlay) ==== */
   .controls-row {
     display: flex;
     justify-content: space-between;
@@ -272,7 +272,7 @@ background: #161a22 !important;
 
   .analysis-controls .controls-row .toggle-btn:focus-visible,
   .analysis-controls .controls-row .mini-select:focus {
-    outline: none;
+    line: none;
     border-color: #00d4ff;
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
     background: rgba(255,255,255,0.08);
@@ -367,7 +367,7 @@ background: #161a22 !important;
   .mini-select:hover { background: rgba(255,255,255,0.12); }
 
   .mini-select:focus {
-    outline: none;
+    line: none;
     border-color: #00d4ff;
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
     background: rgba(255,255,255,0.08);
@@ -675,7 +675,7 @@ background: #161a22 !important;
       box-shadow:
         0px 0px 0px 2px rgba(0, 212, 255, 0.20),
         0px 0.5px 0px 0px #00d4ff !important;
-      outline: none !important;
+      line: none !important;
       border: none !important;
     }
   }
@@ -701,7 +701,7 @@ background: #161a22 !important;
   margin-bottom: 14px !important;
 }
 
-/* Layout ändern:
+/* Lay ändern:
    - 2 Buttons pro Zeile
    - Jahr / Monat oben
    - Kategorie / Tag unten
@@ -771,7 +771,7 @@ analysis-panel .mini-select {
 }
 
 /* iOS/Safari: Anzeige sicher zentriert (Liste bleibt ggf. systembedingt links) */
-@supports (-webkit-touch-callout: none) {
+@supports (-webkit-touch-call: none) {
   .analysis-panel .mini-select {
     text-align: center !important;
     text-align-last: center !important;
@@ -794,7 +794,7 @@ select.minimal:hover,
 select.minimal:focus,
 .mini-select:focus {
   box-shadow: none !important;             /* Rand weg */
-  outline: none !important;                /* Focus Outline weg */
+  line: none !important;                /* Focus line weg */
   border: none !important;                 /* Edge Cases */
   background: rgba(255,255,255,0.12) !important;  /* Standard Hover */
 }
@@ -807,7 +807,7 @@ select.minimal option {
 
 /* Falls irgendein alter Fokus-Stil aktiv war → entfernen */
 :focus {
-  outline: none !important;
+  line: none !important;
   box-shadow: none !important;
 }
 /* =========================================================
@@ -1105,7 +1105,7 @@ select.minimal option {
   background: linear-gradient(135deg, #218838, #1a662c);
   color: #fff;
   border: none;
-  outline: none;
+  line: none;
   box-shadow: none;
   transform: none;
 }
@@ -1777,12 +1777,12 @@ analysisBtn.addEventListener('click', () => {
   const groupCat = analysisMode.category;
   const groupTag = analysisMode.tag;
 
-  let out = `📅 Analyse für ${label}\n\n`;
+  let  = `📅 Analyse für ${label}\n\n`;
 
   if (scoped.length === 0) {
-    out += "Keine Einträge.\n\n";
+     += "Keine Einträge.\n\n";
   } else {
-    out += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
+     += "Für das ausgewählte Datum sind folgende Einträge vorhanden:\n\n";
 
     if (groupCat && !groupTag) {
       // NUR Kategorie
@@ -1791,7 +1791,7 @@ analysisBtn.addEventListener('click', () => {
 
       const cats = [...byCat.keys()].sort((a, b) => a.localeCompare(b, 'de'));
       if (cats.length === 0) {
-        out += "Keine Einträge.";
+         += "Keine Einträge.";
       } else {
         for (const c of cats) {
           const sum = byCat.get(c);
@@ -1800,9 +1800,9 @@ analysisBtn.addEventListener('click', () => {
               sum >= 0
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
-          out += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
-          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
+           += `Kategorie: <span class="analysis-blue">${c}</span><br>`;
+           += `• In ${zeitLabel} hast du in <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.<br>`;
+           += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
         }
       }
 
@@ -1813,7 +1813,7 @@ analysisBtn.addEventListener('click', () => {
 
       const tagsList = [...byTag.keys()].sort((a, b) => a.localeCompare(b, 'de'));
       if (tagsList.length === 0) {
-        out += "Keine Einträge.\n\n";
+         += "Keine Einträge.\n\n";
       } else {
         for (const t of tagsList) {
           const sum = byTag.get(t);
@@ -1822,9 +1822,9 @@ analysisBtn.addEventListener('click', () => {
               sum >= 0
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
-          out += `Type: <span class="analysis-tag-green">${t}</span><br>`;
-          out += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
-          out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
+           += `Type: <span class="analysis-tag-green">${t}</span><br>`;
+           += `• In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> ${coloredAmount} ${verb}.<br>`;
+           += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
         }
       }
 
@@ -1850,11 +1850,13 @@ analysisBtn.addEventListener('click', () => {
               sum >= 0
                   ? `<span class="analysis-pos">${eur(Math.abs(sum))}</span>`
                   : `<span class="analysis-neg">${eur(Math.abs(sum))}</span>`;
+
 out += `
   <div class="analysis-chip">
     Kategorie: <span class="analysis-blue">${c}</span> - Type: <span class="analysis-tag-green">${t}</span>
   </div>
 `;
+
 			
           out += ` • In ${zeitLabel} hast du für <span class="analysis-tag-green">${t}</span> unter <span class="analysis-blue">${c}</span> ${coloredAmount} ${verb}.`;
           out += `<div style="text-align:center; opacity:0.5; margin:6px 0 12px 0;">─────────────────────────────</div>`;
@@ -1953,6 +1955,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
