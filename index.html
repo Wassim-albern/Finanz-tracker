@@ -951,23 +951,23 @@ select.minimal option {
       LIGHT MODE (FINAL VERSION)
 ============================= */
 
+
 .light-mode {
-  background: #ffffff !important;   /* Gesamter Hintergrund weiß */
-  color: #000000 !important;        /* Standard‑Schrift schwarz */
+  background: #ffffff !important;
+  color: #000000 !important;
 }
 
-/* PANELS – HELLGRAU (RICHTIG) */
+/* Panels richtig hellgrau */
 .light-mode .panel-left,
 .light-mode .panel-right,
 .light-mode .analysis-panel,
 .light-mode .paper {
-  background: #e6e6e6 !important;   /* HELLGRAU Panels */
-  color: #002366 !important;        /* Dunkelblauer Text */
+  background: #e6e6e6 !important;
+  color: #002366 !important;
   box-shadow: 0 2px 18px rgba(0,0,0,0.08) !important;
-  border-radius: 16px !important;
 }
 
-/* HEADLINES */
+/* Texte */
 .light-mode h1 {
   color: #000 !important;
 }
@@ -975,83 +975,38 @@ select.minimal option {
   color: #002366 !important;
 }
 
-/* INPUTS + SELECTS */
+/* Inputs */
 .light-mode .field input,
 .light-mode .field select,
 .light-mode select.minimal,
 .light-mode .mini-select {
-  background: #ffffff !important;   /* Eingabefelder weiß */
-  color: #002366 !important;        /* Dunkelblau */
+  background: #ffffff !important;
+  color: #002366 !important;
   border: 1px solid rgba(0,0,0,0.2) !important;
 }
 
-/* LABELS (Floating + Normal) */
+/* Floating Label */
 .light-mode .field label {
   color: #002366 !important;
-  background: #e6e6e6 !important;   /* gleiche Farbe wie Panel */
+  background: #e6e6e6 !important;
 }
 
 .light-mode .field.filled label,
-.light-mode .field:focus-within label {
-  background: #e6e6e6 !important;
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label {
   color: #0077cc !important;
+  background: #e6e6e6 !important;
 }
 
-/* DROPDOWN OPTIONEN */
-.light-mode .field select option,
-.light-mode select.minimal option,
-.light-mode .mini-select option {
+/* Chips + Analysis */
+.light-mode .analysis-chip {
   background: #ffffff !important;
   color: #002366 !important;
-}
-
-/* KASSENBON EINTRÄGE */
-.light-mode .entry {
-  background: #ffffff !important;
-  border: 1px solid rgba(0,0,0,0.15) !important;
-  color: #002366 !important;
-}
-
-.light-mode .entry .small {
-  color: #333 !important;
-}
-
-/* BETRAG-FARBEN BEIBEHALTEN */
-.light-mode .amount-income {
-  color: #218838 !important;
-}
-.light-mode .amount-expense {
-  color: #c82333 !important;
-}
-
-/* ANALYSE MODAL */
-.light-mode .analysis-sheet {
-  background: #ffffff !important;
-  color: #002366 !important;
+  border-color: rgba(0,0,0,0.2) !important;
 }
 
 .light-mode .analysis-line {
   color: #002366 !important;
-}
-
-.light-mode .analysis-chip {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.2) !important;
-  color: #002366 !important;
-}
-
-/* BUTTON COLORS BLEIBEN UNVERÄNDERT */
-.light-mode button.primary {
-  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
-}
-
-.light-mode #resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c) !important;
-}
-
-.light-mode #clearBtn {
-  background: rgba(255, 0, 0, 0.45) !important;
-  color: #fff !important;
 }
 
 
@@ -2025,6 +1980,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
