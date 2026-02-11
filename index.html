@@ -1104,7 +1104,15 @@ select.minimal option {
       </div>
 
       <div class="field">
-        <input type="number" id="amountInput" step="0.01">
+        
+<input 
+  type="number" 
+  id="amountInput" 
+  inputmode="decimal" 
+  pattern="[0-9]*"
+  step="0.01"
+>
+>
         <label>Betrag (€)</label>
       </div>
 
@@ -1817,6 +1825,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
