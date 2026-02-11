@@ -1106,11 +1106,14 @@ select.minimal option {
       <div class="field">
         
        <input 
-          type="number" 
-          id="amountInput" 
-          inputmode="decimal" 
-          pattern="[0-9]*"
-          step="0.01">
+        
+           type="text"
+           id="amountInput"
+           inputmode="decimal"
+           pattern="[0-9.,]*"
+           autocomplete="off"
+           enterkeyhint="done">
+
 
         <label>Betrag (€)</label>
       </div>
@@ -1549,7 +1552,7 @@ addBtn.onclick = () => {
 };
 amountInput.addEventListener("input", () => {
   // Komma zu Punkt umwandeln
-  amountInput.value = amountInput.value.replace(",", ".");
+  amountInput.value = amountInput.value.replace(/,/g, ".");
 });
 	
 amountInput.addEventListener("blur", () => {
@@ -1837,6 +1840,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
