@@ -39,7 +39,7 @@ body {
   height: auto;              /* Handyfreundlich, kein 100% Height */
   min-height: 100%;
   margin: 0;
-  padding: 24px;
+  padding: 0;
   overflow-y: auto;
   font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
   background: #0b1220;       /* DARK MODE Hintergrund */
@@ -410,10 +410,7 @@ select.minimal option {
   padding: 12px 16px;
   font-size: 1rem;
 }
-.analysis-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
-  border: 1px solid rgba(0, 212, 255, 0.5);
-}
+
 
 /* ============================================================
    10) ANALYSE-MODAL
@@ -1326,7 +1323,58 @@ analysis-panel .mini-select {
 .light-mode .field label {
   background: transparent !important;
 }
+/* ============================================================
+   RIGHT PANEL – FILTER & LISTE FIX (LIGHT MODE)
+   ============================================================ */
 
+/* 1. Alle Filter-Felder (Jahr / Monat / Tag) gleich breit */
+.light-mode .panel-right .field-group .field {
+  flex: 1 1 calc(33.333% - 10px) !important;
+  background: #ffffff !important;     /* Weißer Hintergrund */
+  border-radius: 10px !important;
+  padding: 6px 8px !important;
+}
+
+/* Abstand ZWISCHEN den Feldern kleiner machen */
+.light-mode .panel-right .field-group {
+  gap: 6px !important;                /* kleiner Abstand */
+  margin-bottom: 12px !important;     /* weniger Abstand nach unten */
+  margin-top: -8px !important;        /* weniger Abstand nach oben */
+}
+
+/* 2. KATEGORIE & TYPE (2. Zeile) gleiche Breite & Abstand */
+.light-mode .panel-right .field-group .field:nth-child(4),
+.light-mode .panel-right .field-group .field:nth-child(5) {
+  flex: 1 1 calc(50% - 6px) !important;
+  background: #ffffff !important;
+  border-radius: 10px !important;
+  padding: 6px 8px !important;
+  margin-top: -4px !important;        /* kleiner Abstand nach oben */
+}
+
+/* 3. INPUTS selbst bleiben transparent */
+.light-mode .panel-right .field input,
+.light-mode .panel-right .field select {
+  background: transparent !important;
+  border: none !important;
+  color: #002366 !important;
+}
+
+/* 4. PAPER (Liste) gleiche Breite wie Filter + weißer Hintergrund */
+.light-mode .panel-right .paper {
+  background: #e6e6e6 !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+  box-shadow: none !important;
+}
+
+/* 5. Eintragszettel (entry) weiß, NICHT transparent */
+.light-mode .panel-right .entry {
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.12) !important;
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;        /* gleicher Abstand wie Filter */
+}
 
 .light-mode .paper {
   background: #e6e6e6 !important;   /* gleiche Farbe wie panel-right */
@@ -1334,6 +1382,29 @@ analysis-panel .mini-select {
   box-shadow: none !important;
   border: none !important;
 }
+
+
+.mini-select {
+  text-align: center !important;         /* sichtbarer Wert zentriert */
+  text-align-last: center !important;    /* ausgewählter Wert zentriert */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.light-mode .panel-left .field input[type="date"] {
+  background: transparent !important;
+  color: #002366 !important;              /* Lesbar auf weißer Box */
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.light-mode html,
+.light-mode body {
+  background: #ffffff !important;   /* hellgrau – kein dunkler Rand mehr */
+  color: #002366 !important;         /* Textfarbe im Light Mode */
+  padding: 0 !important;
+}
+
 
 </style>
 </head>
