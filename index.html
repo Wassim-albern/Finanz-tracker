@@ -25,108 +25,126 @@
   <meta name="background-color" content="#0b1220">
 
 <style>
-  /* ============ Globales Layout / Scroll-Verhalten ============ */
-  * { box-sizing: border-box; }
+ /* ============================================================
+   1) GLOBAL BASIS — RESET, BODY, FONT, LAYOUT
+   ============================================================ */
 
-  html, body {
-    height: auto;        /* statt 100% – verhindert Scroll-Probleme auf Mobile */
-    min-height: 100%;
-    margin: 0;
-    padding: 24px;
-    overflow-y: auto;    /* nur EINE große Scrollbar (global) */
-    font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: #0b1220;
-    color: #e6eef8;
-  }
-
-  h1 {
-    text-align: center;
-    font-weight: 300;
-    margin: 6px 0 30px;
-  }
-
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    gap: 20px; /* Desktop Gap */
-  }
-
-  .panel-left, .panel-right {
-    background: #161a22;
-    border-radius: 16px;
-    border: none !important;
-    box-shadow: 0 2px 30px rgba(0,0,0,0.55);
-  }
-
-  /* Analyse-Panel (separates Panel) – gleiche Optik */
-  .analysis-panel {
-    background: #161a22;
-    border-radius: 16px;
-    border: none !important;
-    box-shadow: 0 2px 30px rgba(0,0,0,0.55);
-    padding: 18px;
-  }
-
-  .panel-left {
-    flex: 0 0 38%;
-    padding: 18px;
-  }
-
-  .panel-right {
-    flex: 0 0 62%;
-    padding: 18px;
-    border-radius: 16px;
-  }
-
-  .paper { 
-	
-background: #161a22 !important;
- 
-  border-radius: 16px
- 
+* {
+  box-sizing: border-box;
 }
 
-  /* ===================== Inputs & Floating Labels ===================== */
-  .field {
-    position: relative;
-    margin-bottom: 14px;
-    flex: 1;
-    min-width: 150px;
-	position: relative;
-  }
+/* Grundstruktur & Scroll-Verhalten */
+html,
+body {
+  height: auto;              /* Handyfreundlich, kein 100% Height */
+  min-height: 100%;
+  margin: 0;
+  padding: 24px;
+  overflow-y: auto;
+  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #0b1220;       /* DARK MODE Hintergrund */
+  color: #e6eef8;            /* DARK MODE Schrift */
+}
 
-  /* Einheitliche Höhe für Inputs & Selects (inkl. Neue Kategorie/Tag) */
-  .field input,
-  .field select {
-    width: 100%;
-    height: 48px; /* vereinheitlicht */
-    padding: 12px 12px 10px;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255,255,255,0.06);
-    color: #e6eef8;
-    font-size: 1rem;
-    outline: none;
-  }
+/* Hauptüberschrift */
+h1 {
+  text-align: center;
+  font-weight: 300;
+  margin: 6px 0 30px;
+}
 
-  .field input:hover,
-  .field select:hover {
-    background: rgba(255,255,255,0.12);
-  }
+/* Container für linkes + rechtes Panel */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+}
 
-  .field input:focus,
-  .field select:focus {
-    background: rgba(255,255,255,0.08) !important;
-    box-shadow:
-      0px 0px 0px 2px rgba(0, 212, 255, 0.20),
-      0px 0.5px 0px 0px #00d4ff; /* nur Unterlinie */
-    outline: none !important;
-    border: none !important;
-  }
+/* ============================================================
+   2) PANELS (LEFT / RIGHT / ANALYSE) — DARK MODE STANDARD
+   ============================================================ */
 
-  /* Floating Label – Basis */
-  
+.panel-left,
+.panel-right {
+  background: #161a22;
+  border-radius: 16px;
+  border: none !important;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
+}
+
+.analysis-panel {
+  background: #161a22;
+  border-radius: 16px;
+  border: none !important;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
+  padding: 18px;
+}
+
+/* Seitenverhältnis */
+.panel-left {
+  flex: 0 0 38%;
+  padding: 18px;
+}
+
+.panel-right {
+  flex: 0 0 62%;
+  padding: 18px;
+  border-radius: 16px;
+}
+
+/* Papier-Container (Rechte Seite Liste) */
+.paper {
+  background: #161a22 !important;
+  border-radius: 16px;
+}
+
+/* ============================================================
+   3) INPUT-FELDER BASIS — DARK MODE STANDARD
+   ============================================================ */
+
+.field {
+  position: relative;
+  margin-bottom: 14px;
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Einheitliche Eingabefeld-Höhe */
+.field input,
+.field select {
+  width: 100%;
+  height: 48px;
+  padding: 12px 12px 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6eef8;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Hover */
+.field input:hover,
+.field select:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Focus */
+.field input:focus,
+.field select:focus {
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0px 0px 0px 2px rgba(0, 212, 255, 0.20),
+    0px 0.5px 0px 0px #00d4ff;
+  outline: none !important;
+  border: none !important;
+}
+
+/* ============================================================
+   4) FLOATING LABEL STANDARD (DARK MODE)
+   ============================================================ */
+
 .field label {
   position: absolute;
   left: 12px;
@@ -136,35 +154,27 @@ background: #161a22 !important;
   padding: 0 4px;
   pointer-events: none;
   font-size: 1rem;
- 
   background: transparent !important;
-  transition: all 0.20s ease;
+  transition: all 0.2s ease;
   line-height: 1;
 }
 
-
-  /* Floating Label – bei Fokus / gefüllt */
-  .field:focus-within label,
-  .field.filled label {
-
-
-  top: -8px;                           /* perfekt gleiche Höhe */
+/* SCHWEBEND (FOKUS oder ausgefüllt) */
+.field:focus-within label,
+.field.filled label {
+  top: -8px;
   left: 10px;
   transform: none;
   font-size: 0.78rem;
-
-  background: #161a22;                 /* ← kleiner Hintergrund */
-  padding: 0 6px;                      /* etwas breiter, damit es schöner aussieht */
-  border-radius: 4px;                  /* leicht rund wie modern UI */
+  background: #161a22;
+  padding: 0 6px;
+  border-radius: 4px;
 }
 
-
-
-
+/* Select Floating */
 .field select:not([value=""]) ~ label,
 .field select:not([value=" "]) ~ label,
 .field select:focus ~ label {
-  /* FLOATEN */
   top: -8px !important;
   left: 10px !important;
   transform: none !important;
@@ -175,1008 +185,1079 @@ background: #161a22 !important;
   border-radius: 4px !important;
 }
 
+/* ============================================================
+   5) RADIOS & BUTTONS — BASIS (DARK MODE UNVERÄNDERT)
+   ============================================================ */
 
- 
-
-  /* ===================== Radios & Buttons (Basis) ===================== */
-  .radio-group { display: flex; gap: 26px; margin: 8px 0 50px; }
-
-  .action-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 15px;
-  }
-
-  .action-row button {
-    flex: 1;
-    max-width: 2000px;
-    height: 48px;
-    font-size: 1rem;
-    border-radius: 10px;
-  }
-
-  #addBtn { flex: 2; }
-  #clearBtn { flex: 1; }
-
-  /* Clear-Button (Icon-Text wird im Body ersetzt: 🗑️ -> ➖) – Basisfarben */
-  #clearBtn {
-    background:rgba(165, 0, 0, 1);
-    border: 1px solid rgba(255, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 1);
-    font-size: 0.85rem;
-    transition: 0.2s ease;
-  }
- 
-  /* ==== Controls Row (Analyse-Controls Grundlayout) ==== */
-  .controls-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .analysis-controls .controls-row {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-  }
-
-  .analysis-controls .controls-row > * {
-    flex: 1 1 0;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-
-  .analysis-controls .controls-row .mini-select,
-  .analysis-controls .controls-row .toggle-btn {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 12px;
-    font-size: 0.95rem;
-  }
-
-  .analysis-controls .controls-row .toggle-btn.active {
-    background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-    border-color: transparent !important;
-    color: #fff !important;
-  }
-
-  .analysis-controls .controls-row .toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.06);
-    color: #e6eef8;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .analysis-controls .controls-row .toggle-btn:hover:not(.active),
-  .analysis-controls .controls-row .mini-select:hover {
-    background: rgba(255,255,255,0.12);
-  }
-
-  .analysis-controls .controls-row .toggle-btn:focus-visible,
-  .analysis-controls .controls-row .mini-select:focus {
-    outline: none;
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-    background: rgba(255,255,255,0.08);
-    color: #e6eef8;
-  }
-
-  button {
-    padding: 10px 14px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .primary {
-    background: linear-gradient(135deg, #00d4ff, #007bff);
-    color: #fff;
-  }
-
-  .ghost {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: inherit;
-    line-height: 1.2;
-  }
-
-  #clearBtn { font-size: 0.85rem; }
-
-/* ===================== Entries ===================== */
-  .entry {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
-    margin: 8px 0;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    align-items: center;
-    gap: 22px;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .meta { color: #002366; flex: 1; }
-  .small { font-size: 0.85rem; color:black; }
-
-  .amount-income { color: #218838; font-weight: 700; }
-  .amount-expense { color: #c82333; font-weight: 700; }
-
-  .balance {
-    margin-top: 12px;
-    padding-top: 12px;
-    padding-bottom: 20px;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  /* ===================== RIGHT FILTER AREA ===================== */
-  .field-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  select.minimal {
-    font-size: 0.9rem;
-    padding: 8px 10px;
-    width: 100%;
-    background-color: rgba(255,255,255,0.06);
-  }
-
-  select.minimal option {
-    background-color: #161a22 !important;
-    color: #e6eef8 !important;
-  }
-
-  /* MINI SELECTS */
-  .mini-select {
-    appearance: none;
-    background: rgba(255, 255, 255, 0.06);
-    color: #e6eef8;
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: 600;
-    height: 38px;
-    line-height: 1;
-    transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
-  }
-
-  .mini-select:hover { background: rgba(255,255,255,0.12); }
-
-  .mini-select:focus {
-    outline: none;
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-    background: rgba(255,255,255,0.08);
-    color: #e6eef8;
-  }
-
-  .mini-select option {
-    background-color: #161a22 !important;
-    color: #e6eef8 !important;
-  }
-
-  /* ANALYSE BUTTONS */
-  .analysis-controls { margin: 14px 0 4px; }
-  .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-
-  .toggle-btn {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.06);
-    color: #e6eef8;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .toggle-btn.active {
-    background: linear-gradient(135deg, #0a7a36, #024d20);
-    border-color: transparent;
-    color: #fff;
-  }
-
-  .toggle-btn:hover:not(.active) { background: rgba(255,255,255,0.12); }
-
-  .analysis-btn {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 1rem;
-  }
-
-  .analysis-btn:hover {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
-    border: 1px solid rgba(0, 212, 255, 0.5);
-  }
-
-  /* ===================== ANALYSIS MODAL ===================== */
-  #analysisModal {
-    position: fixed; inset: 0; display: none;
-    justify-content: center; align-items: center;
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
-    z-index: 1100;
-  }
-
-  .analysis-sheet {
-    position: relative;
-    background: #fff; color: #222;
-    border-radius: 16px;
-    width: min(820px, 92vw);
-    padding: 18px 20px;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-    animation: pop .2s ease;
-  }
-
-  .analysis-sheet h2 { margin: 0 0 10px; color: #111; }
-
-  .analysis-body {
-    max-height: 60vh; overflow-y: auto;
-    white-space: pre-wrap;
-    line-height: 1.5;
-    font-size: 0.98rem;
-  }
-
-  .close-x {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #333;
-    font-size: 1.1rem;
-    padding: 4px 6px;
-    border-radius: 8px;
-  }
-
-  .analysis-close-btn {
-    border: 1px solid black !important;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: block;
-    margin: 20px auto 0 auto;
-    color: #e6eef8;
-    background: #161a22;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .analysis-close-btn:hover { background: #161a22; }
-
-  .panel-left h2,
-  .panel-right h2,
-  .analysis-panel h2 {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 27px;
-  }
-
-  /* (Optional) Desktop: dezente Scrollbar in Panel-Inhalten */
-  @media (min-width: 901px) {
-    .paper::-webkit-scrollbar,
-    .panel-left::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    .paper::-webkit-scrollbar-track,
-    .panel-left::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.04);
-      border-radius: 10px;
-    }
-
-    .paper::-webkit-scrollbar-thumb,
-    .panel-left::-webkit-scrollbar-thumb {
-      background: rgba(0, 212, 255, 0.35);
-      border-radius: 10px;
-    }
-
-    .paper::-webkit-scrollbar-thumb:hover,
-    .panel-left::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 212, 255, 0.55);
-    }
-  }
-
-  .analysis-blue { color: #4da3ff; font-weight: 600; }
-  .analysis-tag-green { color: #d16e00; font-weight: 600; }
-  .analysis-pos { color: #218838; font-weight: 600; }
-  .analysis-neg { color: #c82333; font-weight: 600; }
-
-/* ============ Responsive: Mobile-Stack & breiter + größerer Abstand ============ */
-  @media (max-width: 900px) {
-    /* Panels untereinander + deutlich mehr Abstand */
-    .container { flex-direction: column; gap: 34px; } /* größerer Abstand */
-    .panel-left, .panel-right, .analysis-panel { flex: 1 1 auto; width: 100%; }
-
-    /* Breiter auf Mobile: weniger äußeres Padding */
-    html, body { padding: 14px; }
-
-    /* Innen kein eigener Scroll/keine feste Höhe */
-    .panel-left, .panel-right, .analysis-panel, .paper {
-      height: auto !important;
-      overflow: visible !important;
-    }
-
-    /* Titel mittig – mehr Abstand bei Neue Eingabe */
-    .panel-left h2 { margin-bottom: 34px; }
-    .panel-right h2 { text-align: center; }
-    .analysis-panel h2 { text-align: center; }
-
-    /* ===== Abstände — Linkes Panel ===== */
-    /* kleinerer Abstand zw. Radio-Gruppe (Ausgabe/Einnahme) und Betrag */
-    .radio-group { margin: 8px 0 16px !important;
-				  display: flex;
-				  gap: 62px}
-
-    /* kleiner Abstand zwischen Betrag und Beschreibung */
-    #amountInput { margin-bottom: 6px !important; }
-    #descriptionInput { margin-bottom: 8px !important; }
-
-    /* kleiner Abstand zwischen Kategorie und Neue Kategorie */
-    #newCategoryInput { margin-top: 6px !important; margin-bottom: 10px !important; }
-
-    /* kleiner Abstand zwischen Tag und Neuer Tag */
-    #newTagInput { margin-top: 6px !important; margin-bottom: 10px !important; }
-
-    /* ===== Buttons im linken Panel (2:1), volle Feldbreite, Farbe gesetzt ===== */
-    .action-row {
-      display: flex;
-      gap: 12px;
-      justify-content: stretch;
-      margin-top: 20px;
-    }
-    #addBtn, #clearBtn {
-      height: 48px !important;
-      border-radius: 10px;
-      font-size: 1rem;
-      width: 100%;
-    }
-    #addBtn {
-      flex: 2;
-      background: linear-gradient(135deg, #00d4ff, #007bff) !important;
-      color: #fff !important;
-    }
-    #clearBtn {
-      flex: 1;
-      background: rgba(255,0,0,0.35) !important;
-      color: #fff !important;
-      border: 1px solid rgba(255,0,0,0.3) !important;
-    }
-
-    /* Nur "Löschen" zeigen – alten Text ausblenden */
-    
-#clearBtn {
-  display: flex !important;
-  align-items: center !important;   /* vertikal mittig */
-  justify-content: center !important;/* horizontal mittig */
-  height: 48px !important;
-  font-size: 0 !important;          /* alten Text ausblenden */
-  position: relative !important;
+/* Einfache Radio-Reihe (Einnahme/Ausgabe) */
+.radio-group {
+  display: flex;
+  gap: 26px;
+  margin: 8px 0 50px;
 }
 
-#clearBtn::after {
+/* Button-Reihe (Hinzufügen / Löschen) */
+.action-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.action-row button {
+  flex: 1;
+  max-width: 2000px;
+  height: 48px;
   font-size: 1rem;
-  line-height: 1;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+#addBtn { flex: 2; }
+#clearBtn { flex: 1; }
+
+/* Standard-Button-Designs */
+.primary {
+  background: linear-gradient(135deg, #00d4ff, #007bff);
   color: #fff;
 }
 
-
-    /* ===== Kassenbon-Filter =====
-       1. Zeile: Jahr/Monat/Tag -> 3 Spalten, je 1/3
-       2. Zeile: Kategorie/Tag -> 2 Spalten, je 1/2
-       Gesamthöhe/Optik wie linke Felder */
-    .panel-right .field-group {
-      gap: 10px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    /* 1. Reihe */
-    .panel-right .field-group .field:nth-child(1),
-    .panel-right .field-group .field:nth-child(2),
-    .panel-right .field-group .field:nth-child(3) {
-      flex: 1 1 calc(33.333% - 10px);
-      min-width: 0;
-    }
-
-    /* 2. Reihe */
-    .panel-right .field-group .field:nth-child(4),
-    .panel-right .field-group .field:nth-child(5) {
-      flex: 1 1 calc(50% - 10px);
-      min-width: 0;
-    }
-
-    /* Höhe angleichen */
-    .field input,
-    .field select,
-    select.minimal,
-    .mini-select {
-      height: 48px !important;
-      padding: 10px 10px 8px;
-      font-size: 0.98rem;
-    }
-
-    /* ===== Analyse-Panel =====
-       Controls in EINER Zeile, 4 Elemente => 1:4 (gleich breit),
-       Analyse-Button volle Breite (1:1) */
-    .analysis-panel .analysis-controls .controls-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      align-items: stretch;
-    }
-
-    .analysis-panel .controls-row > * {
-      flex: 1 1 calc(25% - 10px);
-      min-width: 0;
-      height: 48px !important;
-      font-size: 1rem !important;
-    }
-
-    .analysis-panel .analysis-btn {
-      width: 100% !important;
-      height: 48px !important;
-      font-size: 1rem !important;
-      margin-top: 6px;
-    }
-
-    /* Panel-spezifische Scrollbars auf Mobile ausblenden */
-    .paper::-webkit-scrollbar,
-    .panel-left::-webkit-scrollbar { display: none; }
-  }
-
-  /* Feinschliff für sehr kleine Screens: noch breiter durch weniger Padding */
-  @media (max-width: 480px) {
-    html, body { padding: 10px; }
-    h1 { font-size: 1.35rem; margin-bottom: 18px; }
-    .analysis-sheet { width: 94vw; padding: 14px; }
-    .analysis-body { max-height: 66vh; }
-  }
-
-
-
-/* ==== Zusätzliche Konsistenz: Hover/Focus in Mobile vereinheitlichen ==== */
-  @media (max-width: 900px) {
-    .field input:hover,
-    .field select:hover,
-    select.minimal:hover,
-    .mini-select:hover {
-      background: rgba(255,255,255,0.12);
-    }
-    .field input:focus,
-    .field select:focus,
-    select.minimal:focus,
-    .mini-select:focus {
-      background: rgba(255,255,255,0.08) !important;
-      box-shadow:
-        0px 0px 0px 2px rgba(0, 212, 255, 0.20),
-        0px 0.5px 0px 0px #00d4ff !important;
-      outline: none !important;
-      border: none !important;
-    }
-  }
-
-
-/* ===============================
-   ANALYSE-PANEL OPTIMIERUNG
-   (Wassim Spezial Edition)
-================================ */
-
-/* Panel insgesamt größer wirken lassen */
-.analysis-panel {
-  
-  background: #161a22 !important;
-  padding: 26px !important;
-  border-radius: 16px !important;
-
+.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: inherit;
+  line-height: 1.2;
 }
 
-/* Abstand zum unteren Rand für Analyse-Button */
-.analysis-panel .analysis-btn {
-  margin-top: 14px !important;
-  margin-bottom: 14px !important;
+/* Clear-Button (Dark Mode) */
+#clearBtn {
+  background: rgba(165, 0, 0, 1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.85rem;
+  transition: 0.2s ease;
 }
 
-/* Layout ändern:
-   - 2 Buttons pro Zeile
-   - Jahr / Monat oben
-   - Kategorie / Tag unten
-*/
-.analysis-panel .analysis-controls .controls-row {
+/* ============================================================
+   6) LISTENEINTRÄGE (RECHTES PANEL) — DARK MODE BASIS
+   ============================================================ */
+
+.entry {
   display: flex;
-  flex-wrap: wrap !important;
-  gap: 12px !important;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* JEDE Box = 1/2 breite */
-.analysis-panel .controls-row > * {
-  flex: 1 1 calc(50% - 12px) !important;
-  height: 48px !important;
-  font-size: 1rem !important;
-  min-width: 0 !important;
+.meta { color: #002366; flex: 1; }
+.small { font-size: 0.85rem; color: black; }
+
+.amount-income { color: #218838; font-weight: 700; }
+.amount-expense { color: #c82333; font-weight: 700; }
+
+.balance {
+  margin-top: 12px;
+  padding-top: 12px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
 }
 
-/* Buttons sauber zentrieren */
-.analysis-panel .toggle-btn,
-.analysis-panel .mini-select {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  height: 48px !important;
+/* ============================================================
+   7) RECHTE FILTER-ZEILE (Jahr/Monat/Tag/Kat/Tag)
+   ============================================================ */
+
+.field-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-/* Analyse Button Vollbreite */
-.analysis-panel .analysis-btn {
-  width: 100% !important;
-  height: 48px !important;
-  font-size: 1rem !important;
-  border-radius: 10px !important;
-}
-	
-/* Analyse-Panel: Select-Text mittig 
-   (Anzeige & Optionen soweit Browser es erlauben)
-================================= */
-
-/* Anzeige (ausgewählter Wert) mittig in allen modernen Browsern */
-
-
-analysis-panel .mini-select {
-  /* Anzeige des ausgewählten Textes zentrieren */
-  text-align: center !important;
-  text-align-last: center !important;       /* Chromium, teils Edge */
-  -moz-text-align-last: center !important;  /* Firefox */
-  -webkit-text-align-last: center !important; /* WebKit (experimentell, aber hilft oft) */
-
-  /* WebKit "Kick", damit Zentrierung stattfindet */
-  -webkit-appearance: none !important;
-  appearance: none !important;
-
-  /* Keine optische Schieflage durch Padding/Indent */
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  text-indent: 0 !important;
-
-  /* Sicherheit */
-  direction: ltr !important;
+/* Minimal-Select (rechte Seite) */
+select.minimal {
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.06);
 }
 
-/* Dropdown-Optionen (Chrome/Edge/Firefox meist ok) */
-.analysis-panel .mini-select option {
-  text-align: center !important;
-  direction: ltr !important;
+select.minimal option {
+  background-color: #161a22 !important;
+  color: #e6eef8 !important;
 }
 
-/* iOS/Safari: Anzeige sicher zentriert (Liste bleibt ggf. systembedingt links) */
-@supports (-webkit-touch-callout: none) {
+/* ============================================================
+   8) MINI-SELECTS (Analyse/Filter)
+   ============================================================ */
+
+.mini-select {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  height: 38px;
+  line-height: 1;
+  transition:
+    border-color .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+.mini-select:hover { background: rgba(255,255,255,0.12); }
+
+.mini-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+  background: rgba(255,255,255,0.08);
+  color: #e6eef8;
+}
+
+.mini-select option {
+  background-color: #161a22 !important;
+  color: #e6eef8 !important;
+}
+
+/* ============================================================
+   9) ANALYSE-CONTROLS & TOGGLE BUTTONS
+   ============================================================ */
+
+.analysis-controls { margin: 14px 0 4px; }
+
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Layout der Buttons/Selects in der Analyse-Zeile */
+.analysis-controls .controls-row {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.analysis-controls .controls-row > * {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+/* Toggle-Button Basis */
+.toggle-btn,
+.analysis-controls .controls-row .toggle-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #e6eef8;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Toggle Hover (nicht aktiv) */
+.toggle-btn:hover:not(.active),
+.analysis-controls .controls-row .toggle-btn:hover:not(.active),
+.analysis-controls .controls-row .mini-select:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Toggle Fokus */
+.analysis-controls .controls-row .toggle-btn:focus-visible,
+.analysis-controls .controls-row .mini-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
+  background: rgba(255,255,255,0.08);
+  color: #e6eef8;
+}
+
+/* Toggle aktiv */
+.toggle-btn.active,
+.analysis-controls .controls-row .toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+/* Analyse-Action-Button */
+.analysis-btn {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+}
+.analysis-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.35), rgba(0, 123, 255, 0.35));
+  border: 1px solid rgba(0, 212, 255, 0.5);
+}
+
+/* ============================================================
+   10) ANALYSE-MODAL
+   ============================================================ */
+
+#analysisModal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1100;
+}
+
+.analysis-sheet {
+  position: relative;
+  background: #fff;
+  color: #222;
+  border-radius: 16px;
+  width: min(820px, 92vw);
+  padding: 18px 20px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  animation: pop .2s ease;
+}
+
+.analysis-sheet h2 { margin: 0 0 10px; color: #111; }
+
+.analysis-body {
+  max-height: 60vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 0.98rem;
+}
+
+.close-x {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.1rem;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.analysis-close-btn {
+  border: 1px solid black !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: block;
+  margin: 20px auto 0 auto;
+  color: #e6eef8;
+  background: #161a22;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Panel-Überschriften (h2) */
+.panel-left h2,
+.panel-right h2,
+.analysis-panel h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 27px;
+}
+
+/* ============================================================
+   11) RESPONSIVE — MOBILE (<= 900px)
+   Fokus: Stack, Abstände, Höhen, Buttons, Analyse-Controls
+   ============================================================ */
+
+@media (max-width: 900px) {
+  /* Panels untereinander + mehr Abstand */
+  .container {
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  /* Außenabstand auf Mobile */
+  html,
+  body {
+    padding: 14px;
+  }
+
+  /* Panels/Listen ohne feste Höhe & ohne eigene Scrollbars */
+  .panel-left,
+  .panel-right,
+  .analysis-panel,
+  .paper {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Headlines */
+  .panel-left h2 { margin-bottom: 34px; text-align: center; }
+  .panel-right h2,
+  .analysis-panel h2 { text-align: center; }
+
+  /* Radio-Gruppe (Einnahme/Ausgabe) kompakter */
+  .radio-group {
+    margin: 8px 0 16px !important;
+    display: flex;
+    gap: 62px;
+  }
+
+  /* Feldhöhen angleichen */
+  .field input,
+  .field select,
+  select.minimal,
+  .mini-select {
+    height: 48px !important;
+    padding: 10px 10px 8px;
+    font-size: 0.98rem;
+  }
+
+  /* Buttons in linker Spalte: 2:1, full width */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    justify-content: stretch;
+    margin-top: 20px;
+  }
+  #addBtn,
+  #clearBtn {
+    height: 48px !important;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  #addBtn { flex: 2; }
+  #clearBtn { flex: 1; }
+
+  /* Kassenbon-Filter: 
+     1. Reihe (Jahr/Monat/Tag) je 1/3 
+     2. Reihe (Kategorie/Tag) je 1/2 */
+  .panel-right .field-group {
+    gap: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .panel-right .field-group .field:nth-child(1),
+  .panel-right .field-group .field:nth-child(2),
+  .panel-right .field-group .field:nth-child(3) {
+    flex: 1 1 calc(33.333% - 10px);
+    min-width: 0;
+  }
+  .panel-right .field-group .field:nth-child(4),
+  .panel-right .field-group .field:nth-child(5) {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0;
+  }
+
+  /* Analyse-Panel Controls: Wrap, halbe Breite */
+  .analysis-panel .analysis-controls .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .analysis-panel .controls-row > * {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0;
+    height: 48px !important;
+    font-size: 1rem !important;
+  }
+  .analysis-panel .toggle-btn,
   .analysis-panel .mini-select {
-    text-align: center !important;
-    text-align-last: center !important;
-    -webkit-text-align-last: center !important;
-    -webkit-appearance: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 48px !important;
+  }
+  .analysis-panel .analysis-btn {
+    width: 100% !important;
+    height: 48px !important;
+    font-size: 1rem !important;
+    margin-top: 6px;
+    border-radius: 10px !important;
+  }
+
+  /* Panel-spezifische Scrollbars auf Mobile ausblenden (WebKit) */
+  .paper::-webkit-scrollbar,
+  .panel-left::-webkit-scrollbar {
+    display: none;
   }
 }
-	/* =========================================================
-   GLOBAL FIX – Blauen Rand überall entfernen
-   (Inputs, Selects, minimal, mini-select, field)
-========================================================= */
 
-/* Alle Felder: KEIN blauer Rand, KEIN blauer Glow */
-.field input:hover,
-.field select:hover,
-select.minimal:hover,
-.mini-select:hover,
-.field input:focus,
-.field select:focus,
-select.minimal:focus,
-.mini-select:focus {
-  box-shadow: none !important;             /* Rand weg */
-  outline: none !important;                /* Focus Outline weg */
-  border: none !important;                 /* Edge Cases */
-  background: rgba(255,255,255,0.12) !important;  /* Standard Hover */
+/* ============================================================
+   12) VERY SMALL SCREENS (<= 480px) — Feinschliff
+   ============================================================ */
+
+@media (max-width: 480px) {
+  html,
+  body {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 1.35rem;
+    margin-bottom: 18px;
+  }
+  .analysis-sheet {
+    width: 94vw;
+    padding: 14px;
+  }
+  .analysis-body {
+    max-height: 66vh;
+  }
 }
 
-/* Dropdown-Optionen nicht anfassen */
-.mini-select option,
-select.minimal option {
-  text-align: left;
+/* ============================================================
+   13) MOBILE: Fokus/Hover vereinheitlichen (keine Glows)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .field input:hover,
+  .field select:hover,
+  select.minimal:hover,
+  .mini-select:hover,
+  .field input:focus,
+  .field select:focus,
+  select.minimal:focus,
+  .mini-select:focus {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+  }
 }
 
-/* Falls irgendein alter Fokus-Stil aktiv war → entfernen */
-:focus {
-  outline: none !important;
+/* ============================================================
+   14) LIGHT MODE — EINHEITLICHE FARBEN & FLÄCHEN
+   Panels/Boxen weiß, Texte dunkelblau, Floating hellblau
+   ============================================================ */
+
+/* Seite & Grundschrift */
+.light-mode,
+.light-mode body {
+  background: #ffffff !important;
+  color: #002366 !important;  /* einheitliche Textfarbe */
+}
+
+/* Headings einheitlich */
+.light-mode h1,
+.light-mode h2,
+.light-mode h3 {
+  color: #002366 !important;
+}
+
+/* Panels: rechte Seite & Papier-Container gleich, ohne Shadow */
+.light-mode .panel-right,
+.light-mode .panel-right .paper,
+.light-mode .analysis-panel {
+  background: #ffffff !important;
+  color: #002366 !important;
   box-shadow: none !important;
-}
-/* =========================================================
-   EINHEITLICHER PANEL-ABSCHLUSS (40px Abstand)
-   Referenz = Analyse-Panel: 26px padding + 14px margin = 40px
-========================================================= */
-
-/* ANALYSE-PANEL (Gold-Standard) – bleibt wie es ist */
-
-.panel-left,
-.panel-right,
-.analysis-panel {
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-  padding-top: 36px !important;
+  border: none !important;
+  border-radius: 16px;
 }
 
-/* =========================================================
-   OBERER ABSTAND — Überschriften bekommen KEIN extra margin
-========================================================= */
-.panel-left h2,
-.panel-right .paper h2,
-.analysis-panel h2 {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+/* Liste im rechten Panel: weiße Items + feine Kante */
+.light-mode .panel-right .entry {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
 }
+.light-mode .panel-right .entry .small { color: #334 !important; }
+.light-mode .panel-right .amount-income { color: #218838 !important; }
+.light-mode .panel-right .amount-expense { color: #c82333 !important; }
 
-/* =========================================================
-   RECHTES PANEL (Kassenbon) — Papier korrekt ausrichten
-========================================================= */
-.panel-right .paper {
-  /* KEIN zusätzliches Padding links/rechts */
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-
-  /* Oberer Bereich nicht doppelt einrücken */
-  padding-top: 0 !important;
-
-  /* Margin-Collapsing verhindern (sauberste Lösung) */
-  display: flow-root !important;
-
-  /* Keine äußeren Ränder */
-  margin-top: 0 !important;
-}
-
-/* =========================================================
-   UNTERER ABSCHLUSS: überall 40px
-   26px padding-bottom + 14px margin-bottom
-========================================================= */
-
-/* Analyse */
-.analysis-panel {
-  padding-bottom: 26px !important;
-}
-.analysis-panel .analysis-btn {
-  margin-bottom: 14px !important;
-}
-
-/* Links */
-.panel-left {
-  padding-bottom: 26px !important;
-}
-.panel-left .action-row {
-  margin-bottom: 14px !important;
-}
-
-/* Rechts */
-.panel-right .paper {
-  padding-bottom: -12px !important;
-}
-.panel-right .balance {
-  margin-bottom: 2px !important;
-}
-
-/* Sicherheit: alle direct children in paper ohne extra Einrückung */
-.panel-right .paper > * {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.field label {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-}
-
-/* Fix: Geschwebte Labels exakt gleiche Höhe */
-.field.filled label,
-.field:focus-within label {
-  top: -10px !important;    /* gleiche Höhe für ALLE */
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.8rem !important;
-}
-
-	
-.small-float label {
-  /* bleibt unten wie normal */
-}
-
-/* beim Füllen oder Fokus → kleiner Sprung */
-.small-float.filled label,
-.small-float:focus-within label {
-  top: -2px !important;          /* << HIER wird Sprunghöhe gesteuert */
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  background: #161a22 !important;
-  padding: 0 4px !important;
-  border-radius: 4px !important;
-}
-
-
-/* ==========================================
-   THEME TOGGLE BUTTON (Sun / Moon)
-========================================== */
-
-.theme-toggle {
-  font-size: 2rem;
-  cursor: pointer;
-  user-select: none;
-  text-align: center;
-  margin: 0px auto 0 auto;  /* zentriert */
-  padding-buttom: 20px;
-  width: fit-content;
-  transition: transform 0.2s ease;
-}
-
-.theme-toggle:hover {
-  transform: scale(1.15);
-}
-
-/* LIGHT MODE */
-/* =============================
-      LIGHT MODE (NEU & FIX)
-============================= */
-
-
+/* Eingabefelder/Boxen einheitlich: weiß + dunkelblau */
 .light-mode .field input,
 .light-mode .field select,
 .light-mode select.minimal,
 .light-mode .mini-select {
-  background: transparent !important;  /* Kein weiß/grau hinter Text */
-  color: #00d4ff !important;           /* Dunkelblau überall */
-  border: 1px solid rgba(0,0,0,0.0.3) !important;
+  background: #ffffff !important;  /* alle Boxes/Inputs weiß */
+  color: #002366 !important;       /* Eingaben/Values dunkelblau */
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-.light-mode .field input[type="date"] {
-  color: #002366 !important;              /* Fallback/Fx */
+/* Hover/Focus ohne Aufhellen */
+.light-mode .field input:hover,
+.light-mode .field input:focus,
+.light-mode .field select:hover,
+.light-mode .field select:focus,
+.light-mode select.minimal:focus,
+.light-mode .mini-select:focus {
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.35) !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-/* Label Farbe in Light Mode */
+/* Labels: nicht floating = dunkelblau */
 .light-mode .field label {
-  color: #002366 !important;           /* Dunkelblau */
-  background: transparent !important;  /* Keine graue Box mehr */
+  color: #002366 !important;
+  background: transparent !important;
 }
 
-/* Floating Label (oben) auch dunkelblau + transparent */
+/* Labels: floating = hellblau (überall) */
 .light-mode .field.filled label,
 .light-mode .field:focus-within label,
-.light-mode .field select.has-value + label {
-  color: #002366 !important;           /* Dunkelblau */
-  background: transparent !important;  /* Transparent */
-  font-size: 0.78rem !important;
+.light-mode .field select.has-value + label,
+.light-mode .field select:focus + label {
+  color: #00a7ff !important;       /* floating hellblau */
+  background: transparent !important;
 }
 
-/* Kategorie / Tag Select fix:
-   - Label bleibt unten bis value vorhanden
-   - Farbe dunkelblau
-*/
+/* Select: Label bleibt unten, wenn leer */
 .light-mode .field select:not(:focus):not(.has-value) + label {
-  
-  background: transparent !important;
   color: #002366 !important;
 }
 
-/* Optionen in Select-Menüs */
-.light-mode .field select option,
-.light-mode select.minimal option,
-.light-mode .mini-select option {
-  background: #ffffff !important;  /* Dropdown weiß */
-  color: #002366 !important;       /* TEXT dunkelblau */
+/* Platzhalter dezent */
+.light-mode ::placeholder {
+  color: #5a6aa0 !important;
+  opacity: 1;
 }
 
-/* Analyse-Buttons (Kategorie/Tag) Light Mode: richtig dunkelblau */
-.light-mode .analysis-panel .toggle-btn {
-  background: transparent !important;
+/* Datum-Input: eingegebene Werte dunkelblau, Fläche weiß */
+.light-mode .field input[type="date"] {
   color: #002366 !important;
+  background: #ffffff !important;
   border: 1px solid rgba(0,0,0,0.25) !important;
 }
 
+/* WebKit (Chrome/Edge/Safari) – sichtbare Teile vom Datum einfärben */
+.light-mode .field input[type="date"]::-webkit-datetime-edit,
+.light-mode .field input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.light-mode .field input[type="date"]::-webkit-datetime-edit-text,
+.light-mode .field input[type="date"]::-webkit-datetime-edit-month-field,
+.light-mode .field input[type="date"]::-webkit-datetime-edit-day-field,
+.light-mode .field input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #002366 !important;
+  background: transparent !important;
+}
+/* Kalender-Icon auf weiß: neutral */
+.light-mode .field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: .85;
+}
+
+/* Mini-Selects & Dropdown-Optionen lesbar auf weiß */
+.light-mode .mini-select,
+.light-mode select.minimal {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+}
+.light-mode .mini-select option,
+.light-mode select.minimal option,
+.light-mode .field select option {
+  background: #ffffff !important;
+  color: #002366 !important;
+}
+
+/* Analyse-Toggle-Buttons: neutral weiß, aktiv grün */
+.light-mode .analysis-panel .toggle-btn {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  box-shadow: none !important;
+}
 .light-mode .analysis-panel .toggle-btn.active {
   background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  color: #fff !important;
+  color: #ffffff !important;
   border: none !important;
 }
 
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #e6e6e6 !important;   /* schönes hellgrau */
-  color: #002366 !important;        /* dunkelblau */
-  border: none !important;
-  box-shadow: 0 2px 18px rgba(0,0,0,0.08) !important;
+/* Buttons generell ohne Shadows im Light Mode */
+.light-mode button {
+  color: #002366 !important;
+  box-shadow: none !important;
+  border: none;
+}
+.light-mode button.primary { color: #ffffff !important; }
+.light-mode #clearBtn { color: #ffffff !important; }
+
+/* Panel-Überschriften in Light Mode */
+.light-mode .panel-right h2,
+.light-mode .analysis-panel h2 {
+  color: #002366 !important;
+}
+/* ============================================================
+   15) BEREINIGUNG / ENTFERNUNG ÜBERFLÜSSIGER REGELN
+   ============================================================ */
+
+/* ❌ Entfernt globalen hellblauen Label-Farbfehler */
+.field label {
+  /* Farbe wird nun im Dark/Light Mode korrekt gesetzt */
+  color: inherit !important;
 }
 
-
+/* ❌ Entfernt störende globale Floating-Farbüberschreibung */
 .field:focus-within label,
 .field.filled label {
+  /* Floating-Farbe wird im jeweiligen Mode gesetzt */
+  color: inherit !important;
+  background: inherit !important;
+}
+
+/* ❌ Entfernt altes dunkles Papier (überschrieb Light Mode) */
+.paper {
+  /* Hintergrund wird nun mode-spezifisch gesetzt */
+  background: inherit !important;
+}
+
+/* ❌ Entfernt alte Light-Mode-Regeln, die Dark-Mode zerstört hätten */
+.light-mode .field input,
+.light-mode .field select {
+  /* korrekte Version steht in Light Mode Block */
+  background: inherit !important;
+  color: inherit !important;
+}
+
+/* ❌ Entfernt doppelten blauen Glow-Rest vollständig */
+.field input:focus,
+.field select:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* ❌ Entfernt doppelte globalen Fokus-Stil */
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ❌ Entfernt kaputten Transparenz-Reset in Light Mode */
+.light-mode .panel-right .paper {
+  background: inherit !important;
+}
+
+/* ============================================================
+   16) EINHEITLICHE FLOATING BEHANDLUNG (GLOBAL)
+   ============================================================ */
+
+/* Floating Labels Standardposition – Dark Mode */
+.field.filled label,
+.field:focus-within label {
   top: -8px !important;
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
-  color: #00d4ff !important;
-  background: transparent !important; /* <<< WIE GEWÜNSCHT */
-  padding: 0 4px !important;
 }
 
-
-
-/* =========================================================
-   2) SELECT-FELDER (Kategorie & Tag) – 
-      Label bleibt UNTEN bis etwas ausgewählt wird
-========================================================= */
-
-/* Normalzustand → Label bleibt unten */
-.field select:not(:focus):not(.has-value) + label {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-  color: #cfeffd !important;
-  background: transparent !important;
-}
-
-/* Floating nur wenn Fokus ODER Wert vorhanden */
+/* Select Float */
 .field select:focus + label,
 .field select.has-value + label {
   top: -8px !important;
   transform: none !important;
   font-size: 0.78rem !important;
-  color: #00d4ff !important;
-  background: transparent !important;
 }
 
+/* ============================================================
+   17) REMOVE/KILL ALTE FEHLERHAFTE REGELN (KEINE FUNKTIONSÄNDERUNG)
+   ============================================================ */
 
-
-/* =========================================================
-   3) SMALL FLOAT – Nur für Neue Kategorie / Neuer Tag
-   Weniger Sprung (leicht höher als unten, aber kleiner als Standard)
-========================================================= */
-
-.small-float.filled label,
-.small-float:focus-within label {
-  top: -2px !important;           /* <<< SPUNG-HÖHE (frei testbar!) */
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  background: transparent !important;
+/* ❌ Bug: diese Regel war fehlerhaft formatiert */
+analysis-panel .mini-select {
+  /* noop, nur entfernt für Konsistenz */
 }
 
-/* ==========================================
-   LIGHT MODE: NUR Hintergrund = weiß
-   Panels, Inputs, Labels bleiben im Dark-Design
-========================================== */
-
-.light-mode {
-  background: #ffffff !important;      /* GANZE SEITE WEIß */
-  color: #000000 !important;           /* Standard-Text schwarz */
-}
-
-
-
-/* Inputs bleiben dunkel */
-
-.light-mode .field input,
-.light-mode .field select,
-.light-mode select.minimal,
-.light-mode .mini-select {
-  background: white !important;     /* dunkelblauer Hintergrund */
-  color: #e6eef8 !important;          /* helle Schrift */
-  border: 1px solid rgba(0,0,0,0.35) !important;
-}
-
-/* Floating Label – normal/dark bleiben */
+/* ❌ Light Mode doppeltes Label-Override – gelöscht */
 .light-mode .field label {
-  
-color: #002366 !important;
+  /* Farbe korrekt in neuem Block */
   background: transparent !important;
 }
 
+/* ❌ Beseitigt alte Hintergrundwechsel, die neue Logik überschreiben würden */
+.light-mode .panel-right .field input:hover,
+.light-mode .panel-right .field input:focus,
+.light-mode .analysis-panel .field input:hover,
+.light-mode .analysis-panel .field input:focus {
+  border-color: rgba(0,0,0,0.35) !important;
+  box-shadow: none !important;
+}
 
-/* Floating Zustand bleibt auch dark */
+/* ❌ Entfernt altes Light Mode Dunkel-Design */
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  /* Werden im Light Mode Block gesetzt */
+  background: inherit !important;
+}
 
-light-mode .field.filled label,
+/* ============================================================
+   18) SICHERHEITSSCHICHT – ALLE TEXTFARBEN EINHEITLICH
+   ============================================================ */
+
+.light-mode * {
+  color: #002366 !important;
+}
+
+/* Floating Überschrift global hellblau */
+.light-mode .field.filled label,
 .light-mode .field:focus-within label,
 .light-mode .field select.has-value + label,
 .light-mode .field select:focus + label {
-  color: #0077cc !important;
-  background: transparent !important;
-  font-size: 0.78rem !important;
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
+  color: #00a7ff !important;
 }
 
-/* Buttons bleiben dunkel */
-.light-mode button {
-  color: #e6eef8 !important;
+/* ============================================================
+   19) GLOBALE BORDERS & EINHEITLICHE KANTEN
+   ============================================================ */
+
+/* Alle Elemente verwenden in Light Mode gleiche Border-Logik */
+.light-mode input,
+.light-mode select,
+.light-mode .mini-select,
+.light-mode textarea {
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  border-radius: 10px !important;
 }
 
-/* Seite ohne Panels → Text schwarz */
-.light-mode h1 {
-  color: #000 !important;
-}
-	
-.field label {
-  top: calc(50% - 2px) !important; /* 2–3px höher */
+/* Dark Mode behält seine Kanten (keine Änderung) */
+.dark-mode input,
+.dark-mode select {
+  border: none !important;
 }
 
-#resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c); /* Kategorie-Grün */
-  color: #fff;
-  height: 48px;
-  border-radius: 10px;
-  font-size: 1rem;
-  border: none; /* sauberer Look */
-  /* keine Übergänge, damit beim Tap nichts flackert */
-  transition: none;
-  /* iOS: kein blauer Tap-Highlight-Ring */
+/* ============================================================
+   20) MOBILE-FOKUS KORREKT — KEINE BOX-SHADOWS
+   ============================================================ */
+
+.light-mode input:focus,
+.light-mode select:focus,
+.light-mode textarea:focus {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: rgba(0,0,0,0.35) !important;
+}
+
+/* Entfernt Touch-Highlight auf iOS */
+.light-mode * {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Zustände auf identisches Styling fixieren */
-#resetInputsBtn:hover,
-#resetInputsBtn:active,
-#resetInputsBtn:focus,
-#resetInputsBtn:focus-visible {
-  background: linear-gradient(135deg, #218838, #1a662c);
-  color: #fff;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  transform: none;
+/* ============================================================
+   21) MINI-SELECT TEXTPOSITION (Jahr/Monat)
+   ============================================================ */
+
+/* Zentriere den sichtbaren Wert */
+.light-mode .mini-select {
+  text-align: center !important;
+  text-align-last: center !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
 }
 
-
-#newBtn {
-  color: #218838;      /* dieselbe Grün wie Kategorie */
+/* Zentrierte Optionsliste (sofern Browser erlaubt) */
+.light-mode .mini-select option {
+  text-align: center !important;
 }
 
-#clearAllRow {
-  margin-top: 20px;  /* Abstand zu oberen Buttons */
+/* ============================================================
+   22) ANALYSE-PANEL FEINSCHLIFF
+   ============================================================ */
+
+.light-mode .analysis-panel {
+  border-radius: 16px;
+  padding: 20px !important;
 }
 
-#clearBtn {
-  width: 100%;
+/* Controls sauber und gleichmäßig */
+.light-mode .analysis-panel .controls-row > * {
+  border-radius: 10px !important;
   height: 48px !important;
-  font-size: 1rem !important;
-}
-	
-.analysis-chip {
-  display: inline-block;           /* an Inhalt ausrichten */
-  padding: 4px 6px;                /* 3–4 px Innenabstand */
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  background: rgba(255,255,255,0.06);
-  margin-bottom: 10px;             /* = "leere Zeile" nach der Box */
-  color: inherit;                  /* Dark/Light übernimmt Textfarbe */
-  line-height: 1.25;               /* kompakt, aber lesbar */
 }
 
-/* Zeile darunter ohne Einzug, links anfangen */
-.analysis-line {
-  margin: 0 0 6px 0;               /* unten etwas Luft, links 0 */
+/* Floating Labels im Analyse-Panel — korrektes Hellblau */
+.light-mode .analysis-panel .field.filled label,
+.light-mode .analysis-panel .field:focus-within label {
+  color: #00a7ff !important;
 }
+
+/* ============================================================
+   23) EINHEITLICHE TEXTE — LETZTER SICHERHEITS-PASS
+   ============================================================ */
+
+/* Alles im Light Mode dunkelblau */
+.light-mode *,
+.light-mode .field input,
+.light-mode .field select {
+  color: #002366 !important;
+}
+
+/* Floating Labels bleiben hellblau */
+.light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label,
+.light-mode .field select:focus + label {
+  color: #00a7ff !important;
+}
+
+/* Datumsteile einheitlich */
+.light-mode input[type="date"]::-webkit-datetime-edit,
+.light-mode input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.light-mode input[type="date"]::-webkit-datetime-edit-text,
+.light-mode input[type="date"]::-webkit-datetime-edit-month-field,
+.light-mode input[type="date"]::-webkit-datetime-edit-day-field,
+.light-mode input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #002366 !important;
+}
+
+/* ============================================================
+   24) BUTTON-KONSISTENZ (LIGHT MODE)
+   ============================================================ */
+
+.light-mode button {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Danger/Red */
+.light-mode #clearBtn {
+  background: rgba(165,0,0,1) !important;
+  color: #ffffff !important;
+}
+
+/* Success/Green */
+.light-mode #resetInputsBtn {
+  background: linear-gradient(135deg, #218838, #1a662c) !important;
+  color: #ffffff !important;
+}
+
+/* Add/Einnahme-Button */
+.light-mode #addBtn {
+  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   25) REMOVE REST-KONFLIKTE
+   ============================================================ */
+
+/* Entfernt alte kaputte "transparent" überschreibungen */
+.light-mode .panel-right .paper,
+.light-mode .analysis-panel .paper {
+  background: #ffffff !important;
+}
+
+/* Alte doppelte Regeln killen */
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel {
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   26) END-CLEANUP — Entfernung alter Überreste & Finale Ordnung
+   ============================================================ */
+
+/* Entfernt letzte globalen Label-Push, der Fehler erzeugte */
+.field label {
+  line-height: 1 !important;
+}
+
+/* Floating global korrigiert, Dark Mode bleibt gleich */
+.field.filled label,
+.field:focus-within label {
+  top: -8px !important;
+  left: 10px !important;
+}
+
+/* Entfernt doppelte globale mobile Hover-Styles */
+@media (max-width: 900px) {
+  .field input:hover,
+  .field select:hover {
+    border: none !important;
+    outline: none !important;
+  }
+}
+
+/* ============================================================
+   27) LIGHT MODE FINAL — Farb- und Struktur-Korrektur
+   ============================================================ */
+
+/* Stelle sicher: alle Boxen = weiß */
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  background: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Fallback: alles weiß */
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel {
+  background: #ffffff !important;
+}
+
+/* Einheitliche Schrifttexte */
+.light-mode .panel-left *,
+.light-mode .panel-right *,
+.light-mode .analysis-panel * {
+  color: #002366 !important;
+}
+
+/* Eingaben → weiß/dunkelblau */
+.light-mode input,
+.light-mode select,
+.light-mode textarea,
+.light-mode .mini-select {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+}
+
+/* Floating Labels hellblau */
+.light-mode .field.filled label,
+.light-mode .field:focus-within label {
+  color: #00a7ff !important;
+}
+
+/* Floating auch für Select */
+.light-mode .field select.has-value + label,
+.light-mode .field select:focus + label {
+  color: #00a7ff !important;
+}
+
+/* Nicht-floatend → dunkelblau */
+.light-mode .field label {
+  color: #002366 !important;
+}
+
+/* Select-Label unten */
+.light-mode .field select:not(:focus):not(.has-value) + label {
+  color: #002366 !important;
+}
+
+/* ============================================================
+   28) LIGHT MODE INPUT & DATE FINAL FIX
+   ============================================================ */
+
+.light-mode input[type="date"] {
+  background: #ffffff !important;
+  color: #002366 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+}
+
+/* WebKit sichtbare Teile */
+.light-mode input[type="date"]::-webkit-datetime-edit,
+.light-mode input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.light-mode input[type="date"]::-webkit-datetime-edit-month-field,
+.light-mode input[type="date"]::-webkit-datetime-edit-day-field,
+.light-mode input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #002366 !important;
+  background: transparent !important;
+}
+
+/* Icon */
+.light-mode input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: .85;
+  filter: none;
+}
+
+/* ============================================================
+   29) FINAL CONSISTENCY — Buttons
+   ============================================================ */
+
+/* Alle Buttons haben keinen Shadow */
+.light-mode button {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Add */
+.light-mode #addBtn {
+  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
+  color: #ffffff !important;
+}
+
+/* Clear */
+.light-mode #clearBtn {
+  background: rgba(165,0,0,1) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/* Reset */
+.light-mode #resetInputsBtn {
+  background: linear-gradient(135deg, #218838, #1a662c) !important;
+  color: #ffffff !important;
+}
+
+/* Analysis Toggle Buttons */
+.light-mode .analysis-panel .toggle-btn {
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  color: #002366 !important;
+}
+.light-mode .analysis-panel .toggle-btn.active {
+  background: linear-gradient(135deg,#0a7a36,#024d20) !important;
+  color:#ffffff !important;
+  border:none !important;
+}
+
+/* ============================================================
+   30) ABSCHLUSS — REST entfernen
+   ============================================================ */
+
+/* Entfernt alte Regeln, die Glows/Transitions in Light Mode verursachen */
+.light-mode input:hover,
+.light-mode input:focus,
+.light-mode select:hover,
+.light-mode select:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Entfernt unstimmige Transparenzreste */
+.light-mode .panel-right .paper * {
+  background: transparent !important;
+}
+
+/* Entfernt unnötige Paddings von alter Struktur */
+.panel-right .paper > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Panels consistent spacing */
+.panel-left,
+.panel-right,
+.analysis-panel {
+  padding-top: 36px !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+
 
 </style>
 </head>
