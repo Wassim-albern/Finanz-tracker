@@ -577,7 +577,6 @@ background: #161a22 !important;
 }
 
 #clearBtn::after {
-  content: "Alles Löschen";
   font-size: 1rem;
   line-height: 1;
   color: #fff;
@@ -1084,25 +1083,33 @@ select.minimal option {
 .field label {
   top: calc(50% - 2px) !important; /* 2–3px höher */
 }
+
 #resetInputsBtn {
-  
-color: #fff; 
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(135deg, #218838, #1a662c); /* Kategorie-Grün */
+  color: #fff;
   height: 48px;
   border-radius: 10px;
   font-size: 1rem;
-  transition: background .15s ease, border-color .15s ease, transform .05s ease;
-
+  border: none; /* sauberer Look */
+  /* keine Übergänge, damit beim Tap nichts flackert */
+  transition: none;
+  /* iOS: kein blauer Tap-Highlight-Ring */
+  -webkit-tap-highlight-color: transparent;
 }
 
-#resetInputsBtn:hover {
-  
- background: linear-gradient(135deg, #218838, #1a662c); /* Kategorie-Grün */
-  border-color: transparent;
+/* Zustände auf identisches Styling fixieren */
+#resetInputsBtn:hover,
+#resetInputsBtn:active,
+#resetInputsBtn:focus,
+#resetInputsBtn:focus-visible {
+  background: linear-gradient(135deg, #218838, #1a662c);
   color: #fff;
-
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transform: none;
 }
+
 
 #newBtn {
   color: #218838;      /* dieselbe Grün wie Kategorie */
@@ -1174,19 +1181,19 @@ color: #fff;
 
       <div class="field">
         <select id="tagSelect" class="minimal"></select>
-        <label>Tag</label>
+        <label>Type</label>
       </div>
 
       <div class="field small-float">
         <input type="text" id="newTagInput">
-        <label> Neuer Tag</label>
+        <label> Neuer Type</label>
       </div>
 
      
 <div class="action-row">
   <button class="primary" id="addBtn">📥 Eintrag</button>
   <!-- Zurück zu resetInputsBtn + Beschriftung 'Leeren' -->
-  <button class="ghost" id="resetInputsBtn">🧹 Leeren</button>
+  <button class="ghost" id="resetInputsBtn"> ➕ Neu</button>
 </div>
 
 <div class="action-row" id="clearAllRow">
@@ -1223,7 +1230,7 @@ color: #fff;
           </div>
           <div class="field">
             <select id="tagFilterSelect" class="minimal"></select>
-            <label>Tag</label>
+            <label>Type</label>
           </div>
         </div>
 
@@ -1249,7 +1256,7 @@ color: #fff;
           </select>
 
           <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-          <button type="button" class="toggle-btn" id="modeTagBtn">Tag</button>
+          <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
         </div>
       </div>
 
@@ -1572,7 +1579,7 @@ addBtn.onclick = () => {
   const tag = newTagInput.value.trim() || tagSelect.value;
 
   if (!category) return alert('Kategorie fehlt');
-  if (!tag) return alert('Tag fehlt');
+  if (!tag) return alert('Type fehlt');
 
   if (newCategoryInput.value && !categories.includes(category)) categories.push(category);
   if (newTagInput.value && !tags.includes(tag)) tags.push(tag);
@@ -1822,7 +1829,7 @@ analysisBtn.addEventListener('click', () => {
       }
 
     } else {
-      out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Tag). Es wird nur der Bilanzvergleich angezeigt.\n\n";
+      out += "ℹ️ Keine Gruppierung aktiv (Kategorie/Type). Es wird nur der Bilanzvergleich angezeigt.\n\n";
     }
   }
 
@@ -1913,6 +1920,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
