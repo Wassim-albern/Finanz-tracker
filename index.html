@@ -1063,53 +1063,7 @@ select.minimal option {
   background: transparent !important;
 }
 
-/* ==========================================
-   LIGHT MODE: NUR Hintergrund = weiß
-   Panels, Inputs, Labels bleiben im Dark-Design
-========================================== */
 
-.light-mode {
-  background: #ffffff !important;      /* GANZE SEITE WEIß */
-  color: #000000 !important;           /* Standard-Text schwarz */
-}
-
-/* Panels bleiben dunkel (Dark-Design beibehalten!) */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #161a22 !important;
-  color: #e6eef8 !important;
-}
-
-/* Inputs bleiben dunkel */
-.light-mode .field input,
-.light-mode .field select {
-  background: rgba(255,255,255,0.06) !important;
-  color: #e6eef8 !important;
-}
-
-/* Floating Label – normal/dark bleiben */
-.light-mode .field label {
-  color: #cfeffd !important;
-}
-
-/* Floating Zustand bleibt auch dark */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label {
-  color: #00d4ff !important;
-  background: transparent !important; /* wie du wolltest */
-}
-
-/* Buttons bleiben dunkel */
-.light-mode button {
-  color: #e6eef8 !important;
-}
-
-/* Seite ohne Panels → Text schwarz */
-.light-mode h1 {
-  color: #000 !important;
-}
 	
 .field label {
   top: calc(50% - 2px) !important; /* 2–3px höher */
@@ -1980,6 +1934,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
