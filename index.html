@@ -947,19 +947,24 @@ select.minimal option {
       LIGHT MODE (NEU & FIX)
 ============================= */
 
+/* =============================
+      LIGHT MODE (FINAL VERSION)
+============================= */
+
 .light-mode {
-  background: #ffffff !important;   /* GANZE SEITE weiß */
-  color: #000000 !important;        /* Standard Text schwarz */
+  background: #ffffff !important;   /* Gesamter Hintergrund weiß */
+  color: #000000 !important;        /* Standard‑Schrift schwarz */
 }
 
-/* PANELS */
+/* PANELS – HELLGRAU (RICHTIG) */
 .light-mode .panel-left,
 .light-mode .panel-right,
 .light-mode .analysis-panel,
 .light-mode .paper {
-  background: #f3f3f3 !important;   /* hellgrau */
-  color: #002366 !important;        /* dunkelblau */
+  background: #e6e6e6 !important;   /* HELLGRAU Panels */
+  color: #002366 !important;        /* Dunkelblauer Text */
   box-shadow: 0 2px 18px rgba(0,0,0,0.08) !important;
+  border-radius: 16px !important;
 }
 
 /* HEADLINES */
@@ -975,23 +980,21 @@ select.minimal option {
 .light-mode .field select,
 .light-mode select.minimal,
 .light-mode .mini-select {
-  background: #ffffff !important;   /* weiß */
-  color: #002366 !important;        /* dunkelblau */
-  border: 1px solid rgba(0,0,0,0.15) !important;
+  background: #ffffff !important;   /* Eingabefelder weiß */
+  color: #002366 !important;        /* Dunkelblau */
+  border: 1px solid rgba(0,0,0,0.2) !important;
 }
 
-/* LABELS */
+/* LABELS (Floating + Normal) */
 .light-mode .field label {
   color: #002366 !important;
-  background: #f3f3f3 !important;
+  background: #e6e6e6 !important;   /* gleiche Farbe wie Panel */
 }
 
-/* Floating Zustand */
 .light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label {
-  color: #0077cc !important;         /* Blauton */
-  background: #f3f3f3 !important;
+.light-mode .field:focus-within label {
+  background: #e6e6e6 !important;
+  color: #0077cc !important;
 }
 
 /* DROPDOWN OPTIONEN */
@@ -1002,10 +1005,10 @@ select.minimal option {
   color: #002366 !important;
 }
 
-/* TEXT IN DER LISTE (Kassenbon) */
+/* KASSENBON EINTRÄGE */
 .light-mode .entry {
   background: #ffffff !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+  border: 1px solid rgba(0,0,0,0.15) !important;
   color: #002366 !important;
 }
 
@@ -1013,11 +1016,12 @@ select.minimal option {
   color: #333 !important;
 }
 
+/* BETRAG-FARBEN BEIBEHALTEN */
 .light-mode .amount-income {
-  color: #218838 !important;  /* Grün bleibt */
+  color: #218838 !important;
 }
 .light-mode .amount-expense {
-  color: #c82333 !important;  /* Rot bleibt */
+  color: #c82333 !important;
 }
 
 /* ANALYSE MODAL */
@@ -1036,7 +1040,7 @@ select.minimal option {
   color: #002366 !important;
 }
 
-/* BUTTONS sollen bleiben wie sie sind */
+/* BUTTON COLORS BLEIBEN UNVERÄNDERT */
 .light-mode button.primary {
   background: linear-gradient(135deg, #00d4ff, #007bff) !important;
 }
@@ -2021,6 +2025,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
