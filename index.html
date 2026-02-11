@@ -95,7 +95,7 @@ h1 {
 
 /* Papier-Container (Rechte Seite Liste) */
 .paper {
-  background: #161a22 !important;
+  background: #161a22;
   border-radius: 16px;
 }
 
@@ -826,7 +826,7 @@ select.minimal option {
 /* ❌ Entfernt altes dunkles Papier (überschrieb Light Mode) */
 .paper {
   /* Hintergrund wird nun mode-spezifisch gesetzt */
-  background: inherit !important;
+ 
 }
 
 /* ❌ Entfernt alte Light-Mode-Regeln, die Dark-Mode zerstört hätten */
@@ -859,21 +859,40 @@ select.minimal option {
    16) EINHEITLICHE FLOATING BEHANDLUNG (GLOBAL)
    ============================================================ */
 
-/* Floating Labels Standardposition – Dark Mode */
+/* INPUTS → floatet nur bei Fokus oder Inhalt */
+
 .field.filled label,
 .field:focus-within label {
   top: -8px !important;
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
+  color: #00d4ff !important;     /* Hellblau – DARK MODE Floating */
+  background: transparent !important;
 }
 
-/* Select Float */
+
+/* 1) NICHT FLOATING – wenn KEIN Wert ausgewählt */
+
+.field select:not(:focus):not(.has-value) + label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  left: 12px !important;
+  font-size: 1rem !important;
+  color: inherit !important;     /* Dark Mode: Standardfarbe */
+  background: transparent !important;
+}
+
+/* 2) FLOATING → wenn Fokus ODER Wert */
+
 .field select:focus + label,
 .field select.has-value + label {
   top: -8px !important;
+  left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
+  color: #00d4ff !important;     /* Hellblau – DARK MODE Floating */
+  background: transparent !important;
 }
 
 /* ============================================================
@@ -1061,7 +1080,7 @@ analysis-panel .mini-select {
    ============================================================ */
 
 /* Entfernt alte kaputte "transparent" überschreibungen */
-.light-mode .panel-right .paper,
+.light-mode .panel-right,
 .light-mode .analysis-panel .paper {
   background: #ffffff !important;
 }
@@ -1106,7 +1125,7 @@ analysis-panel .mini-select {
 .light-mode .panel-right,
 .light-mode .analysis-panel,
 .light-mode .paper {
-  background: #ffffff !important;
+  background: #f0f0f0 !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -1258,6 +1277,63 @@ analysis-panel .mini-select {
 }
 
 
+
+
+#resetInputsBtn {
+  background: linear-gradient(135deg, #218838, #1a662c) !important;
+  color:  #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  background: #e6e6e6 !important;   /* GRAU */
+  color: #002366 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+.light-mode .field {
+  background: #ffffff !important;
+  padding: 6px 8px !important;     /* kleiner Innenabstand wie iOS */
+  border-radius: 10px !important;
+}
+
+/* Der Input selbst bleibt transparent */
+.light-mode .field input,
+.light-mode .field select,
+.light-mode .field textarea {
+  background: transparent !important;
+  border: none !important;
+  color: #002366 !important;
+}
+
+/* Mini-Select ebenfalls transparent IN der weißen Box */
+.light-mode .field .mini-select,
+.light-mode .field select.minimal {
+  background: white !important;
+  border: none !important;
+  color: #002366 !important;
+}
+
+/* Floating Label fix — keine Box dahinter */
+.light-mode .field label {
+  background: transparent !important;
+}
+
+
+.light-mode .paper {
+  background: #e6e6e6 !important;   /* gleiche Farbe wie panel-right */
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
 
 </style>
 </head>
