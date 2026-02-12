@@ -647,763 +647,83 @@ select.minimal option {
   }
 }
 
-/* ============================================================
-   14) LIGHT MODE — EINHEITLICHE FARBEN & FLÄCHEN
-   Panels/Boxen weiß, Texte dunkelblau, Floating hellblau
-   ============================================================ */
+/* ===================================================================
+   CLEAN & UNIFIED LIGHT MODE — MATCHES DARK MODE DESIGN (just light)
+   =================================================================== */
 
-/* Seite & Grundschrift */
-.light-mode,
-.light-mode body {
+.light-mode {
   background: #ffffff !important;
-  color: #002366 !important;  /* einheitliche Textfarbe */
+  color: #1a1a1a !important;
 }
 
-/* Headings einheitlich */
-.light-mode h1,
-.light-mode h2,
-.light-mode h3 {
-  color: #002366 !important;
-}
-
-/* Panels: rechte Seite & Papier-Container gleich, ohne Shadow */
+/* Panels */
+.light-mode .panel-left,
 .light-mode .panel-right,
-.light-mode .panel-right .paper,
-.light-mode .analysis-panel {
+.light-mode .analysis-panel,
+.light-mode .paper {
   background: #ffffff !important;
-  color: #002366 !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 16px;
+  color: #1a1a1a !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
 }
 
-/* Liste im rechten Panel: weiße Items + feine Kante */
-.light-mode .panel-right .entry {
-  background: #ffffff !important;
-  color: #002366 !important;
-  border: 1px solid rgba(0,0,0,0.10) !important;
-}
-.light-mode .panel-right .entry .small { color: #334 !important; }
-.light-mode .panel-right .amount-income { color: #218838 !important; }
-.light-mode .panel-right .amount-expense { color: #c82333 !important; }
-
-/* Eingabefelder/Boxen einheitlich: weiß + dunkelblau */
+/* Inputs */
 .light-mode .field input,
 .light-mode .field select,
-.light-mode select.minimal,
-.light-mode .mini-select {
-  background: #ffffff !important;  /* alle Boxes/Inputs weiß */
-  color: #002366 !important;       /* Eingaben/Values dunkelblau */
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Hover/Focus ohne Aufhellen */
-.light-mode .field input:hover,
-.light-mode .field input:focus,
-.light-mode .field select:hover,
-.light-mode .field select:focus,
-.light-mode select.minimal:focus,
-.light-mode .mini-select:focus {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.35) !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Labels: nicht floating = dunkelblau */
-.light-mode .field label {
-  color: #002366 !important;
-  background: transparent !important;
-}
-
-/* Labels: floating = hellblau (überall) */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label,
-.light-mode .field select:focus + label {
-  color: #00a7ff !important;       /* floating hellblau */
-  background: transparent !important;
-}
-
-/* Select: Label bleibt unten, wenn leer */
-.light-mode .field select:not(:focus):not(.has-value) + label {
-  color: #002366 !important;
-}
-
-/* Platzhalter dezent */
-.light-mode ::placeholder {
-  color: #5a6aa0 !important;
-  opacity: 1;
-}
-
-/* Datum-Input: eingegebene Werte dunkelblau, Fläche weiß */
-.light-mode .field input[type="date"] {
-  color: #002366 !important;
-  background: #ffffff !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-}
-
-/* WebKit (Chrome/Edge/Safari) – sichtbare Teile vom Datum einfärben */
-.light-mode .field input[type="date"]::-webkit-datetime-edit,
-.light-mode .field input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-.light-mode .field input[type="date"]::-webkit-datetime-edit-text,
-.light-mode .field input[type="date"]::-webkit-datetime-edit-month-field,
-.light-mode .field input[type="date"]::-webkit-datetime-edit-day-field,
-.light-mode .field input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #002366 !important;
-  background: transparent !important;
-}
-/* Kalender-Icon auf weiß: neutral */
-.light-mode .field input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: none;
-  opacity: .85;
-}
-
-/* Mini-Selects & Dropdown-Optionen lesbar auf weiß */
 .light-mode .mini-select,
 .light-mode select.minimal {
-  background: #ffffff !important;
-  color: #002366 !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-}
-.light-mode .mini-select option,
-.light-mode select.minimal option,
-.light-mode .field select option {
-  background: #ffffff !important;
-  color: #002366 !important;
-}
-
-/* Analyse-Toggle-Buttons: neutral weiß, aktiv grün */
-.light-mode .analysis-panel .toggle-btn {
-  background: #ffffff !important;
-  color: #002366 !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  box-shadow: none !important;
-}
-.light-mode .analysis-panel .toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-
-/* Buttons generell ohne Shadows im Light Mode */
-.light-mode button {
-  color: #002366 !important;
-  box-shadow: none !important;
-  border: none;
-}
-.light-mode button.primary { color: #ffffff !important; }
-.light-mode #clearBtn { color: #ffffff !important; }
-
-/* Panel-Überschriften in Light Mode */
-.light-mode .panel-right h2,
-.light-mode .analysis-panel h2 {
-  color: #002366 !important;
-}
-/* ============================================================
-   15) BEREINIGUNG / ENTFERNUNG ÜBERFLÜSSIGER REGELN
-   ============================================================ */
-
-/* ❌ Entfernt globalen hellblauen Label-Farbfehler */
-.field label {
-  /* Farbe wird nun im Dark/Light Mode korrekt gesetzt */
-  color: inherit !important;
-}
-
-/* ❌ Entfernt störende globale Floating-Farbüberschreibung */
-.field:focus-within label,
-.field.filled label {
-  /* Floating-Farbe wird im jeweiligen Mode gesetzt */
-  color: inherit !important;
-  background: inherit !important;
-}
-
-/* ❌ Entfernt altes dunkles Papier (überschrieb Light Mode) */
-.paper {
-  /* Hintergrund wird nun mode-spezifisch gesetzt */
- 
-}
-
-/* ❌ Entfernt alte Light-Mode-Regeln, die Dark-Mode zerstört hätten */
-.light-mode .field input,
-.light-mode .field select {
-  /* korrekte Version steht in Light Mode Block */
-  background: inherit !important;
-  color: inherit !important;
-}
-
-/* ❌ Entfernt doppelten blauen Glow-Rest vollständig */
-.field input:focus,
-.field select:focus {
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* ❌ Entfernt doppelte globalen Fokus-Stil */
-:focus {
-  outline: none !important;
+  background: #f3f3f3 !important;
+  color: #1a1a1a !important;
+  border: 1px solid #cfcfcf !important;
   box-shadow: none !important;
 }
 
-/* ❌ Entfernt kaputten Transparenz-Reset in Light Mode */
-.light-mode .panel-right .paper {
-  background: inherit !important;
-}
-
-/* ============================================================
-   16) EINHEITLICHE FLOATING BEHANDLUNG (GLOBAL)
-   ============================================================ */
-
-/* INPUTS → floatet nur bei Fokus oder Inhalt */
-
-.field.filled label,
-.field:focus-within label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  color: #00d4ff !important;     /* Hellblau – DARK MODE Floating */
-  background: transparent !important;
-}
-
-
-/* 1) NICHT FLOATING – wenn KEIN Wert ausgewählt */
-
-.field select:not(:focus):not(.has-value) + label {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  left: 12px !important;
-  font-size: 1rem !important;
-  color: inherit !important;     /* Dark Mode: Standardfarbe */
-  background: transparent !important;
-}
-
-/* 2) FLOATING → wenn Fokus ODER Wert */
-
-.field select:focus + label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  color: #00d4ff !important;     /* Hellblau – DARK MODE Floating */
-  background: transparent !important;
-}
-
-/* ============================================================
-   17) REMOVE/KILL ALTE FEHLERHAFTE REGELN (KEINE FUNKTIONSÄNDERUNG)
-   ============================================================ */
-
-/* ❌ Bug: diese Regel war fehlerhaft formatiert */
-analysis-panel .mini-select {
-  /* noop, nur entfernt für Konsistenz */
-}
-
-/* ❌ Light Mode doppeltes Label-Override – gelöscht */
+/* Floating Labels */
 .light-mode .field label {
-  /* Farbe korrekt in neuem Block */
-  background: transparent !important;
+  color: #333 !important;
 }
 
-/* ❌ Beseitigt alte Hintergrundwechsel, die neue Logik überschreiben würden */
-.light-mode .panel-right .field input:hover,
-.light-mode .panel-right .field input:focus,
-.light-mode .analysis-panel .field input:hover,
-.light-mode .analysis-panel .field input:focus {
-  border-color: rgba(0,0,0,0.35) !important;
-  box-shadow: none !important;
-}
-
-/* ❌ Entfernt altes Light Mode Dunkel-Design */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  /* Werden im Light Mode Block gesetzt */
-  background: inherit !important;
-}
-
-/* ============================================================
-   18) SICHERHEITSSCHICHT – ALLE TEXTFARBEN EINHEITLICH
-   ============================================================ */
-
-.light-mode * {
-  color: #002366 !important;
-}
-
-/* Floating Überschrift global hellblau */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label,
-.light-mode .field select:focus + label {
-  color: #00a7ff !important;
-}
-
-/* ============================================================
-   19) GLOBALE BORDERS & EINHEITLICHE KANTEN
-   ============================================================ */
-
-/* Alle Elemente verwenden in Light Mode gleiche Border-Logik */
-.light-mode input,
-.light-mode select,
-.light-mode .mini-select,
-.light-mode textarea {
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  border-radius: 10px !important;
-}
-
-/* Dark Mode behält seine Kanten (keine Änderung) */
-.dark-mode input,
-.dark-mode select {
-  border: none !important;
-}
-
-/* ============================================================
-   20) MOBILE-FOKUS KORREKT — KEINE BOX-SHADOWS
-   ============================================================ */
-
-.light-mode input:focus,
-.light-mode select:focus,
-.light-mode textarea:focus {
-  box-shadow: none !important;
-  outline: none !important;
-  border-color: rgba(0,0,0,0.35) !important;
-}
-
-/* Entfernt Touch-Highlight auf iOS */
-.light-mode * {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* ============================================================
-   21) MINI-SELECT TEXTPOSITION (Jahr/Monat)
-   ============================================================ */
-
-/* Zentriere den sichtbaren Wert */
-.light-mode .mini-select {
-  text-align: center !important;
-  text-align-last: center !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* Zentrierte Optionsliste (sofern Browser erlaubt) */
-.light-mode .mini-select option {
-  text-align: center !important;
-}
-
-/* ============================================================
-   22) ANALYSE-PANEL FEINSCHLIFF
-   ============================================================ */
-
-.light-mode .analysis-panel {
-  border-radius: 16px;
-  padding: 20px !important;
-}
-
-/* Controls sauber und gleichmäßig */
-.light-mode .analysis-panel .controls-row > * {
-  border-radius: 10px !important;
-  height: 48px !important;
-}
-
-/* Floating Labels im Analyse-Panel — korrektes Hellblau */
-.light-mode .analysis-panel .field.filled label,
-.light-mode .analysis-panel .field:focus-within label {
-  color: #00a7ff !important;
-}
-
-/* ============================================================
-   23) EINHEITLICHE TEXTE — LETZTER SICHERHEITS-PASS
-   ============================================================ */
-
-/* Alles im Light Mode dunkelblau */
-.light-mode *,
-.light-mode .field input,
-.light-mode .field select {
-  color: #002366 !important;
-}
-
-/* Floating Labels bleiben hellblau */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label,
-.light-mode .field select:focus + label {
-  color: #00a7ff !important;
-}
-
-/* Datumsteile einheitlich */
-.light-mode input[type="date"]::-webkit-datetime-edit,
-.light-mode input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-.light-mode input[type="date"]::-webkit-datetime-edit-text,
-.light-mode input[type="date"]::-webkit-datetime-edit-month-field,
-.light-mode input[type="date"]::-webkit-datetime-edit-day-field,
-.light-mode input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #002366 !important;
-}
-
-/* ============================================================
-   24) BUTTON-KONSISTENZ (LIGHT MODE)
-   ============================================================ */
-
-.light-mode button {
-  border-radius: 10px !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Danger/Red */
-.light-mode #clearBtn {
-  background: rgba(165,0,0,1) !important;
-  color: #ffffff !important;
-}
-
-/* Success/Green */
-.light-mode #resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c) !important;
-  color: #ffffff !important;
-}
-
-/* Add/Einnahme-Button */
-.light-mode #addBtn {
-  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
-  color: #ffffff !important;
-}
-
-/* ============================================================
-   25) REMOVE REST-KONFLIKTE
-   ============================================================ */
-
-/* Entfernt alte kaputte "transparent" überschreibungen */
-.light-mode .panel-right,
-.light-mode .analysis-panel .paper {
-  background: #ffffff !important;
-}
-
-/* Alte doppelte Regeln killen */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel {
-  box-shadow: none !important;
-}
-
-/* ============================================================
-   26) END-CLEANUP — Entfernung alter Überreste & Finale Ordnung
-   ============================================================ */
-
-/* Entfernt letzte globalen Label-Push, der Fehler erzeugte */
-.field label {
-  line-height: 1 !important;
-}
-
-/* Floating global korrigiert, Dark Mode bleibt gleich */
-.field.filled label,
-.field:focus-within label {
-  top: -8px !important;
-  left: 10px !important;
-}
-
-/* Entfernt doppelte globale mobile Hover-Styles */
-@media (max-width: 900px) {
-  .field input:hover,
-  .field select:hover {
-    border: none !important;
-    outline: none !important;
-  }
-}
-
-/* ============================================================
-   27) LIGHT MODE FINAL — Farb- und Struktur-Korrektur
-   ============================================================ */
-
-/* Stelle sicher: alle Boxen = weiß */
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #f0f0f0 !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* Fallback: alles weiß */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel {
-  background: #ffffff !important;
-}
-
-/* Einheitliche Schrifttexte */
-.light-mode .panel-left *,
-.light-mode .panel-right *,
-.light-mode .analysis-panel * {
-  color: #002366 !important;
-}
-
-/* Eingaben → weiß/dunkelblau */
-.light-mode input,
-.light-mode select,
-.light-mode textarea,
-.light-mode .mini-select {
-  background: #ffffff !important;
-  color: #002366 !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-}
-
-/* Floating Labels hellblau */
 .light-mode .field.filled label,
 .light-mode .field:focus-within label {
-  color: #00a7ff !important;
-}
-
-/* Floating auch für Select */
-.light-mode .field select.has-value + label,
-.light-mode .field select:focus + label {
-  color: #00a7ff !important;
-}
-
-/* Nicht-floatend → dunkelblau */
-.light-mode .field label {
-  color: #002366 !important;
-}
-
-/* Select-Label unten */
-.light-mode .field select:not(:focus):not(.has-value) + label {
-  color: #002366 !important;
-}
-
-/* ============================================================
-   28) LIGHT MODE INPUT & DATE FINAL FIX
-   ============================================================ */
-
-.light-mode input[type="date"] {
+  color: #007bff !important;
   background: #ffffff !important;
-  color: #002366 !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
 }
 
-/* WebKit sichtbare Teile */
-.light-mode input[type="date"]::-webkit-datetime-edit,
-.light-mode input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-.light-mode input[type="date"]::-webkit-datetime-edit-month-field,
-.light-mode input[type="date"]::-webkit-datetime-edit-day-field,
-.light-mode input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #002366 !important;
-  background: transparent !important;
+/* Buttons */
+.light-mode button.primary {
+  background: linear-gradient(135deg, #007bff, #00aaff) !important;
+  color: white !important;
+  border: none !important;
 }
 
-/* Icon */
-.light-mode input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: .85;
-  filter: none;
-}
-
-/* ============================================================
-   29) FINAL CONSISTENCY — Buttons
-   ============================================================ */
-
-/* Alle Buttons haben keinen Shadow */
-.light-mode button {
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Add */
-.light-mode #addBtn {
-  background: linear-gradient(135deg, #00d4ff, #007bff) !important;
-  color: #ffffff !important;
-}
-
-/* Clear */
 .light-mode #clearBtn {
-  background: rgba(165,0,0,1) !important;
-  color: #ffffff !important;
-  border: none !important;
+  background: #c82333 !important;
+  color: white !important;
 }
 
-/* Reset */
 .light-mode #resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c) !important;
-  color: #ffffff !important;
+  background: linear-gradient(135deg, #1a662c, #218838) !important;
+  color: white !important;
 }
 
-/* Analysis Toggle Buttons */
-.light-mode .analysis-panel .toggle-btn {
+/* Entries (Liste rechts) */
+.light-mode .entry {
   background: #ffffff !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  color: #002366 !important;
-}
-.light-mode .analysis-panel .toggle-btn.active {
-  background: linear-gradient(135deg,#0a7a36,#024d20) !important;
-  color:#ffffff !important;
-  border:none !important;
-}
-
-/* ============================================================
-   30) ABSCHLUSS — REST entfernen
-   ============================================================ */
-
-/* Entfernt alte Regeln, die Glows/Transitions in Light Mode verursachen */
-.light-mode input:hover,
-.light-mode input:focus,
-.light-mode select:hover,
-.light-mode select:focus {
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Entfernt unstimmige Transparenzreste */
-.light-mode .panel-right .paper * {
-  background: transparent !important;
-}
-
-/* Entfernt unnötige Paddings von alter Struktur */
-.panel-right .paper > * {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-/* Panels consistent spacing */
-.panel-left,
-.panel-right,
-.analysis-panel {
-  padding-top: 36px !important;
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-}
-
-
-
-
-#resetInputsBtn {
-  background: linear-gradient(135deg, #218838, #1a662c) !important;
-  color:  #ffffff !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-
-
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #e6e6e6 !important;   /* GRAU */
-  color: #002366 !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-
-.light-mode .field {
-  background: #ffffff !important;
-  padding: 6px 8px !important;     /* kleiner Innenabstand wie iOS */
-  border-radius: 10px !important;
-}
-
-/* Der Input selbst bleibt transparent */
-.light-mode .field input,
-.light-mode .field select,
-.light-mode .field textarea {
-  background: transparent !important;
-  border: none !important;
-  color: #002366 !important;
-}
-
-/* Mini-Select ebenfalls transparent IN der weißen Box */
-.light-mode .field .mini-select,
-.light-mode .field select.minimal {
-  background: white !important;
-  border: none !important;
-  color: #002366 !important;
-}
-
-/* Floating Label fix — keine Box dahinter */
-.light-mode .field label {
-  background: transparent !important;
-}
-/* ============================================================
-   RIGHT PANEL – FILTER & LISTE FIX (LIGHT MODE)
-   ============================================================ */
-
-/* 1. Alle Filter-Felder (Jahr / Monat / Tag) gleich breit */
-.light-mode .panel-right .field-group .field {
-  flex: 1 1 calc(33.333% - 10px) !important;
-  background: #ffffff !important;     /* Weißer Hintergrund */
-  border-radius: 10px !important;
-  padding: 6px 8px !important;
-}
-
-/* Abstand ZWISCHEN den Feldern kleiner machen */
-.light-mode .panel-right .field-group {
-  gap: 6px !important;                /* kleiner Abstand */
-  margin-bottom: 12px !important;     /* weniger Abstand nach unten */
-  margin-top: -8px !important;        /* weniger Abstand nach oben */
-}
-
-/* 2. KATEGORIE & TYPE (2. Zeile) gleiche Breite & Abstand */
-.light-mode .panel-right .field-group .field:nth-child(4),
-.light-mode .panel-right .field-group .field:nth-child(5) {
-  flex: 1 1 calc(50% - 6px) !important;
-  background: #ffffff !important;
-  border-radius: 10px !important;
-  padding: 6px 8px !important;
-  margin-top: -4px !important;        /* kleiner Abstand nach oben */
-}
-
-/* 3. INPUTS selbst bleiben transparent */
-.light-mode .panel-right .field input,
-.light-mode .panel-right .field select {
-  background: transparent !important;
-  border: none !important;
-  color: #002366 !important;
-}
-
-/* 4. PAPER (Liste) gleiche Breite wie Filter + weißer Hintergrund */
-.light-mode .panel-right .paper {
-  background: #e6e6e6 !important;
-  border-radius: 16px !important;
-  padding: 10px !important;
-  box-shadow: none !important;
-}
-
-/* 5. Eintragszettel (entry) weiß, NICHT transparent */
-.light-mode .panel-right .entry {
-  background: #ffffff !important;
+  color: #1a1a1a !important;
   border: 1px solid rgba(0,0,0,0.12) !important;
-  border-radius: 10px !important;
-  margin-bottom: 8px !important;        /* gleicher Abstand wie Filter */
 }
 
-.light-mode .paper {
-  background: #e6e6e6 !important;   /* gleiche Farbe wie panel-right */
-  border-radius: 16px !important;
-  box-shadow: none !important;
-  border: none !important;
+/* Income/Expense colors */
+.light-mode .amount-income { color: #218838 !important; }
+.light-mode .amount-expense { color: #c82333 !important; }
+
+/* Date inputs */
+.light-mode input[type="date"] {
+  color: #1a1a1a !important;
+  background: #f3f3f3 !important;
+  border: 1px solid #cfcfcf !important;
 }
 
-
-.mini-select {
-  text-align: center !important;         /* sichtbarer Wert zentriert */
-  text-align-last: center !important;    /* ausgewählter Wert zentriert */
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-.light-mode .panel-left .field input[type="date"] {
-  background: transparent !important;
-  color: #002366 !important;              /* Lesbar auf weißer Box */
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.light-mode html,
-.light-mode body {
-  background: #ffffff !important;   /* hellgrau – kein dunkler Rand mehr */
-  color: #002366 !important;         /* Textfarbe im Light Mode */
-  padding: 0 !important;
-}
 
 
 </style>
@@ -2214,4 +1534,5 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
