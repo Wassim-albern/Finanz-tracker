@@ -1777,7 +1777,39 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
   appearance: auto !important;          /* Standard */
   accent-color: #007bff;                /* Light-Mode Akzent */
 }
+/* GRID für Analyse-Bereich: 1 Jahr, 1 Monat, 1 Category-Button, 1 Tag-Button */
+.analysis-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px !important;
+  width: 100%;
+  align-items: stretch;
+}
 
+/* Select-Felder gleiche Größe wie Buttons */
+.analysis-grid .analysis-field select,
+.analysis-grid .toggle-btn {
+  height: 48px !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  text-align-last: center !important;
+}
+
+/* Field Wrapper passend machen */
+.analysis-field {
+  position: relative;
+  width: 100%;
+}
+
+/* Floating Label sauber anzeigen */
+.analysis-field label {
+  pointer-events: none;
+}
+
+/* Abstand zum Analyse-Button darunter */
+.analysis-panel .analysis-controls {
+  margin-bottom: 6px !important;
+}
 </style>
 </head>
 
@@ -1910,19 +1942,30 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
     <div class="analysis-panel">
       <h2>📊 Analyse</h2>
 
-      <div class="analysis-controls">
-        <div class="controls-row">
-          <select id="leftYearSelect" class="mini-select">
-            <option value="">Jahr</option>
-          </select>
+      
+<div class="analysis-controls">
+  <div class="controls-row analysis-grid">
 
-          <select id="leftMonthSelect" class="mini-select">
-            <option value="">Monat</option>
-          </select>
+    <div class="field analysis-field">
+      <select id="leftYearSelect" class="mini-select">
+        <option value=""> </option>
+      </select>
+      <label>Jahr</label>
+    </div>
 
-          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-          <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
-        </div>
+    <div class="field analysis-field">
+      <select id="leftMonthSelect" class="mini-select">
+        <option value=""> </option>
+      </select>
+      <label>Monat</label>
+    </div>
+
+    <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+    <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
+
+  </div>
+
+
       </div>
 
       <div class="analysis-controls">
