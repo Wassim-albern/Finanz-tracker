@@ -651,23 +651,52 @@ select.minimal option {
    CLEAN & UNIFIED LIGHT MODE — MATCHES DARK MODE DESIGN (just light)
    =================================================================== */
 
+/* ============================================================
+   LIGHT MODE — Einheitlich & Sauber
+   Panels grau, Seite weiß, Paper gleich wie Panels
+   ============================================================ */
+
 .light-mode {
-  background: #ffffff !important;
+  background: #ffffff !important;   /* Hintergrund der ganzen Seite */
   color: #1a1a1a !important;
 }
 
-/* Panels */
+/* =============================
+   PANELS (Left, Right, Analyse)
+   ============================= */
 .light-mode .panel-left,
 .light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  background: #ffffff !important;
+.light-mode .analysis-panel {
+  background: #e6e6e6 !important;   /* Einheitliches Grau */
   color: #1a1a1a !important;
   border-radius: 16px !important;
   box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
 }
 
-/* Inputs */
+/* =============================
+   PAPER (Liste rechts)
+   gleiche Farbe wie die Panels
+   ============================= */
+.light-mode .paper {
+  background: #e6e6e6 !important;    /* Gleiches Grau wie Panels */
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* =============================
+   LISTEN-EINTRÄGE (Entries)
+   bleiben WEISS für bessere Lesbarkeit
+   ============================= */
+.light-mode .entry {
+  background: #ffffff !important;
+  color: #1a1a1a !important;
+  border: 1px solid rgba(0,0,0,0.12) !important;
+}
+
+/* =============================
+   INPUTS & SELECTS
+   ============================= */
 .light-mode .field input,
 .light-mode .field select,
 .light-mode .mini-select,
@@ -678,7 +707,7 @@ select.minimal option {
   box-shadow: none !important;
 }
 
-/* Floating Labels */
+/* Floating Label (Light) */
 .light-mode .field label {
   color: #333 !important;
 }
@@ -689,11 +718,12 @@ select.minimal option {
   background: #ffffff !important;
 }
 
-/* Buttons */
+/* =============================
+   BUTTONS
+   ============================= */
 .light-mode button.primary {
   background: linear-gradient(135deg, #007bff, #00aaff) !important;
   color: white !important;
-  border: none !important;
 }
 
 .light-mode #clearBtn {
@@ -706,24 +736,14 @@ select.minimal option {
   color: white !important;
 }
 
-/* Entries (Liste rechts) */
-.light-mode .entry {
-  background: #ffffff !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(0,0,0,0.12) !important;
-}
-
-/* Income/Expense colors */
-.light-mode .amount-income { color: #218838 !important; }
-.light-mode .amount-expense { color: #c82333 !important; }
-
-/* Date inputs */
+/* =============================
+   DATE INPUTS
+   ============================= */
 .light-mode input[type="date"] {
   color: #1a1a1a !important;
   background: #f3f3f3 !important;
   border: 1px solid #cfcfcf !important;
 }
-
 
 
 </style>
