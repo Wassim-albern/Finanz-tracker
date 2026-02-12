@@ -1804,7 +1804,60 @@ body:not(.light-mode) .panel-left .field select {
   }
 }	
 
+/* ============================================================
+   FIX: Date-Input im LEFT PANEL wie normale Inputs stylen
+   ============================================================ */
 
+.panel-left #dateInput {
+  width: 100% !important;
+  height: 48px !important;
+  padding: 12px !important;
+
+  border-radius: 10px !important;
+  border: none !important;
+  box-sizing: border-box !important;
+
+  /* Hintergrund & Textfarbe wie deine anderen Eingabefelder */
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #e6eef8 !important;
+  font-size: 1rem !important;
+
+  /* Text/Wert vollständig zentrieren */
+  text-align: center !important;
+  text-align-last: center !important;
+
+  /* Safari iOS / Android Chrome wollen sonst eigene Styles erzwingen */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Entfernt das native Kalender-Icon (verschiebt sonst den Inhalt) */
+.panel-left #dateInput::-webkit-calendar-picker-indicator {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* ===================== DARK MODE Fokus ===================== */
+body:not(.light-mode) .panel-left #dateInput:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background: rgba(255,255,255,0.12) !important;
+}
+
+/* ===================== LIGHT MODE ===================== */
+.light-mode .panel-left #dateInput {
+  background: #f3f3f3 !important;
+  color: #1a1a1a !important;
+  border: 1px solid #cfcfcf !important;
+}
+
+/* Fokus im Light Mode */
+.light-mode .panel-left #dateInput:focus {
+  background: #f0f0f0 !important;
+  border-color: #007bff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 
 
@@ -2653,6 +2706,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
