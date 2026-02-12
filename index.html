@@ -1791,18 +1791,18 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
    DARK MODE — Mobile: linkes Datumsfeld so breit wie die anderen Inputs
    ============================================================ */
 
+
 @media (max-width: 900px) {
   body:not(.light-mode) .panel-left .field #dateInput {
-    width: 100% !important;          /* gleiche Breite wie alle Inputs */
-    max-width: 100% !important;      /* verhindert, dass es breiter wird */
-    min-width: 0 !important;         /* verhindert Überlappung rechts */
-    box-sizing: border-box !important;
-
-    /* gleiche Höhe & Paddings wie andere Inputs */
-    height: 48px !important;
-    padding: 10px 10px 8px !important;
+    width: 100% !important;            /* volle Feldbreite */
+    height: 48px !important;           /* gleiche Höhe wie Inputs */
+    padding: 12px 12px 10px !important;/* gleich wie andere Felder */
+    box-sizing: border-box !important; /* verhindert Schrumpfen */
+    min-width: 100% !important;        /* gleiche Breite erzwingen */
+    max-width: 100% !important;        /* Überstand verhindern */
   }
 }
+
 
 
 
@@ -2649,6 +2649,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
