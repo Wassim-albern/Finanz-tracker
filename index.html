@@ -1859,6 +1859,17 @@ body:not(.light-mode) .panel-left #dateInput:focus {
   box-shadow: none !important;
 }
 
+.panel-right .field-group {
+    margin-bottom: 14px !important;
+}
+
+/* Abstand direkt unter der Titelzeile "Kassenbon"
+   → ebenfalls auf 14px setzen, für perfekte Gleichmäßigkeit
+*/
+.panel-right h2 + .field-group {
+    margin-top: 14px !important;
+}
+
 
 
 
@@ -2706,6 +2717,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
