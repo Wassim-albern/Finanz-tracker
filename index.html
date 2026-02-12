@@ -2668,31 +2668,7 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-const storedMode = localStorage.getItem("theme-mode");
 
-if (storedMode === "light") {
-    document.body.classList.add("light-mode");
-    themeToggle.textContent = "🌙"; // Light Mode aktiv → Mond anzeigen
-} else {
-    document.body.classList.remove("light-mode");
-    themeToggle.textContent = "☀️"; // Dark Mode aktiv → Sonne anzeigen
-}
-
-/* ===============================
-   MODE: beim Klicken speichern
-   =============================== */
-themeToggle.addEventListener("click", () => {
-
-    document.body.classList.toggle("light-mode");
-
-    const isLight = document.body.classList.contains("light-mode");
-
-    // Speichern!
-    localStorage.setItem("theme-mode", isLight ? "light" : "dark");
-
-    // Icon anpassen
-    themeToggle.textContent = isLight ? "🌙" : "☀️";
-});
 	
 
 function hasMeaningfulValue(v) {
@@ -2754,6 +2730,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
