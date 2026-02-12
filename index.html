@@ -161,32 +161,32 @@ h1 {
 
 /* SCHWEBEND (FOKUS oder ausgefüllt) */
 .field:focus-within label,
+
 .field.filled label {
   top: -8px;
   left: 10px;
   transform: none;
   font-size: 0.78rem;
-  background: #161a22;
+  color: #00d4ff !important;
   padding: 0 6px;
   border-radius: 4px;
 }
 
 /* Select Floating */
 .field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label,
-.field select:focus ~ label {
+.field select:not([value=" "]) ~ label {
   top: -8px !important;
   left: 10px !important;
   transform: none !important;
   font-size: 0.78rem !important;
-  color: #00d4ff !important;
-  background: #161a22 !important;
+  
+  color: #e6eef8 !important;
   padding: 0 6px !important;
   border-radius: 4px !important;
 }
 
 /* ============================================================
-   5) RADIOS & BUTTONS — BASIS (DARK MODE UNVERÄNDERT)
+   5) RADIOS & BUTTONS — BASIS (DARK MODE UNVERÄNDERT) #e6eef8
    ============================================================ */
 
 /* Einfache Radio-Reihe (Einnahme/Ausgabe) */
@@ -715,7 +715,7 @@ select.minimal option {
 .light-mode .field.filled label,
 .light-mode .field:focus-within label {
   color: #007bff !important;
-  background: #ffffff !important;
+  
 }
 
 /* =============================
@@ -731,7 +731,7 @@ select.minimal option {
   color: white !important;
 }
 
-.light-mode #resetInputsBtn {
+#resetInputsBtn {
   background: linear-gradient(135deg, #1a662c, #218838) !important;
   color: white !important;
 }
@@ -745,6 +745,609 @@ select.minimal option {
   border: 1px solid #cfcfcf !important;
 }
 
+
+.field.filled label,
+.field:focus-within label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Select: wenn KEIN Wert → NICHT floaten */
+.field select:not(.has-value) + label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+}
+
+
+.field label {
+  background: transparent !important;
+}
+
+/* Floating-Label bei Fokus/Wert */
+.field.filled label,
+.field:focus-within label {
+  background: transparent !important;
+}
+
+/* Select-Variante (wenn du + label nutzt) */
+.field select + label {
+  background: transparent !important;
+}
+
+/* Light-Mode explizit (optional, doppelt gemoppelt sicher) */
+.light-mode .field label,
+.light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select + label {
+  background: transparent !important;
+}
+ 
+
+
+
+
+
+.field label {
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  background: transparent !important;
+  transition: 0.2s ease;
+}
+
+/* 1) FLOATEN bei Fokus oder Wert */
+.field.filled label,
+.field:focus-within label,
+.field select.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* 2) Kein Wert bei SELECT → NICHT floaten */
+.field select:not(.has-value) + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+}
+
+/* ============================================================
+   DARK MODE COLORS
+   ============================================================ */
+
+/* Nicht floatend */
+body:not(.light-mode) .field label {
+  color: #e6eef8 !important;
+}
+
+/* Floatend */
+body:not(.light-mode) .field.filled label,
+body:not(.light-mode) .field:focus-within label,
+body:not(.light-mode) .field select.has-value + label {
+  color: #00d4ff !important;
+}
+
+/* ============================================================
+   LIGHT MODE COLORS
+   ============================================================ */
+
+/* Nicht floatend */
+.light-mode .field label {
+  color: black !important;
+}
+
+/* Floatend */
+.light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label {
+  color: #007bff !important;
+}
+
+/* ============================================================
+   FIX: Alte Select-Regeln überschreiben (WICHTIG!)
+   ============================================================ */
+
+.field select:not([value=""]) ~ label,
+.field select:not([value=" "]) ~ label,
+body.light-mode .field select:not([value=""]) ~ label,
+body.light-mode .field select:not([value=" "]) ~ label {
+  color: inherit !important;      /* = benutzt Dark/Light Standardfarbe */
+  background: transparent !important;
+}
+/* ============================================================
+   UNIVERSAL FLOATING LABEL FIX — FINAL VERSION
+   ============================================================ */
+
+/* 0) Standardposition — Label unten */
+.field label {
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  background: transparent !important;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+/* 1) FLOATING (Input oder Select mit Fokus oder Wert) */
+.field.filled label,
+.field:focus-within label,
+.field select.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* 2) SELECT ohne Wert → NICHT floaten */
+.field select:not(.has-value) + label {
+  top: 50% !important;
+  left: 12px !important;
+  font-size: 1rem !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ============================================================
+   DARK MODE — Farben
+   ============================================================ */
+
+/* Nicht floatend */
+body:not(.light-mode) .field label {
+  color: #e6eef8 !important;   /* hellgrau */
+}
+
+/* Floatend */
+body:not(.light-mode) .field.filled label,
+body:not(.light-mode) .field:focus-within label,
+body:not(.light-mode) .field select.has-value + label {
+  color: #00d4ff !important;   /* hellblau */
+}
+
+/* ============================================================
+   LIGHT MODE — Farben
+   ============================================================ */
+
+/* Nicht floatend */
+.light-mode .field label {
+  color: #1a1a1a !important;   /* schwarz/dunkel */
+}
+
+/* Floatend */
+.light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label {
+  color: #007bff !important;   /* hellblau */
+}
+
+/* ============================================================
+   HARTE OVERRIDES: Entfernen alter Select-Regeln
+   ============================================================ */
+
+.field select:not([value=""]) ~ label,
+.field select:not([value=" "]) ~ label,
+.light-mode .field select:not([value=""]) ~ label,
+.light-mode .field select:not([value=" "]) ~ label {
+  color: inherit !important;     /* folgt Dark/Light Rules */
+  background: transparent !important;
+}
+/* ============================================================
+   UNIVERSAL FLOATING LABEL ENGINE — DARK + LIGHT MODE FINAL
+   ============================================================ */
+
+/* 0) Grundlabel – unten */
+.field label {
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+  background: transparent !important;
+  transition: 0.2s ease;
+}
+
+/* 1) FLOATING — Fokus ODER Wert */
+.field.filled label,
+.field:focus-within label,
+.field select.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* 2) SELECT ohne Wert → NICHT floaten */
+.field select:not(.has-value) + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+}
+
+/* ============================================================
+   DARK MODE — Farben
+   ============================================================ */
+
+/* Nicht schwebend: hellgrau */
+body:not(.light-mode) .field label {
+  color: #e6eef8 !important;
+}
+
+/* Schwebend: hellblau */
+body:not(.light-mode) .field.filled label,
+body:not(.light-mode) .field:focus-within label,
+body:not(.light-mode) .field select.has-value + label {
+  color: #00d4ff !important;
+}
+
+/* ============================================================
+   LIGHT MODE — Farben
+   ============================================================ */
+
+/* Nicht schwebend: schwarz */
+.light-mode .field label {
+  color: #1a1a1a !important;
+}
+
+/* Schwebend: hellblau */
+.light-mode .field.filled label,
+.light-mode .field:focus-within label,
+.light-mode .field select.has-value + label {
+  color: #007bff !important;
+}
+
+/* ============================================================
+   FIX — Alte fehlerhafte Select-Regeln überschreiben (WICHTIG)
+   ============================================================ */
+
+.field select:not([value=""]) ~ label,
+.field select:not([value=" "]) ~ label,
+.light-mode .field select:not([value=""]) ~ label,
+.light-mode .field select:not([value=" "]) ~ label {
+  background: transparent !important;
+  color: inherit !important; /* folgt Dark/Light Farbe korrekt */
+}
+
+
+
+
+.field select:not([value=""]) ~ label,
+.field select:not([value=" "]) ~ label {
+  color: inherit !important;   /* nimmt Dark/Light-basierte Farbe */
+}
+
+/* 2) Dark Mode: floating = hellblau */
+body:not(.light-mode) .field select.has-value + label,
+body:not(.light-mode) .field:focus-within label {
+  color: #00d4ff !important;
+}
+
+/* 3) Light Mode: floating = hellblau */
+.light-mode .field select.has-value + label,
+.light-mode .field:focus-within label {
+  color: #007bff !important;
+}
+
+/* 4) Light Mode: nicht floatend = schwarz */
+.light-mode .field label {
+  color: #1a1a1a !important;
+}
+
+/* 5) Float-Mechanik (bleibt gleich) */
+.field.filled label,
+.field:focus-within label,
+.field select.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  font-size: .78rem !important;
+  transform: none !important;
+}
+
+.light-mode #categorySelect + label,
+.light-mode #tagSelect + label {
+  color: #1a1a1a !important;
+}
+
+/* Floating-Zustand → hellblau */
+.light-mode #categorySelect.has-value + label,
+.light-mode #categorySelect:focus + label,
+.light-mode #tagSelect.has-value + label,
+.light-mode #tagSelect:focus + label {
+  color: #007bff !important;
+}
+
+.field select:focus + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  color: var(--float-color) !important;
+}
+
+/* LIGHT MODE Floating-Farbe */
+.light-mode .field select:focus + label {
+  color: #007bff !important;
+}
+
+/* DARK MODE Floating-Farbe */
+body:not(.light-mode) .field select:focus + label {
+  color: #00d4ff !important;
+}
+
+
+/* ============================================================
+   RIGHT PANEL — Select Floating + Farben (höchste Priorität)
+   Bitte GANZ UNTEN einfügen.
+   ============================================================ */
+
+/* 0) Basisfarben (nicht floatend) im rechten Panel */
+.light-mode .panel-right .field label {
+  color: #1a1a1a !important;            /* Light: dunkel/schwarz */
+}
+body:not(.light-mode) .panel-right .field label {
+  color: #e6eef8 !important;            /* Dark: hellgrau */
+}
+
+/* 1) Beim FOCUS: immer floaten + hellblau (auch ohne Wert) */
+.panel-right .field select:focus + label,
+.panel-right .field select:focus ~ label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+.light-mode .panel-right .field select:focus + label,
+.light-mode .panel-right .field select:focus ~ label {
+  color: #007bff !important;            /* Light: hellblau */
+}
+body:not(.light-mode) .panel-right .field select:focus + label,
+body:not(.light-mode) .panel-right .field select:focus ~ label {
+  color: #00d4ff !important;            /* Dark: hellblau */
+}
+
+/* 2) Mit Wert (has-value/filled): oben + hellblau */
+.panel-right .field select.has-value + label,
+.panel-right .field select.has-value ~ label,
+.panel-right .field.filled label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+.light-mode .panel-right .field select.has-value + label,
+.light-mode .panel-right .field select.has-value ~ label,
+.light-mode .panel-right .field.filled label {
+  color: #007bff !important;
+}
+body:not(.light-mode) .panel-right .field select.has-value + label,
+body:not(.light-mode) .panel-right .field select.has-value ~ label,
+body:not(.light-mode) .panel-right .field.filled label {
+  color: #00d4ff !important;
+}
+
+/* 3) Kein Wert + kein Fokus: NICHT floaten (Label zurück nach unten) */
+.panel-right .field select:not(.has-value):not(:focus) + label,
+.panel-right .field select:not(.has-value):not(:focus) ~ label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+  color: inherit !important; /* nimmt die Basisfarbe aus Block 0 */
+}
+
+/* 4) HARTE OVERRIDES: alte Farbregeln für Select-Labels im rechten Panel neutralisieren */
+.panel-right .field select:not([value=""]) ~ label,
+.panel-right .field select:not([value=" "]) ~ label,
+.light-mode .panel-right .field select:not([value=""]) ~ label,
+.light-mode .panel-right .field select:not([value=" "]) ~ label {
+  color: inherit !important;            /* folgt den Mode-Farben */
+  background: transparent !important;
+}
+
+/* 5) OPTIONAL — super-spezifischer Boost für die 5 IDs, falls andere Regeln noch gewinnen */
+.light-mode .panel-right #yearSelect:focus + label,
+.light-mode .panel-right #monthSelect:focus + label,
+.light-mode .panel-right #daySelect:focus + label,
+.light-mode .panel-right #categoryFilterSelect:focus + label,
+.light-mode .panel-right #tagFilterSelect:focus + label {
+  color: #007bff !important;
+}
+body:not(.light-mode) .panel-right #yearSelect:focus + label,
+body:not(.light-mode) .panel-right #monthSelect:focus + label,
+body:not(.light-mode) .panel-right #daySelect:focus + label,
+body:not(.light-mode) .panel-right #categoryFilterSelect:focus + label,
+body:not(.light-mode) .panel-right #tagFilterSelect:focus + label {
+  color: #00d4ff !important;
+}
+
+
+.light-mode #yearSelect + label,
+.light-mode #monthSelect + label,
+.light-mode #daySelect + label {
+  color: #1a1a1a !important; /* schwarz */
+}
+
+body:not(.light-mode) #yearSelect + label,
+body:not(.light-mode) #monthSelect + label,
+body:not(.light-mode) #daySelect + label {
+  color: #e6eef8 !important; /* hellgrau */
+}
+
+/* ============================================================
+   1) FLOATING — Fokus → immer hellblau
+   ============================================================ */
+
+#yearSelect:focus + label,
+#monthSelect:focus + label,
+#daySelect:focus + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Floating Farbe Light Mode */
+.light-mode #yearSelect:focus + label,
+.light-mode #monthSelect:focus + label,
+.light-mode #daySelect:focus + label {
+  color: #007bff !important; /* hellblau */
+}
+
+/* Floating Farbe Dark Mode */
+body:not(.light-mode) #yearSelect:focus + label,
+body:not(.light-mode) #monthSelect:focus + label,
+body:not(.light-mode) #daySelect:focus + label {
+  color: #00d4ff !important; /* hellblau */
+}
+
+/* ============================================================
+   2) FLOATING — Wert gesetzt (.has-value)
+   ============================================================ */
+
+#yearSelect.has-value + label,
+#monthSelect.has-value + label,
+#daySelect.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Farbe Light Mode */
+.light-mode #yearSelect.has-value + label,
+.light-mode #monthSelect.has-value + label,
+.light-mode #daySelect.has-value + label {
+  color: #007bff !important;
+}
+
+/* Farbe Dark Mode */
+body:not(.light-mode) #yearSelect.has-value + label,
+body:not(.light-mode) #monthSelect.has-value + label,
+body:not(.light-mode) #daySelect.has-value + label {
+  color: #00d4ff !important;
+}
+
+/* ============================================================
+   3) Kein Wert + kein Fokus → NICHT floaten
+   ============================================================ */
+#yearSelect:not(.has-value):not(:focus) + label,
+#monthSelect:not(.has-value):not(:focus) + label,
+#daySelect:not(.has-value):not(:focus) + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+  color: inherit !important; /* nimmt schwarz/hellgrau je nach Mode */
+}
+
+/* ============================================================
+   4) Entfernt alte störende Regeln in diesem Bereich
+   ============================================================ */
+
+.panel-right .field select:not([value=""]) ~ label,
+.panel-right .field select:not([value=" "]) ~ label {
+  color: inherit !important;
+  background: transparent !important;
+}
+
+/* Nicht floatend → schwarz im Light Mode */
+.light-mode .panel-right #categoryFilterSelect + label,
+.light-mode .panel-right #tagFilterSelect + label {
+  color: #1a1a1a !important;
+}
+
+/* FLOATING (Fokus ODER Wert) → immer hellblau + oben + klein */
+.light-mode .panel-right #categoryFilterSelect:focus + label,
+.light-mode .panel-right #categoryFilterSelect.has-value + label,
+.light-mode .panel-right #tagFilterSelect:focus + label,
+.light-mode .panel-right #tagFilterSelect.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+  color: #007bff !important; /* HELLBLAU */
+}
+
+/* Kein Wert + kein Fokus → NICHT floaten + schwarz */
+.light-mode .panel-right #categoryFilterSelect:not(.has-value):not(:focus) + label,
+.light-mode .panel-right #tagFilterSelect:not(.has-value):not(:focus) + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+  color: #1a1a1a !important;
+}
+
+/* Alte Regeln in diesem Bereich ausknipsen (falls vorhanden) */
+.light-mode .panel-right #categoryFilterSelect ~ label,
+.light-mode .panel-right #tagFilterSelect ~ label {
+  background: transparent !important;
+}
+
+
+.light-mode .field select option,
+.light-mode select.minimal option,
+.light-mode .mini-select option {
+  background: #e6e6e6 !important;   /* HELLGRAU für die geöffnete Liste */
+  color: #1a1a1a !important;        /* dunkler Text für gute Lesbarkeit */
+}
+
+/* Optional: bessere Lesbarkeit für markierte (ausgewählte) Option in der Liste */
+.light-mode .field select option:checked,
+.light-mode select.minimal option:checked,
+.light-mode .mini-select option:checked {
+  background: #cfd8e3 !important;   /* etwas dunkleres Grau */
+  color: #0b315e !important;        /* dunkles Blau/Grau */
+}
+
+/* Optional: Hover/Focus (nicht überall unterstützt, schadet nicht) */
+.light-mode .field select option:hover,
+.light-mode select.minimal option:hover,
+.light-mode .mini-select option:hover,
+.light-mode .field select option:focus {
+  background: #dfe3e8 !important;
+  color: #14213d !important;
+}
+
+/* Popup Text-Ausrichtung zentriert lassen (passt zu deinem UI) */
+.light-mode .mini-select,
+.light-mode select.minimal {
+  text-align: center !important;
+  text-align-last: center !important;
+}
+
+/* (Optional) Scrollbar im Dropdown etwas dezenter in WebKit-Browsern */
+.light-mode .field select::-webkit-scrollbar {
+  width: 10px;
+}
+.light-mode .field select::-webkit-scrollbar-track {
+  background: #e6e6e6;
+  border-radius: 10px;
+}
+.light-mode .field select::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 10px;
+}
+
+.light-mode .analysis-panel #modeCategoryBtn.toggle-btn,
+.light-mode .analysis-panel #modeTagBtn.toggle-btn {
+  background: #ffffff !important;
+  color: #1a1a1a !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  box-shadow: none !important;
+}
+
+.analysis-panel #modeCategoryBtn.toggle-btn.active,
+.analysis-panel #modeTagBtn.toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
 
 </style>
 </head>
@@ -826,7 +1429,7 @@ select.minimal option {
 <div class="action-row">
   <button class="primary" id="addBtn">📥 Eintrag</button>
   <!-- Zurück zu resetInputsBtn + Beschriftung 'Leeren' -->
-  <button class="ghost" id="resetInputsBtn"> ➕ Neu</button>
+  <button class="ghost" id="resetInputsBtn">➕ Neu </button>
 </div>
 
 <div class="action-row" id="clearAllRow">
@@ -1065,13 +1668,25 @@ function fillLeftMonthSelect() {
 function updateFilledState(el) {
   const f = el.closest('.field');
   if (!f) return;
-  if (el.value.trim().length > 0) {
-    f.classList.add('filled');
-  } else {
-    f.classList.remove('filled');
-  }
-}
 
+  // Für Selects: echte Werte prüfen
+  if (el.tagName === "SELECT") {
+    const v = el.value;
+
+    const meaningful =
+      v !== null &&
+      v !== "" &&
+      v !== " " &&
+      v !== "\u00A0";
+
+    f.classList.toggle("filled", meaningful);
+    el.classList.toggle("has-value", meaningful);
+    return;
+  }
+
+  // Für Inputs: normale Prüfung
+  f.classList.toggle("filled", el.value.trim().length > 0);
+}
 
 function updateAllFilled() {
   document.querySelectorAll('.field input, .field select').forEach(updateFilledState);
@@ -1084,16 +1699,33 @@ document.addEventListener('change', e => {
   if (e.target.matches('.field input, .field select')) updateFilledState(e.target);
 });
 	
-document.querySelectorAll(".field select").forEach(sel => {
-  sel.addEventListener("change", () => {
-    if (sel.value.trim() !== "") {
-      sel.classList.add("has-value");
-    } else {
+document.querySelectorAll('.field select').forEach(sel => {
+
+  sel.addEventListener("focus", () => {
+    sel.classList.add("focused");
+  });
+
+  sel.addEventListener("blur", () => {
+    sel.classList.remove("focused");
+
+    // Wenn kein echter Wert → floating zurücksetzen
+    if (!sel.value || sel.value.trim() === "" || sel.value === "\u00A0") {
       sel.classList.remove("has-value");
+      sel.closest(".field").classList.remove("filled");
     }
   });
-});
 
+  sel.addEventListener("change", () => {
+    if (sel.value && sel.value.trim() !== "" && sel.value !== "\u00A0") {
+      sel.classList.add("has-value");
+      sel.closest(".field").classList.add("filled");
+    } else {
+      sel.classList.remove("has-value");
+      sel.closest(".field").classList.remove("filled");
+    }
+  });
+
+});
 
 /* ===================== FILTER ===================== */
 function filterEntries() {
@@ -1554,5 +2186,4 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
 
