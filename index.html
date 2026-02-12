@@ -1779,33 +1779,7 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
 }
 	
 
-@media (max-width: 900px) {
-  body:not(.light-mode) .panel-left #dateInput {
-    width: 100% !important;
-    min-width: 100% !important;
-  }
-}
 
-
-/* ============================================================
-   DARK MODE — Mobile: linkes Datumsfeld so breit wie die anderen Inputs
-   ============================================================ */
-
-
-
-@media (max-width: 900px) {
-  body:not(.light-mode) .panel-left .field #dateInput {
-    width: 100% !important;        /* gleiche Breite */
-    max-width: 100% !important;
-    min-width: 100% !important;
-
-    height: 48px !important;       /* gleiche Höhe */
-    padding: 12px 12px 10px !important; /* gleiche Innenabstände */
-
-    box-sizing: border-box !important; /* verhindert Schrumpfen */
-    display: block !important;         /* verhindert Safari Scaling */
-  }
-}
 
 
 
@@ -2654,6 +2628,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
