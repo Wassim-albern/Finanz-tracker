@@ -1348,7 +1348,103 @@ body:not(.light-mode) #daySelect.has-value + label {
   color: #ffffff !important;
   border: none !important;
 }
+/* ============================================================
+   DARK MODE (Normalzustand) — Right Panel + Analyse
+   Zentrierte Werte + kein Hover, analog Light Mode
+   ============================================================ */
 
+/* 1) Right Panel: Jahr / Monat / Tag — Wert zentrieren, kein Hover */
+body:not(.light-mode) .panel-right .field select,
+body:not(.light-mode) select.minimal,
+body:not(.light-mode) .mini-select {
+  text-align: center !important;       /* sichtbarer Wert */
+  text-align-last: center !important;  /* ausgewählter Wert */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: rgba(255, 255, 255, 0.06) !important; /* dein Dark-Mode Standard */
+  color: #e6eef8 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: none !important;
+}
+
+/* Optionsliste (zentriert; je nach Browser teilweise unterstützt) */
+body:not(.light-mode) .panel-right .field select option,
+body:not(.light-mode) select.minimal option,
+body:not(.light-mode) .mini-select option {
+  background: #161a22 !important;  /* dunkles Panel-Grau */
+  color: #e6eef8 !important;
+  text-align: center !important;
+}
+
+/* Hover bei Selects abschalten (kein Aufhellen) */
+body:not(.light-mode) .panel-right .field select:hover,
+body:not(.light-mode) select.minimal:hover,
+body:not(.light-mode) .mini-select:hover {
+  background: rgba(255, 255, 255, 0.06) !important; /* gleich wie normal */
+}
+
+/* Fokus ruhig halten (kein Glow), nur leichte Randfarbe */
+body:not(.light-mode) .panel-right .field select:focus,
+body:not(.light-mode) select.minimal:focus,
+body:not(.light-mode) .mini-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+
+/* 2) Analyse-Panel: Mini-Selects (Jahr/Monat) — zentriert + kein Hover */
+body:not(.light-mode) .analysis-panel .mini-select {
+  text-align: center !important;
+  text-align-last: center !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #e6eef8 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: none !important;
+}
+
+/* Mini-Select Hover abschalten */
+body:not(.light-mode) .analysis-panel .mini-select:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Mini-Select Fokus ruhig */
+body:not(.light-mode) .analysis-panel .mini-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+
+/* 3) Analyse-Panel: Kategorie/Type Toggle — kein Hover-Effekt (nur aktiv = grün) */
+body:not(.light-mode) .analysis-panel .toggle-btn {
+  background: rgba(255,255,255,0.06) !important;
+  color: #e6eef8 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: none !important;
+}
+
+/* Hover NICHT ändern (gleich halten wie normal) */
+body:not(.light-mode) .analysis-panel .toggle-btn:hover:not(.active) {
+  background: rgba(255,255,255,0.06) !important;
+  color: #e6eef8 !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+/* Fokus ruhig */
+body:not(.light-mode) .analysis-panel .toggle-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+
+/* Aktivzustand bleibt dein grüner Verlauf */
+body:not(.light-mode) .analysis-panel .toggle-btn.active {
+  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
 </style>
 </head>
 
