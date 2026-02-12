@@ -1445,6 +1445,71 @@ body:not(.light-mode) .analysis-panel .toggle-btn.active {
   color: #ffffff !important;
   border: none !important;
 }
+
+
+.light-mode select,
+.light-mode select.minimal,
+.light-mode .mini-select {
+  -webkit-appearance: none !important;  /* Chrome/Safari/iOS */
+  -moz-appearance: none !important;     /* Firefox */
+  appearance: none !important;          /* Standard */
+  background-image: none !important;    /* evtl. eingebaute Icons entfernen */
+}
+
+/* WebKit-spezifische Steuerelemente ausblenden (iOS/Safari) */
+.light-mode select::-webkit-inner-spin-button,
+.light-mode select::-webkit-calendar-picker-indicator,
+.light-mode select::-webkit-clear-button {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* (Legacy) IE/Edge: Expand-Pfeil ausblenden */
+.light-mode select::-ms-expand {
+  display: none !important;
+}
+
+/* Optional: Platz für eigenes Icon rechts freimachen (falls du später eins setzt) */
+/*
+.light-mode select,
+.light-mode select.minimal,
+.light-mode .mini-select {
+  padding-right: 28px !important;
+}
+*/
+
+/* Optional: zentrierte Anzeige wie im Light Mode üblich beibehalten */
+.light-mode select,
+.light-mode select.minimal,
+.light-mode .mini-select {
+  text-align: center !important;
+  text-align-last: center !important;
+}
+/* ============================================================
+   DARK/NORMAL MODE — Analyse-Button wie Light Mode, ohne weißen Rand
+   ============================================================ */
+
+/* Analysen-Button im Dark Mode exakt wie Light Mode stylen */
+body:not(.light-mode) .analysis-panel .analysis-btn,
+body:not(.light-mode) .analysis-panel button.primary.analysis-btn {
+  background: linear-gradient(135deg, #007bff, #00aaff) !important; /* wie Light Mode */
+  color: #ffffff !important;
+  border: none !important;           /* weißen Rand entfernen */
+  box-shadow: none !important;       /* kein Glow/Shadow */
+}
+
+/* Optional: gleiches Hover-Verhalten wie Light Mode (leicht intensiver) */
+body:not(.light-mode) .analysis-panel .analysis-btn:hover {
+  filter: brightness(1.05) !important;
+}
+
+/* Optional: ruhiger Fokus (kein Shadow) */
+body:not(.light-mode) .analysis-panel .analysis-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 </style>
 </head>
 
