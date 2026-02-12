@@ -1570,6 +1570,214 @@ body:not(.light-mode) .analysis-panel .analysis-btn:focus-visible {
   }
 }
 
+#leftYearSelect + label,
+#leftMonthSelect + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+
+
+/* ============================================================
+   1) FLOATING DURCH FOKUS (sofort hoch) 
+   ============================================================ */
+
+#leftYearSelect:focus + label,
+#leftMonthSelect:focus + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Light Mode: hellblau beim Fokus */
+.light-mode #leftYearSelect:focus + label,
+.light-mode #leftMonthSelect:focus + label {
+  color: #007bff !important;
+}
+
+/* Dark Mode: hellblau beim Fokus */
+body:not(.light-mode) #leftYearSelect:focus + label,
+body:not(.light-mode) #leftMonthSelect:focus + label {
+  color: #00d4ff !important;
+}
+
+
+
+/* ============================================================
+   2) FLOATING DURCH WERT (has-value / filled)
+   ============================================================ */
+
+#leftYearSelect.has-value + label,
+#leftMonthSelect.has-value + label,
+.field.filled #leftYearSelect + label,
+.field.filled #leftMonthSelect + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Wert + Light Mode → bleibt hellblau */
+.light-mode #leftYearSelect.has-value + label,
+.light-mode #leftMonthSelect.has-value + label {
+  color: #007bff !important;
+}
+
+/* Wert + Dark Mode → bleibt hellblau */
+body:not(.light-mode) #leftYearSelect.has-value + label,
+body:not(.light-mode) #leftMonthSelect.has-value + label {
+  color: #00d4ff !important;
+}
+
+
+
+/* ============================================================
+   3) NICHT FLOATEND (weder Fokus noch Wert)
+   ============================================================ */
+
+#leftYearSelect:not(.has-value):not(:focus) + label,
+#leftMonthSelect:not(.has-value):not(:focus) + label {
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  font-size: 1rem !important;
+}
+
+/* Light Mode → unten = schwarz */
+.light-mode #leftYearSelect:not(.has-value):not(:focus) + label,
+.light-mode #leftMonthSelect:not(.has-value):not(:focus) + label {
+  color: #1a1a1a !important;
+}
+
+/* Dark Mode → unten = hellgrau */
+body:not(.light-mode) #leftYearSelect:not(.has-value):not(:focus) + label,
+body:not(.light-mode) #leftMonthSelect:not(.has-value):not(:focus) + label {
+  color: #e6eef8 !important;
+}
+/* ============================================================
+   GLOBAL FLOATING ENGINE — FINAL FIX (Dark + Light Mode)
+   ============================================================ */
+
+/* 0) STANDARD (Label unten) */
+.field label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.2s ease;
+  background: transparent !important;
+}
+
+/* 1) FLOATING BEI FOKUS ODER WERT */
+.field.filled label,
+.field:focus-within label,
+.field select.has-value + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* ============================================================
+   DARK MODE COLORS
+   ============================================================ */
+
+/* Nicht floatend */
+body:not(.light-mode) .field label {
+  color: #e6eef8 !important;
+}
+
+/* Floatend */
+body:not(.light-mode) .field.filled label,
+body:not(.light-mode) .field select.has-value + label,
+body:not(.light-mode) .field:focus-within label {
+  color: #00d4ff !important;
+}
+
+/* ============================================================
+   LIGHT MODE COLORS
+   ============================================================ */
+
+/* Nicht floatend */
+.light-mode .field label {
+  color: #1a1a1a !important;
+}
+
+/* Floatend */
+.light-mode .field.filled label,
+.light-mode .field select.has-value + label,
+.light-mode .field:focus-within label {
+  color: #007bff !important;
+}
+
+/* ============================================================
+   SELECT ohne Wert → NICHT FLOATEN
+   ============================================================ */
+
+.field select:not(.has-value):not(:focus) + label {
+  top: 50% !important;
+  left: 12px !important;
+  font-size: 1rem !important;
+  transform: translateY(-50%) !important;
+}
+
+/* ============================================================
+   ANALYSE-PANEL: Jahr & Monat FLOAT FIX
+   ============================================================ */
+
+#leftYearSelect.has-value + label,
+#leftMonthSelect.has-value + label,
+#leftYearSelect:focus + label,
+#leftMonthSelect:focus + label {
+  top: -8px !important;
+  left: 10px !important;
+  transform: none !important;
+  font-size: 0.78rem !important;
+}
+
+/* Light Mode → Hellblau */
+.light-mode #leftYearSelect.has-value + label,
+.light-mode #leftMonthSelect.has-value + label,
+.light-mode #leftYearSelect:focus + label,
+.light-mode #leftMonthSelect:focus + label {
+  color: #007bff !important;
+}
+
+/* Dark Mode → Hellblau */
+body:not(.light-mode) #leftYearSelect.has-value + label,
+body:not(.light-mode) #leftMonthSelect.has-value + label,
+body:not(.light-mode) #leftYearSelect:focus + label,
+body:not(.light-mode) #leftMonthSelect:focus + label {
+  color: #00d4ff !important;
+}
+/* Statt alle Inputs, nur Selects und Buttons neutralisieren */
+.light-mode select,
+.light-mode button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Falls du appearance für Textfelder brauchst,
+   dann bitte NICHT auf radio/checkbox anwenden: */
+.light-mode input:not([type="radio"]):not([type="checkbox"]) {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Radios sichtbar machen und Farbe setzen */
+.light-mode input[type="radio"] {
+  -webkit-appearance: radio !important; /* Safari/iOS */
+  appearance: auto !important;          /* Standard */
+  accent-color: #007bff;                /* Light-Mode Akzent */
+}
+
 </style>
 </head>
 
@@ -2109,6 +2317,10 @@ resetInputsBtn.onclick = () => {
   // 'has-value' und 'filled' korrekt setzen, damit Labels wieder unten stehen
   markSelectFilled(categorySelect);
   markSelectFilled(tagSelect);
+
+markSelectFilled(leftYearSelect);
+markSelectFilled(leftMonthSelect);
+
   updateAllFilled();
 
   // Optional: Radio wieder auf "Ausgabe" setzen (falls gewünscht)
