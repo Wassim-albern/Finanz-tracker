@@ -1777,95 +1777,6 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
   appearance: auto !important;          /* Standard */
   accent-color: #007bff;                /* Light-Mode Akzent */
 }
-/* GRID für Analyse-Bereich: 1 Jahr, 1 Monat, 1 Category-Button, 1 Tag-Button */
-.analysis-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px !important;
-  width: 100%;
-  align-items: stretch;
-}
-
-/* Select-Felder gleiche Größe wie Buttons */
-.analysis-grid .analysis-field select,
-.analysis-grid .toggle-btn {
-  height: 48px !important;
-  font-size: 1rem !important;
-  text-align: center !important;
-  text-align-last: center !important;
-}
-
-/* Field Wrapper passend machen */
-.analysis-field {
-  position: relative;
-  width: 100%;
-}
-
-/* Floating Label sauber anzeigen */
-.analysis-field label {
-  pointer-events: none;
-}
-
-/* Abstand zum Analyse-Button darunter */
-.analysis-panel .analysis-controls {
-  margin-bottom: 6px !important;
-}
-/* ANALYSE-PANEL – zweizeilige Anordnung */
-.analysis-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr;    /* 2 Spalten */
-  grid-auto-rows: auto;
-  gap: 10px !important;              /* gleicher Abstand wie überall */
-  width: 100%;
-  align-items: stretch;
-}
-
-/* Reihenfolge: 1. Zeile (Jahr/Monat), 2. Zeile (Kategorie/Type) */
-.analysis-grid .analysis-field:nth-of-type(1) { grid-column: 1; } /* Jahr */
-.analysis-grid .analysis-field:nth-of-type(2) { grid-column: 2; } /* Monat */
-.analysis-grid #modeCategoryBtn               { grid-column: 1; } /* Kategorie */
-.analysis-grid #modeTagBtn                    { grid-column: 2; } /* Type */
-
-/* Einheitliche Größe & Optik: Selects und Buttons */
-.analysis-grid .analysis-field select,
-.analysis-grid .toggle-btn {
-  height: 48px !important;           /* gleiche Höhe wie Analyse-Button */
-  font-size: 1rem !important;
-  border-radius: 10px !important;
-}
-
-/* Selects mittig anzeigen (Wert + ausgewählter Text) */
-.analysis-grid .analysis-field select {
-  text-align: center !important;
-  text-align-last: center !important;
-}
-
-/* Field Wrapper (für Floating Label) */
-.analysis-field {
-  position: relative;
-  width: 100%;
-}
-.analysis-field label {
-  pointer-events: none;
-}
-
-/* Mobile-Optimierung: bei schmalen Screens automatisch stapeln */
-@media (max-width: 900px) {
-  .analysis-grid {
-    grid-template-columns: 1fr 1fr;   /* weiterhin 2 Spalten */
-    gap: 10px !important;
-  }
-  .analysis-grid .analysis-field select,
-  .analysis-grid .toggle-btn {
-    height: 48px !important;
-    font-size: 1rem !important;
-  }
-}
-
-
-
-
-
 
 </style>
 </head>
@@ -1999,30 +1910,19 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
     <div class="analysis-panel">
       <h2>📊 Analyse</h2>
 
-      
-<div class="analysis-controls">
-  <div class="controls-row analysis-grid">
+      <div class="analysis-controls">
+        <div class="controls-row">
+          <select id="leftYearSelect" class="mini-select">
+            <option value="">Jahr</option>
+          </select>
 
-    <div class="field analysis-field">
-      <select id="leftYearSelect" class="mini-select">
-        <option value=""> </option>
-      </select>
-      <label>Jahr</label>
-    </div>
+          <select id="leftMonthSelect" class="mini-select">
+            <option value="">Monat</option>
+          </select>
 
-    <div class="field analysis-field">
-      <select id="leftMonthSelect" class="mini-select">
-        <option value=""> </option>
-      </select>
-      <label>Monat</label>
-    </div>
-
-    <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-    <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
-
-  </div>
-
-
+          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+          <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
+        </div>
       </div>
 
       <div class="analysis-controls">
