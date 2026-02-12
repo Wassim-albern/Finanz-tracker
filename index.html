@@ -1510,6 +1510,66 @@ body:not(.light-mode) .analysis-panel .analysis-btn:focus-visible {
   border: none !important;
 }
 
+.light-mode,
+.light-mode html,
+.light-mode body {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-clip: border-box !important; /* vermeidet Farbsäume */
+}
+
+/* 2) Jeder Focus-Zustand im Light-Mode → ohne Outline/Glow */
+.light-mode :focus,
+.light-mode :focus-visible,
+.light-mode :focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 3) Panels & Paper: keine Ränder, keine zufälligen Kanten */
+.light-mode .panel-left,
+.light-mode .panel-right,
+.light-mode .analysis-panel,
+.light-mode .paper {
+  border: none !important;
+  /* Falls du die weichen Schatten im Light-Mode behalten willst, 
+     diese Zeile entfernen/auskommentieren: */
+  box-shadow: none !important;
+}
+
+/* 4) Firefox: innerer Fokus-Rand (v.a. Buttons/Selects) entfernen */
+.light-mode *::-moz-focus-inner {
+  border: 0 !important;
+}
+
+/* 5) Safari/iOS: native blaue Highlights/Pfeile deaktivieren */
+.light-mode * {
+  -webkit-tap-highlight-color: transparent !important;
+}
+.light-mode select,
+.light-mode input,
+.light-mode button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* 6) Falls ein Wrapper (z. B. .container) die Kante erzeugt */
+.light-mode .container {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 7) OPTIONAL: Wenn du nur den Body-Rand siehst (einige Browser) */
+@supports (-webkit-touch-callout: none) {
+  .light-mode body {
+    /* Safari-spezifische Fokusränder verhindern */
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
 </style>
 </head>
 
