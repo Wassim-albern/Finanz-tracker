@@ -1777,7 +1777,32 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
   appearance: auto !important;          /* Standard */
   accent-color: #007bff;                /* Light-Mode Akzent */
 }
-	
+/* ============================================================
+   DARK MODE — Entfernt weißen Rand im LEFT PANEL
+   ============================================================ */
+body:not(.light-mode) .panel-left .field input,
+body:not(.light-mode) .panel-left .field select {
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: none !important;
+}
+
+
+/* ============================================================
+   DARK MODE — Mobile: Datumfeld exakt so groß wie Eingabefelder
+   ============================================================ */
+@media (max-width: 900px) {
+  body:not(.light-mode) .panel-left .field #dateInput {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+
+    height: 48px !important;
+    padding: 12px 12px 10px !important;
+
+    box-sizing: border-box !important;
+    display: block !important;
+  }
+}	
 
 
 
@@ -2628,6 +2653,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
