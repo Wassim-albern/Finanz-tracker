@@ -1860,22 +1860,27 @@ body:not(.light-mode) .panel-left #dateInput:focus {
 }
 
 
-    /* Abstand zwischen Zeile 1 (Jahr/Monat/Tag)
-       und Zeile 2 (Kategorie/Type)
-       → exakt wie normale Eingabefelder: 14px
-    */
-    .panel-right .field-group {
+/* ============================================================
+   MOBILE FIX: Abstand zwischen Zeile 1 und Zeile 2 reparieren
+   ============================================================ */
+@media (max-width: 900px) {
+
+    /* Abstand NUR zwischen den beiden Reihen */
+    .panel-right .field-group .field:nth-child(3) {
         margin-bottom: 14px !important;
     }
 
-    /* Abstand direkt unter "Kassenbon"
-       → ebenfalls 14px
-    */
-    .panel-right h2 + .field-group {
-        margin-top: 14px !important;
+    /* Die zweite Zeile darf KEINEN eigenen großen Abstand erzeugen */
+    .panel-right .field-group .field:nth-child(4),
+    .panel-right .field-group .field:nth-child(5) {
+        margin-top: 0 !important;
+    }
+
+    /* Optional: Abstand unter dem Titel korrigieren */
+    .panel-right h2 {
+        margin-bottom: 14px !important;
     }
 }
-
 
 
 
@@ -2723,6 +2728,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
