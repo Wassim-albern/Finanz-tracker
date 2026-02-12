@@ -1779,6 +1779,13 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
 }
 	
 
+@media (max-width: 900px) {
+  body:not(.light-mode) .panel-left #dateInput {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+
 
 
 </style>
@@ -2622,6 +2629,7 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
 
