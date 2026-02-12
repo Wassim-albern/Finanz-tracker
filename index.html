@@ -1778,36 +1778,7 @@ body:not(.light-mode) #leftMonthSelect:focus + label {
   accent-color: #007bff;                /* Light-Mode Akzent */
 }
 	
-body:not(.light-mode) .panel-left #dateInput {
-  background: #f3f3f3 !important;     /* wie Light Mode */
-  color: #1a1a1a !important;           /* dunkler Text */
-  border: 1px solid #cfcfcf !important;/* grauer Rand */
-  box-shadow: none !important;         /* kein Glow */
-}
 
-/* Hover/Focus identisch ruhig wie im Light Mode */
-body:not(.light-mode) .panel-left #dateInput:hover,
-body:not(.light-mode) .panel-left #dateInput:focus {
-  background: #f3f3f3 !important;
-  border-color: #cfcfcf !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Floating-Label-Farben für dieses Feld wie Light Mode */
-body:not(.light-mode) .panel-left #dateInput + label {
-  color: #1a1a1a !important;           /* nicht schwebend */
-}
-body:not(.light-mode) .panel-left .field.filled #dateInput + label,
-body:not(.light-mode) .panel-left .field:focus-within #dateInput + label {
-  color: #007bff !important;           /* schwebend hellblau */
-}
-
-/* Optional: Safari/iOS Datumspicker-Icon etwas dunkler, gut sichtbar */
-body:not(.light-mode) .panel-left #dateInput::-webkit-calendar-picker-indicator {
-  filter: invert(0);       /* nicht invertieren (dunkel) */
-  opacity: 0.8;
-}
 
 
 </style>
@@ -2651,5 +2622,6 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
+
 
 
