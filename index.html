@@ -1883,6 +1883,45 @@ body:not(.light-mode) .panel-left #dateInput:focus {
 }
 
 
+.export-import-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.export-import-bar button {
+  flex: 1 1 calc(50% - 10px);
+  min-width: 0;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* ORANGE – Export */
+.btn-export {
+  background: #f39c12;
+  color: #fff;
+}
+
+.btn-export:hover {
+  background: #d98206;
+}
+
+/* PURPLE – Import */
+.btn-import {
+  background: #7d3cff;
+  color: #fff;
+}
+
+.btn-import:hover {
+  background: #692bd6;
+}
+
 
 
 
@@ -1969,6 +2008,14 @@ body:not(.light-mode) .panel-left #dateInput:focus {
   <!-- Zurück zu resetInputsBtn + Beschriftung 'Leeren' -->
   <button class="ghost" id="resetInputsBtn">➕ Neu </button>
 </div>
+
+
+<div class="export-import-bar">
+  <button id="exportBtn" class="btn-export">📤 Export</button>
+  <button id="importBtn" class="btn-import">📥 Import</button>
+  <input type="file" id="importFileInput" accept="application/json" hidden>
+</div>
+
 
 <div class="action-row" id="clearAllRow">
   <button class="ghost" id="clearBtn">🗑️ Alles Löschen</button>
@@ -2684,6 +2731,98 @@ function markSelectFilled(select) {
   if (f) f.classList.toggle("filled", filled);
 }
 
+
+/* ===================== EXPORT ===================== */
+document.getElementById("exportBtn").addEventListener("click", () => {
+  const data = {
+    version: "finanztracker_v3",
+    exportedAt: new Date().toISOString(),
+    entries,
+    categories,
+    tags
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  const date = new Date().toISOString().split("T")[0];
+  a.href = url;
+  a.download = `finanztracker_backup_${date}.json`;
+
+  document.body.appendChild(a);
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+
+/* ===================== IMPORT ===================== */
+const importBtn = document.getElementById("importBtn");
+const importInput = document.getElementById("importFileInput");
+
+importBtn.addEventListener("click", () => {
+  importInput.click();
+});
+
+importInput.addEventListener("change", () => {
+  const file = importInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+
+      // Sicherheitscheck
+      if (
+        !data ||
+        !Array.isArray(data.entries) ||
+        !Array.isArray(data.categories) ||
+        !Array.isArray(data.tags)
+      ) {
+        alert("Ungültige Datei");
+        return;
+      }
+
+      if (!confirm("Import überschreibt ALLE aktuellen Daten. Fortfahren?")) {
+        return;
+      }
+
+      // Daten übernehmen (1:1)
+      entries = data.entries;
+      categories = data.categories;
+      tags = data.tags;
+
+      // Map neu aufbauen
+      entryMap.clear();
+      for (const e of entries) {
+        if (!e.id) e.id = generateId();
+        entryMap.set(e.id, e);
+      }
+
+      save();
+      updateSelects();
+      filterEntries();
+      updateAllFilled();
+
+      alert("✅ Import erfolgreich");
+    } catch (err) {
+      alert("Fehler beim Importieren der Datei");
+      console.error(err);
+    } finally {
+      importInput.value = "";
+    }
+  };
+
+  reader.readAsText(file);
+});
 
 // Nach Initialisierung des Datums:
 markSelectFilled(yearSelect);
