@@ -1886,8 +1886,8 @@ body:not(.light-mode) .panel-left #dateInput:focus {
 .export-import-bar {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
@@ -2160,6 +2160,31 @@ function save() {
   localStorage.setItem(storageKey, JSON.stringify({ entries, categories, tags }));
 }
 
+
+/* ===================== DERIVED LISTS ===================== */
+/* Erzeugt Kategorien & Types NUR aus existierenden Einträgen */
+function rebuildCategoriesAndTags() {
+  const catSet = new Set();
+  const tagSet = new Set();
+
+  for (const e of entries) {
+    if (e.category && e.category.trim() !== "") {
+      catSet.add(e.category.trim());
+    }
+    if (e.tag && e.tag.trim() !== "") {
+      tagSet.add(e.tag.trim());
+    }
+  }
+
+  categories = Array.from(catSet).sort((a, b) =>
+    a.localeCompare(b, 'de')
+  );
+
+  tags = Array.from(tagSet).sort((a, b) =>
+    a.localeCompare(b, 'de')
+  );
+}
+
 /* ===================== SELECT HELPERS ===================== */
 function addEmptyPlaceholder(select) {
   const opt = document.createElement('option');
@@ -2184,12 +2209,32 @@ function fillSelectWithPlaceholder(select, items = []) {
   select.appendChild(f);
 }
 
+
+function fillCategoryFilterSelectWithTypeOptions(select, categoriesList = []) {
+  select.innerHTML = '';
+  addEmptyPlaceholder(select);
+
+  // ✅ Feste Filteroptionen (nur im rechten Panel)
+  select.appendChild(new Option('Ausgabe 💸', '__type:expense'));
+  select.appendChild(new Option('Einnahme 💰', '__type:income'));
+
+  // ✅ Danach normale Kategorien (alphabetisch – kommen schon sortiert rein,
+  // aber wir sortieren hier zur Sicherheit nochmal)
+  const sorted = [...categoriesList].sort((a, b) => a.localeCompare(b, 'de'));
+  
+for (const c of sorted) {
+    select.appendChild(new Option(c, c));
+  }
+}
+
+
+
 /* ===================== UPDATE SELECTS ===================== */
 function updateSelects() {
   fillSelectWithPlaceholder(categorySelect, categories);
   fillSelectWithPlaceholder(tagSelect, tags);
 
-  fillSelectWithPlaceholder(categoryFilterSelect, categories);
+  fillCategoryFilterSelectWithTypeOptions(categoryFilterSelect, categories);
   fillSelectWithPlaceholder(tagFilterSelect, tags);
 }
 
@@ -2318,8 +2363,19 @@ function filterEntries() {
   const month = parseInt(monthSelect.value);
   const day = parseInt(daySelect.value);
 
-  const cat = categoryFilterSelect.value;
-  const tag = tagFilterSelect.value;
+  
+const rawCat = categoryFilterSelect.value;
+const tag = tagFilterSelect.value;
+
+let cat = rawCat;
+let typeFilter = "";
+
+// ✅ Wenn die Auswahl eine Type-Option ist → nach type filtern
+if (rawCat && rawCat.startsWith("__type:")) {
+  typeFilter = rawCat.split(":")[1]; // "expense" oder "income"
+  cat = ""; // Kategorie-Filter deaktivieren
+}
+
 
   const selectedDate = year && month && day ? new Date(year, month - 1, day) : null;
 
@@ -2328,6 +2384,7 @@ function filterEntries() {
     return (!year || d.getFullYear() === year)
         && (!month || d.getMonth() + 1 === month)
         && (!day || d.getDate() === day)
+        && (!typeFilter || e.type === typeFilter)
         && (!cat || e.category === cat)
         && (!tag || e.tag === tag);
   });
@@ -2339,7 +2396,7 @@ function filterEntries() {
     basisDate = selectedDate.toISOString().split('T')[0];
     for (const e of entries) {
       const d = new Date(e.date);
-      if (d < selectedDate && (!cat || e.category === cat) && (!tag || e.tag === tag)) {
+      if (d < selectedDate && (!typeFilter || e.type === typeFilter) &&  (!cat || e.category === cat) && (!tag || e.tag === tag)) {
         basis += e.type === 'income' ? e.amount : -e.amount;
       }
     }
@@ -2416,23 +2473,36 @@ window.deleteEntry = (id) => {
 
   entries = entries.filter(x => x.id !== id);
   entryMap.delete(id);
-  save();
-  filterEntries();
+  
+rebuildCategoriesAndTags(); 
+save();
+updateSelects();
+filterEntries();
+updateAllFilled();
+
 };
 
 /* ===================== ADD ===================== */
+
+
 addBtn.onclick = () => {
   const amount = parseFloat(amountInput.value);
-  if (!amount || isNaN(amount)) return alert('Betrag fehlt');
+  if (!amount || isNaN(amount)) {
+    alert('Betrag fehlt');
+    return;
+  }
 
   const category = newCategoryInput.value.trim() || categorySelect.value;
   const tag = newTagInput.value.trim() || tagSelect.value;
 
-  if (!category) return alert('Kategorie fehlt');
-  if (!tag) return alert('Type fehlt');
-
-  if (newCategoryInput.value && !categories.includes(category)) categories.push(category);
-  if (newTagInput.value && !tags.includes(tag)) tags.push(tag);
+  if (!category) {
+    alert('Kategorie fehlt');
+    return;
+  }
+  if (!tag) {
+    alert('Type fehlt');
+    return;
+  }
 
   const obj = {
     id: generateId(),
@@ -2446,6 +2516,9 @@ addBtn.onclick = () => {
 
   entries.push(obj);
   entryMap.set(obj.id, obj);
+
+  rebuildCategoriesAndTags();   // ✅ listen bereinigen & sortieren
+
   save();
 
   newCategoryInput.value = '';
@@ -2454,7 +2527,14 @@ addBtn.onclick = () => {
   updateSelects();
   filterEntries();
   updateAllFilled();
+
+  newCategoryInput.value = '';
+  newTagInput.value = '';
 };
+
+
+
+ 
 
 resetInputsBtn.onclick = () => {
   // Grund-Eingaben
@@ -2807,10 +2887,14 @@ importInput.addEventListener("change", () => {
         entryMap.set(e.id, e);
       }
 
-      save();
-      updateSelects();
-      filterEntries();
-      updateAllFilled();
+     
+rebuildCategoriesAndTags();
+save();
+
+updateSelects();
+filterEntries();
+updateAllFilled();
+
 
       alert("✅ Import erfolgreich");
     } catch (err) {
