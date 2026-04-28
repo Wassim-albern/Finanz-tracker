@@ -194,7 +194,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   /* Jahr/Monat/Tag: 3 Spalten, dann Kat/Tag: 2 Spalten */
@@ -210,7 +210,7 @@
 	
   .panel-right .field-group{
     gap: 10px !important;          /* Abstand horizontal + vertikal */
-    margin-bottom: 12px !important;
+    margin-bottom: 20px !important;
   }
 
   /* Wichtig: Extra-Spacing unter jedem Feld entfernen (nur in der field-group) */
@@ -402,95 +402,80 @@
    ANALYSE PANEL — Layout: 2 Zeilen Controls + Button voll breit
    ============================================================ */
 
+/* ============================================================
+   ANALYSE PANEL — clean & stable
+   ============================================================ */
+
+/* Abstand: Controls oben, Button weiter unten */
 .analysis-panel .analysis-controls{
   margin: 10px 0 6px;
 }
+.analysis-panel .analysis-controls + .analysis-controls{
+  margin-top: 14px !important;  /* ✅ Analyse-Button nach unten */
+}
 
-/* Jede Reihe: volle Breite, gleiche Optik wie Inputs */
+/* Reihen */
 .analysis-panel .controls-row{
   display: flex;
   width: 100%;
   gap: 10px;
-  margin: 6px 0; /* Abstand zwischen den Reihen */
+  margin: 6px 0;
 }
-
-/* Höhe wie Eingabefelder */
-.analysis-panel .mini-select,
-.analysis-panel .toggle-btn{
-  height: var(--h);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-weight: 700;
+.analysis-panel .controls-row > *{
+  flex: 1;
   min-width: 0;
 }
 
-/* Zeile 1: Jahr/Monat -> 1 : 2 */
-.analysis-panel .row-ym #leftYearSelect{ flex: 1; }
-.analysis-panel .row-ym #leftMonthSelect{ flex: 1; }
-
-/* Zeile 2: Kategorie/Type -> 1 : 2 */
-.analysis-panel .row-ct #modeCategoryBtn{ flex: 1; }
-.analysis-panel .row-ct #modeTagBtn{ flex: 1; }
-
-/* Analyse Button -> wie Eintrag: volle Breite */
-.analysis-panel #analysisBtn{
-  width: 100%;
+/* Mini-select (Jahr/Monat) */
+.analysis-panel .mini-select{
   height: var(--h);
   border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 700;
-  outline: none !important
 
-}
-
-
-.analysis-panel .mini-select{
-  background: var(--muted) !important;        /* wie Eingabefelder */
-  border: 1px solid var(--border) !important; /* wie Eingabefelder */
+  background: var(--muted) !important;
+  border: 1px solid var(--border) !important;
   color: var(--text) !important;
   box-shadow: none !important;
 
   text-align: center !important;
   text-align-last: center !important;
-}
 
-/* Fokus/“geklickt”: so lassen wir es angenehm (leicht heller wie Inputs) */
+  /* Pfeil ausblenden */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+
+  /* mehr Luft oben/unten */
+  padding: 14px 12px !important;
+  line-height: 1 !important;
+}
+.analysis-panel .mini-select::-ms-expand{ display:none !important; }
+
 .analysis-panel .mini-select:focus{
   background: var(--muted2) !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* ---------- 2) Dropdown-LISTEN überall gleich (Optionen) ---------- */
-/* Hinweis: iOS Safari kann option-styling eingeschränkt unterstützen */
-select option{
-  background: var(--panel) !important;  /* dunkles Panel-Grau */
-  color: var(--text) !important;
-  text-align: center !important;
-}
-
-/* Optional: ausgewählte Option (wenn Browser es unterstützt) */
-select option:checked{
-  background: rgba(255,255,255,0.14) !important;
-  color: var(--text) !important;
-}
-
-/* Optional: Hover/Focus in Dropdown (nicht überall unterstützt) */
-select option:hover,
-select option:focus{
-  background: rgba(255,255,255,0.12) !important;
-  color: var(--text) !important;
-}
-
-/* ---------- 3) Analysepanel Toggle Buttons: Standard wie Inputs + Active wie "Neu" ---------- */
+/* Toggle Buttons (Kategorie/Type) */
 .analysis-panel .toggle-btn{
-  background: var(--muted) !important;          /* wie Eingabefelder */
-  border: 1px solid var(--border) !important;   /* wie Eingabefelder */
+  height: var(--h);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+
+  background: var(--muted) !important;
+  border: 1px solid var(--border) !important; /* ✅ immer 1px */
   color: var(--text) !important;
   box-shadow: none !important;
+
+  display: flex;                 /* ✅ verhindert “komisches” Verhalten */
+  align-items: center;
+  justify-content: center;
 }
 
-/* Hover/Fokus ruhig wie Inputs */
 .analysis-panel .toggle-btn:hover:not(.active),
 .analysis-panel .toggle-btn:focus-visible:not(.active){
   background: var(--muted2) !important;
@@ -498,20 +483,14 @@ select option:focus{
   box-shadow: none !important;
 }
 
-/* ACTIVE = gleiches Grün wie "Neu" Button */
+/* ACTIVE = exakt wie Neu (grün), aber ohne Größenänderung */
 .analysis-panel .toggle-btn.active{
-  background: linear-gradient(135deg, #1a662c, #218838) !important; /* wie #resetInputsBtn */
+  background: linear-gradient(135deg, #1a662c, #218838) !important;
   color: #fff !important;
-  border: none !important;
+  border: 1px solid transparent !important; /* ✅ statt border:none */
 }
 
-
-.analysis-panel .mini-select option {
-  background: var(--panel) !important;  /* dunkles Panel-Grau */
-  color: var(--text) !important;        /* hell */
-  text-align: center !important;
-}
-
+/* Analyse Button: wie Eintrag, kein Rand */
 .analysis-panel #analysisBtn{
   width: 100%;
   height: var(--h);
@@ -519,41 +498,48 @@ select option:focus{
   font-size: 1rem;
   font-weight: 700;
 
-  border: none !important;        /* ✅ Rand weg */
-  outline: none !important;       /* ✅ Fokus-Rand weg */
-  box-shadow: none !important;    /* ✅ Shadow/Glow weg */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 
-  -webkit-appearance: none !important; /* ✅ iOS/Safari */
+  -webkit-appearance: none !important;
   appearance: none !important;
 }
-
 .analysis-panel #analysisBtn:focus,
 .analysis-panel #analysisBtn:focus-visible{
-  border: none !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
+/* Dropdown Optionen überall (wenn geöffnet) */
+select option{
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  text-align: center !important;
+}
 
-.analysis-panel .mini-select{
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  appearance: none !important;
 
-  background-image: none !important;
+.panel-right select.minimal,
+.panel-right .field select {
+  -webkit-appearance: none !important; /* iOS/Safari/Chrome */
+  -moz-appearance: none !important;    /* Firefox */
+  appearance: none !important;         /* Standard */
 
-  /* ✅ mehr Luft oben/unten (Innenabstand) */
-  padding: 14px 12px !important;   /* oben/unten | links/rechts */
-  line-height: 1 !important;       /* macht den Text optisch sauber mittig */
-
-  /* dein bisheriges */
-  padding-right: 12px !important;
+  background-image: none !important;   /* falls Browser eigenes Icon nutzt */
+  padding-right: 12px !important;      /* kein Platz für Pfeil nötig */
 }
 
 /* Legacy Edge/IE: Pfeil ausblenden (schadet nicht) */
-.analysis-panel .mini-select::-ms-expand{
+.panel-right select.minimal::-ms-expand,
+.panel-right .field select::-ms-expand {
   display: none !important;
 }
+
+.analysis-panel .analysis-controls + .analysis-controls{
+  margin-top: 16px !important;  /* z.B. 10–20px */
+}
+
+
 
 
 </style>
@@ -1616,21 +1602,5 @@ dateInput.oninput = function() { this.value = this.value; };
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
