@@ -33,1948 +33,475 @@
   box-sizing: border-box;
 }
 
-/* Grundstruktur & Scroll-Verhalten */
-html,
-body {
-  height: auto;              /* Handyfreundlich, kein 100% Height */
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  font-family: Inter, 'Segoe UI', Tahoma, Arial, sans-serif;
-  background: #0b1220;       /* DARK MODE Hintergrund */
-  color: #e6eef8;            /* DARK MODE Schrift */
-}
 
-/* Hauptüberschrift */
-h1 {
-  text-align: center;
-  font-weight: 300;
-  margin: 6px 0 30px;
-}
-
-/* Container für linkes + rechtes Panel */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  gap: 20px;
-}
-
-/* ============================================================
-   2) PANELS (LEFT / RIGHT / ANALYSE) — DARK MODE STANDARD
-   ============================================================ */
-
-.panel-left,
-.panel-right {
-  background: #161a22;
-  border-radius: 16px;
-  border: none !important;
-  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
-}
-
-.analysis-panel {
-  background: #161a22;
-  border-radius: 16px;
-  border: none !important;
-  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
-  padding: 18px;
-}
-
-/* Seitenverhältnis */
-.panel-left {
-  flex: 0 0 38%;
-  padding: 18px;
-}
-
-.panel-right {
-  flex: 0 0 62%;
-  padding: 18px;
-  border-radius: 16px;
-}
-
-/* Papier-Container (Rechte Seite Liste) */
-.paper {
-  background: #161a22;
-  border-radius: 16px;
-}
-
-/* ============================================================
-   3) INPUT-FELDER BASIS — DARK MODE STANDARD
-   ============================================================ */
-
-.field {
-  position: relative;
-  margin-bottom: 14px;
-  flex: 1;
-  min-width: 150px;
-}
-
-/* Einheitliche Eingabefeld-Höhe */
-.field input,
-.field select {
-  width: 100%;
-  height: 48px;
-  padding: 12px 12px 10px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e6eef8;
-  font-size: 1rem;
-  outline: none;
-}
-
-/* Hover */
-.field input:hover,
-.field select:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Focus */
-.field input:focus,
-.field select:focus {
-  background: rgba(255, 255, 255, 0.08) !important;
-  box-shadow:
-    0px 0px 0px 2px rgba(0, 212, 255, 0.20),
-    0px 0.5px 0px 0px #00d4ff;
-  outline: none !important;
-  border: none !important;
-}
-
-/* ============================================================
-   4) FLOATING LABEL STANDARD (DARK MODE)
-   ============================================================ */
-
-.field label {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
-  padding: 0 4px;
-  pointer-events: none;
-  font-size: 1rem;
-  background: transparent !important;
-  transition: all 0.2s ease;
-  line-height: 1;
-}
-
-/* SCHWEBEND (FOKUS oder ausgefüllt) */
-.field:focus-within label,
-
-.field.filled label {
-  top: -8px;
-  left: 10px;
-  transform: none;
-  font-size: 0.78rem;
-  color: #00d4ff !important;
-  padding: 0 6px;
-  border-radius: 4px;
-}
-
-/* Select Floating */
-.field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  
-  color: #e6eef8 !important;
-  padding: 0 6px !important;
-  border-radius: 4px !important;
-}
-
-/* ============================================================
-   5) RADIOS & BUTTONS — BASIS (DARK MODE UNVERÄNDERT) #e6eef8
-   ============================================================ */
-
-/* Einfache Radio-Reihe (Einnahme/Ausgabe) */
-.radio-group {
-  display: flex;
-  gap: 26px;
-  margin: 8px 0 50px;
-}
-
-/* Button-Reihe (Hinzufügen / Löschen) */
-.action-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.action-row button {
-  flex: 1;
-  max-width: 2000px;
-  height: 48px;
-  font-size: 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-  font-weight: 600;
-}
-
-#addBtn { flex: 2; }
-#clearBtn { flex: 1; }
-
-/* Standard-Button-Designs */
-.primary {
-  background: linear-gradient(135deg, #00d4ff, #007bff);
-  color: #fff;
-}
-
-.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: inherit;
-  line-height: 1.2;
-}
-
-/* Clear-Button (Dark Mode) */
-#clearBtn {
-  background: rgba(165, 0, 0, 1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #fff;
-  font-size: 0.85rem;
-  transition: 0.2s ease;
-}
-
-/* ============================================================
-   6) LISTENEINTRÄGE (RECHTES PANEL) — DARK MODE BASIS
-   ============================================================ */
-
-.entry {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  margin: 8px 0;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  align-items: center;
-  gap: 22px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.meta { color: #002366; flex: 1; }
-.small { font-size: 0.85rem; color: black; }
-
-.amount-income { color: #218838; font-weight: 700; }
-.amount-expense { color: #c82333; font-weight: 700; }
-
-.balance {
-  margin-top: 12px;
-  padding-top: 12px;
-  padding-bottom: 20px;
-  text-align: center;
-  font-weight: 700;
-}
-
-/* ============================================================
-   7) RECHTE FILTER-ZEILE (Jahr/Monat/Tag/Kat/Tag)
-   ============================================================ */
-
-.field-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-/* Minimal-Select (rechte Seite) */
-select.minimal {
-  font-size: 0.9rem;
-  padding: 8px 10px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.06);
-}
-
-select.minimal option {
-  background-color: #161a22 !important;
-  color: #e6eef8 !important;
-}
-
-/* ============================================================
-   8) MINI-SELECTS (Analyse/Filter)
-   ============================================================ */
-
-.mini-select {
-  appearance: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e6eef8;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-weight: 600;
-  height: 38px;
-  line-height: 1;
-  transition:
-    border-color .15s ease,
-    background .15s ease,
-    box-shadow .15s ease;
-}
-
-.mini-select:hover { background: rgba(255,255,255,0.12); }
-
-.mini-select:focus {
-  outline: none;
-  border-color: #00d4ff;
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-  background: rgba(255,255,255,0.08);
-  color: #e6eef8;
-}
-
-.mini-select option {
-  background-color: #161a22 !important;
-  color: #e6eef8 !important;
-}
-
-/* ============================================================
-   9) ANALYSE-CONTROLS & TOGGLE BUTTONS
-   ============================================================ */
-
-.analysis-controls { margin: 14px 0 4px; }
-
-.controls-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-/* Layout der Buttons/Selects in der Analyse-Zeile */
-.analysis-controls .controls-row {
-  display: flex;
-  width: 100%;
-  gap: 10px;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: nowrap;
-  box-sizing: border-box;
-}
-
-.analysis-controls .controls-row > * {
-  flex: 1 1 0;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.toggle-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-
-/* Toggle-Button Basis */
-.toggle-btn,
-.analysis-controls .controls-row .toggle-btn {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: #e6eef8;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-/* Toggle Hover (nicht aktiv) */
-.toggle-btn:hover:not(.active),
-.analysis-controls .controls-row .toggle-btn:hover:not(.active),
-.analysis-controls .controls-row .mini-select:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-/* Toggle Fokus */
-.analysis-controls .controls-row .toggle-btn:focus-visible,
-.analysis-controls .controls-row .mini-select:focus {
-  outline: none;
-  border-color: #00d4ff;
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
-  background: rgba(255,255,255,0.08);
-  color: #e6eef8;
-}
-
-/* Toggle aktiv */
-.toggle-btn.active,
-.analysis-controls .controls-row .toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  border-color: transparent !important;
-  color: #fff !important;
-}
-
-/* Analyse-Action-Button */
-.analysis-btn {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
-}
-
-
-/* ============================================================
-   10) ANALYSE-MODAL
-   ============================================================ */
-
-#analysisModal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(3px);
-  z-index: 1100;
-}
-
-.analysis-sheet {
-  position: relative;
-  background: #fff;
-  color: #222;
-  border-radius: 16px;
-  width: min(820px, 92vw);
-  padding: 18px 20px;
-  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-  animation: pop .2s ease;
-}
-
-.analysis-sheet h2 { margin: 0 0 10px; color: #111; }
-
-.analysis-body {
-  max-height: 60vh;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  line-height: 1.5;
-  font-size: 0.98rem;
-}
-
-.close-x {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  font-size: 1.1rem;
-  padding: 4px 6px;
-  border-radius: 8px;
-}
-
-.analysis-close-btn {
-  border: 1px solid black !important;
-  padding: 10px 20px;
-  border-radius: 10px;
-  display: block;
-  margin: 20px auto 0 auto;
-  color: #e6eef8;
-  background: #161a22;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-/* Panel-Überschriften (h2) */
-.panel-left h2,
-.panel-right h2,
-.analysis-panel h2 {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 27px;
-}
-
-/* ============================================================
-   11) RESPONSIVE — MOBILE (<= 900px)
-   Fokus: Stack, Abstände, Höhen, Buttons, Analyse-Controls
-   ============================================================ */
 
 @media (max-width: 900px) {
-  /* Panels untereinander + mehr Abstand */
-  .container {
-    flex-direction: column;
-    gap: 34px;
+
+  :root{
+    --bg: #0b1220;
+    --panel: #161a22;
+    --text: #e6eef8;
+    --muted: rgba(255,255,255,.06);
+    --muted2: rgba(255,255,255,.12);
+    --border: rgba(255,255,255,.12);
+    --accent: #00d4ff;
+    --danger: #a50000;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 30px rgba(0,0,0,.55);
+    --h: 48px;
+    --gap: 12px;
   }
 
-  /* Außenabstand auf Mobile */
-  html,
-  body {
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
     padding: 14px;
+    min-height: 100%;
+    font-family: Inter, "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-y: auto;
   }
 
-  /* Panels/Listen ohne feste Höhe & ohne eigene Scrollbars */
+  h1{
+    text-align: center;
+    font-weight: 300;
+    margin: 6px 0 18px;
+    font-size: 1.35rem;
+  }
+
+  /* ===== Layout: Panels untereinander ===== */
+  .container{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
   .panel-left,
   .panel-right,
-  .analysis-panel,
-  .paper {
-    height: auto !important;
-    overflow: visible !important;
+  .analysis-panel{
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: none;
+    padding: 18px;
+    height: auto;
+    overflow: visible;
   }
 
-  /* Headlines */
-  .panel-left h2 { margin-bottom: 34px; text-align: center; }
+  .paper{
+    background: var(--panel);
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: none;
+    height: auto;
+    overflow: visible;
+  }
+
+  .panel-left h2,
   .panel-right h2,
-  .analysis-panel h2 { text-align: center; }
-
-  /* Radio-Gruppe (Einnahme/Ausgabe) kompakter */
-  .radio-group {
-    margin: 8px 0 16px !important;
-    display: flex;
-    gap: 62px;
+  .analysis-panel h2{
+    text-align: center;
+    margin: 0 0 14px;
   }
 
-  /* Feldhöhen angleichen */
+  /* ===== Fields ===== */
+  .field{
+    position: relative;
+    margin-bottom: 14px;
+    min-width: 0;
+    flex: 1;
+  }
+
   .field input,
-  .field select,
-  select.minimal,
-  .mini-select {
-    height: 48px !important;
-    padding: 10px 10px 8px;
-    font-size: 0.98rem;
-  }
-
-  /* Buttons in linker Spalte: 2:1, full width */
-  .action-row {
-    display: flex;
-    gap: 12px;
-    justify-content: stretch;
-    margin-top: 20px;
-  }
-  #addBtn,
-  #clearBtn {
-    height: 48px !important;
-    border-radius: 10px;
-    font-size: 1rem;
+  .field select{
     width: 100%;
+    height: var(--h);
+    padding: 12px 12px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--muted);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
   }
-  #addBtn { flex: 2; }
-  #clearBtn { flex: 1; }
 
-  /* Kassenbon-Filter: 
-     1. Reihe (Jahr/Monat/Tag) je 1/3 
-     2. Reihe (Kategorie/Tag) je 1/2 */
-  .panel-right .field-group {
-    gap: 10px;
-    margin-bottom: 20px;
+  /* Mobile: Hover/Fokus ruhig (kein Glow) */
+  .field input:hover,
+  .field select:hover,
+  .field input:focus,
+  .field select:focus{
+    background: var(--muted2);
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* ===== Floating Label Engine (einmal, sauber) ===== */
+  .field label{
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    background: transparent;
+    transition: .2s ease;
+    color: var(--text);
+    padding: 0 4px;
+    line-height: 1;
+  }
+
+  .field:focus-within label,
+  .field.filled label{
+    top: -8px;
+    left: 10px;
+    transform: none;
+    font-size: .78rem;
+    color: var(--accent);
+    padding: 0 6px;
+    border-radius: 4px;
+  }
+
+  /* ===== Date Input (links) ===== */
+  #dateInput{
+    text-align: center;
+    text-align-last: center;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  #dateInput::-webkit-calendar-picker-indicator{
+    opacity: 0;
+    display: none;
+  }
+
+  /* ===== Radio ===== */
+  .radio-group{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 8px 0 16px;
+  }
+  input[type="radio"]{
+    accent-color: var(--accent);
+  }
+
+  /* ===== Right Panel Filter row ===== */
+  .field-group{
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
   }
+
+  /* Jahr/Monat/Tag: 3 Spalten, dann Kat/Tag: 2 Spalten */
   .panel-right .field-group .field:nth-child(1),
   .panel-right .field-group .field:nth-child(2),
-  .panel-right .field-group .field:nth-child(3) {
+  .panel-right .field-group .field:nth-child(3){
     flex: 1 1 calc(33.333% - 10px);
-    min-width: 0;
   }
   .panel-right .field-group .field:nth-child(4),
-  .panel-right .field-group .field:nth-child(5) {
+  .panel-right .field-group .field:nth-child(5){
     flex: 1 1 calc(50% - 10px);
-    min-width: 0;
   }
 
-  /* Analyse-Panel Controls: Wrap, halbe Breite */
-  .analysis-panel .analysis-controls .controls-row {
+  /* ===== Entries ===== */
+  .entry{
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: stretch;
-  }
-  .analysis-panel .controls-row > * {
-    flex: 1 1 calc(50% - 10px);
-    min-width: 0;
-    height: 48px !important;
-    font-size: 1rem !important;
-  }
-  .analysis-panel .toggle-btn,
-  .analysis-panel .mini-select {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 48px !important;
-  }
-  .analysis-panel .analysis-btn {
-    width: 100% !important;
-    height: 48px !important;
-    font-size: 1rem !important;
-    margin-top: 6px;
-    border-radius: 10px !important;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    background: rgba(255,255,255,.88);
+    border: 1px solid rgba(255,255,255,.10);
   }
 
-  /* Panel-spezifische Scrollbars auf Mobile ausblenden (WebKit) */
+  .meta{ color: #002366; flex: 1; }
+  .small{ font-size: .85rem; color: #000; }
+  .amount-income{ color: #218838; font-weight: 700; }
+  .amount-expense{ color: #c82333; font-weight: 700; }
+
+  .balance{
+    margin-top: 12px;
+    padding: 12px 0 10px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  /* ===== Buttons: kompakt + 3 Reihen ===== */
+  .action-row{
+    display: flex;
+    gap: 10px;
+    margin: 4px 0; /* 🔥 enger zusammen */
+  }
+
+  .action-row button{
+    height: var(--h);
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .primary{
+    background: linear-gradient(135deg, var(--accent), #007bff);
+    color: #fff;
+  }
+
+  .ghost{
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.12);
+    color: var(--text);
+  }
+
+  /* “Alles löschen” */
+  #clearBtn{
+    background: var(--danger);
+    color: #fff;
+    border: 1px solid rgba(255,0,0,.25);
+    font-size: .95rem;
+  }
+
+  /* Deine 3-Zeilen-Struktur */
+  .single-row{ justify-content: center; }
+  .full-btn{ width: 100%; }
+
+  .triple-row{ width: 100%; }
+  .triple-row .btn-neu{ flex: 1; }
+  .triple-row .btn-wide{ flex: 3; }
+
+  /* (Wenn du “Neu” grün willst wie vorher) */
+  #resetInputsBtn{
+    background: linear-gradient(135deg, #1a662c, #218838);
+    color: #fff;
+    border: none;
+  }
+
+  /* Export / Import Farben (falls du diese Klassen nutzt) */
+  .btn-export{ background: #f39c12; color: #fff; }
+  .btn-import{ background: #7d3cff; color: #fff; }
+
+  /* ===== Analyse Modal (mobile) ===== */
+  #analysisModal{
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(3px);
+    z-index: 1100;
+  }
+
+  .analysis-sheet{
+    position: relative;
+    width: 94vw;
+    padding: 14px;
+    border-radius: var(--radius);
+    background: #fff;
+    color: #222;
+    box-shadow: 0 14px 40px rgba(0,0,0,.45);
+  }
+
+  .analysis-body{
+    max-height: 66vh;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: .98rem;
+  }
+
+  .close-x{
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+
+  .analysis-close-btn{
+    display: block;
+    margin: 16px auto 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid rgba(0,0,0,.25);
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  /* ===== Kleine WebKit Scrollbars ausblenden ===== */
   .paper::-webkit-scrollbar,
-  .panel-left::-webkit-scrollbar {
+  .panel-left::-webkit-scrollbar{
     display: none;
   }
 }
 
-/* ============================================================
-   12) VERY SMALL SCREENS (<= 480px) — Feinschliff
-   ============================================================ */
-
-@media (max-width: 480px) {
-  html,
-  body {
-    padding: 10px;
-  }
-  h1 {
-    font-size: 1.35rem;
-    margin-bottom: 18px;
-  }
-  .analysis-sheet {
-    width: 94vw;
-    padding: 14px;
-  }
-  .analysis-body {
-    max-height: 66vh;
-  }
-}
-
-/* ============================================================
-   13) MOBILE: Fokus/Hover vereinheitlichen (keine Glows)
-   ============================================================ */
-
-@media (max-width: 900px) {
-  .field input:hover,
-  .field select:hover,
-  select.minimal:hover,
-  .mini-select:hover,
-  .field input:focus,
-  .field select:focus,
-  select.minimal:focus,
-  .mini-select:focus {
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: none !important;
-    outline: none !important;
-    border: none !important;
-  }
-}
-
-/* ===================================================================
-   CLEAN & UNIFIED LIGHT MODE — MATCHES DARK MODE DESIGN (just light)
-   =================================================================== */
-
-/* ============================================================
-   LIGHT MODE — Einheitlich & Sauber
-   Panels grau, Seite weiß, Paper gleich wie Panels
-   ============================================================ */
-
-.light-mode {
-  background: #ffffff !important;   /* Hintergrund der ganzen Seite */
-  color: #1a1a1a !important;
-}
-
-/* =============================
-   PANELS (Left, Right, Analyse)
-   ============================= */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel {
-  background: #e6e6e6 !important;   /* Einheitliches Grau */
-  color: #1a1a1a !important;
-  border-radius: 16px !important;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
-}
-
-/* =============================
-   PAPER (Liste rechts)
-   gleiche Farbe wie die Panels
-   ============================= */
-.light-mode .paper {
-  background: #e6e6e6 !important;    /* Gleiches Grau wie Panels */
-  border-radius: 16px !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* =============================
-   LISTEN-EINTRÄGE (Entries)
-   bleiben WEISS für bessere Lesbarkeit
-   ============================= */
-.light-mode .entry {
-  background: #ffffff !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(0,0,0,0.12) !important;
-}
-
-/* =============================
-   INPUTS & SELECTS
-   ============================= */
-.light-mode .field input,
-.light-mode .field select,
-.light-mode .mini-select,
-.light-mode select.minimal {
-  background: #f3f3f3 !important;
-  color: #1a1a1a !important;
-  border: 1px solid #cfcfcf !important;
-  box-shadow: none !important;
-}
-
-/* Floating Label (Light) */
-.light-mode .field label {
-  color: #333 !important;
-}
-
-.light-mode .field.filled label,
-.light-mode .field:focus-within label {
-  color: #007bff !important;
-  
-}
-
-/* =============================
-   BUTTONS
-   ============================= */
-.light-mode button.primary {
-  background: linear-gradient(135deg, #007bff, #00aaff) !important;
-  color: white !important;
-}
-
-.light-mode #clearBtn {
-  background: #c82333 !important;
-  color: white !important;
-}
-
-#resetInputsBtn {
-  background: linear-gradient(135deg, #1a662c, #218838) !important;
-  color: white !important;
-}
-
-/* =============================
-   DATE INPUTS
-   ============================= */
-.light-mode input[type="date"] {
-  color: #1a1a1a !important;
-  background: #f3f3f3 !important;
-  border: 1px solid #cfcfcf !important;
-}
-
-
-.field.filled label,
-.field:focus-within label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Select: wenn KEIN Wert → NICHT floaten */
-.field select:not(.has-value) + label {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-}
-
-
-.field label {
-  background: transparent !important;
-}
-
-/* Floating-Label bei Fokus/Wert */
-.field.filled label,
-.field:focus-within label {
-  background: transparent !important;
-}
-
-/* Select-Variante (wenn du + label nutzt) */
-.field select + label {
-  background: transparent !important;
-}
-
-/* Light-Mode explizit (optional, doppelt gemoppelt sicher) */
-.light-mode .field label,
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select + label {
-  background: transparent !important;
-}
- 
-
-
-
-
-
-.field label {
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  background: transparent !important;
-  transition: 0.2s ease;
-}
-
-/* 1) FLOATEN bei Fokus oder Wert */
-.field.filled label,
-.field:focus-within label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* 2) Kein Wert bei SELECT → NICHT floaten */
-.field select:not(.has-value) + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-}
-
-/* ============================================================
-   DARK MODE COLORS
-   ============================================================ */
-
-/* Nicht floatend */
-body:not(.light-mode) .field label {
-  color: #e6eef8 !important;
-}
-
-/* Floatend */
-body:not(.light-mode) .field.filled label,
-body:not(.light-mode) .field:focus-within label,
-body:not(.light-mode) .field select.has-value + label {
-  color: #00d4ff !important;
-}
-
-/* ============================================================
-   LIGHT MODE COLORS
-   ============================================================ */
-
-/* Nicht floatend */
-.light-mode .field label {
-  color: black !important;
-}
-
-/* Floatend */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label {
-  color: #007bff !important;
-}
-
-/* ============================================================
-   FIX: Alte Select-Regeln überschreiben (WICHTIG!)
-   ============================================================ */
-
-.field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label,
-body.light-mode .field select:not([value=""]) ~ label,
-body.light-mode .field select:not([value=" "]) ~ label {
-  color: inherit !important;      /* = benutzt Dark/Light Standardfarbe */
-  background: transparent !important;
-}
-/* ============================================================
-   UNIVERSAL FLOATING LABEL FIX — FINAL VERSION
-   ============================================================ */
-
-/* 0) Standardposition — Label unten */
-.field label {
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  background: transparent !important;
-  pointer-events: none;
-  transition: 0.2s ease;
-}
-
-/* 1) FLOATING (Input oder Select mit Fokus oder Wert) */
-.field.filled label,
-.field:focus-within label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* 2) SELECT ohne Wert → NICHT floaten */
-.field select:not(.has-value) + label {
-  top: 50% !important;
-  left: 12px !important;
-  font-size: 1rem !important;
-  transform: translateY(-50%) !important;
-}
-
-/* ============================================================
-   DARK MODE — Farben
-   ============================================================ */
-
-/* Nicht floatend */
-body:not(.light-mode) .field label {
-  color: #e6eef8 !important;   /* hellgrau */
-}
-
-/* Floatend */
-body:not(.light-mode) .field.filled label,
-body:not(.light-mode) .field:focus-within label,
-body:not(.light-mode) .field select.has-value + label {
-  color: #00d4ff !important;   /* hellblau */
-}
-
-/* ============================================================
-   LIGHT MODE — Farben
-   ============================================================ */
-
-/* Nicht floatend */
-.light-mode .field label {
-  color: #1a1a1a !important;   /* schwarz/dunkel */
-}
-
-/* Floatend */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label {
-  color: #007bff !important;   /* hellblau */
-}
-
-/* ============================================================
-   HARTE OVERRIDES: Entfernen alter Select-Regeln
-   ============================================================ */
-
-.field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label,
-.light-mode .field select:not([value=""]) ~ label,
-.light-mode .field select:not([value=" "]) ~ label {
-  color: inherit !important;     /* folgt Dark/Light Rules */
-  background: transparent !important;
-}
-/* ============================================================
-   UNIVERSAL FLOATING LABEL ENGINE — DARK + LIGHT MODE FINAL
-   ============================================================ */
-
-/* 0) Grundlabel – unten */
-.field label {
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  pointer-events: none;
-  background: transparent !important;
-  transition: 0.2s ease;
-}
-
-/* 1) FLOATING — Fokus ODER Wert */
-.field.filled label,
-.field:focus-within label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* 2) SELECT ohne Wert → NICHT floaten */
-.field select:not(.has-value) + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-}
-
-/* ============================================================
-   DARK MODE — Farben
-   ============================================================ */
-
-/* Nicht schwebend: hellgrau */
-body:not(.light-mode) .field label {
-  color: #e6eef8 !important;
-}
-
-/* Schwebend: hellblau */
-body:not(.light-mode) .field.filled label,
-body:not(.light-mode) .field:focus-within label,
-body:not(.light-mode) .field select.has-value + label {
-  color: #00d4ff !important;
-}
-
-/* ============================================================
-   LIGHT MODE — Farben
-   ============================================================ */
-
-/* Nicht schwebend: schwarz */
-.light-mode .field label {
-  color: #1a1a1a !important;
-}
-
-/* Schwebend: hellblau */
-.light-mode .field.filled label,
-.light-mode .field:focus-within label,
-.light-mode .field select.has-value + label {
-  color: #007bff !important;
-}
-
-/* ============================================================
-   FIX — Alte fehlerhafte Select-Regeln überschreiben (WICHTIG)
-   ============================================================ */
-
-.field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label,
-.light-mode .field select:not([value=""]) ~ label,
-.light-mode .field select:not([value=" "]) ~ label {
-  background: transparent !important;
-  color: inherit !important; /* folgt Dark/Light Farbe korrekt */
-}
-
-
-
-
-.field select:not([value=""]) ~ label,
-.field select:not([value=" "]) ~ label {
-  color: inherit !important;   /* nimmt Dark/Light-basierte Farbe */
-}
-
-/* 2) Dark Mode: floating = hellblau */
-body:not(.light-mode) .field select.has-value + label,
-body:not(.light-mode) .field:focus-within label {
-  color: #00d4ff !important;
-}
-
-/* 3) Light Mode: floating = hellblau */
-.light-mode .field select.has-value + label,
-.light-mode .field:focus-within label {
-  color: #007bff !important;
-}
-
-/* 4) Light Mode: nicht floatend = schwarz */
-.light-mode .field label {
-  color: #1a1a1a !important;
-}
-
-/* 5) Float-Mechanik (bleibt gleich) */
-.field.filled label,
-.field:focus-within label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  font-size: .78rem !important;
-  transform: none !important;
-}
-
-.light-mode #categorySelect + label,
-.light-mode #tagSelect + label {
-  color: #1a1a1a !important;
-}
-
-/* Floating-Zustand → hellblau */
-.light-mode #categorySelect.has-value + label,
-.light-mode #categorySelect:focus + label,
-.light-mode #tagSelect.has-value + label,
-.light-mode #tagSelect:focus + label {
-  color: #007bff !important;
-}
-
-.field select:focus + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  color: var(--float-color) !important;
-}
-
-/* LIGHT MODE Floating-Farbe */
-.light-mode .field select:focus + label {
-  color: #007bff !important;
-}
-
-/* DARK MODE Floating-Farbe */
-body:not(.light-mode) .field select:focus + label {
-  color: #00d4ff !important;
-}
-
-
-/* ============================================================
-   RIGHT PANEL — Select Floating + Farben (höchste Priorität)
-   Bitte GANZ UNTEN einfügen.
-   ============================================================ */
-
-/* 0) Basisfarben (nicht floatend) im rechten Panel */
-.light-mode .panel-right .field label {
-  color: #1a1a1a !important;            /* Light: dunkel/schwarz */
-}
-body:not(.light-mode) .panel-right .field label {
-  color: #e6eef8 !important;            /* Dark: hellgrau */
-}
-
-/* 1) Beim FOCUS: immer floaten + hellblau (auch ohne Wert) */
-.panel-right .field select:focus + label,
-.panel-right .field select:focus ~ label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-.light-mode .panel-right .field select:focus + label,
-.light-mode .panel-right .field select:focus ~ label {
-  color: #007bff !important;            /* Light: hellblau */
-}
-body:not(.light-mode) .panel-right .field select:focus + label,
-body:not(.light-mode) .panel-right .field select:focus ~ label {
-  color: #00d4ff !important;            /* Dark: hellblau */
-}
-
-/* 2) Mit Wert (has-value/filled): oben + hellblau */
-.panel-right .field select.has-value + label,
-.panel-right .field select.has-value ~ label,
-.panel-right .field.filled label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-.light-mode .panel-right .field select.has-value + label,
-.light-mode .panel-right .field select.has-value ~ label,
-.light-mode .panel-right .field.filled label {
-  color: #007bff !important;
-}
-body:not(.light-mode) .panel-right .field select.has-value + label,
-body:not(.light-mode) .panel-right .field select.has-value ~ label,
-body:not(.light-mode) .panel-right .field.filled label {
-  color: #00d4ff !important;
-}
-
-/* 3) Kein Wert + kein Fokus: NICHT floaten (Label zurück nach unten) */
-.panel-right .field select:not(.has-value):not(:focus) + label,
-.panel-right .field select:not(.has-value):not(:focus) ~ label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-  color: inherit !important; /* nimmt die Basisfarbe aus Block 0 */
-}
-
-/* 4) HARTE OVERRIDES: alte Farbregeln für Select-Labels im rechten Panel neutralisieren */
-.panel-right .field select:not([value=""]) ~ label,
-.panel-right .field select:not([value=" "]) ~ label,
-.light-mode .panel-right .field select:not([value=""]) ~ label,
-.light-mode .panel-right .field select:not([value=" "]) ~ label {
-  color: inherit !important;            /* folgt den Mode-Farben */
-  background: transparent !important;
-}
-
-/* 5) OPTIONAL — super-spezifischer Boost für die 5 IDs, falls andere Regeln noch gewinnen */
-.light-mode .panel-right #yearSelect:focus + label,
-.light-mode .panel-right #monthSelect:focus + label,
-.light-mode .panel-right #daySelect:focus + label,
-.light-mode .panel-right #categoryFilterSelect:focus + label,
-.light-mode .panel-right #tagFilterSelect:focus + label {
-  color: #007bff !important;
-}
-body:not(.light-mode) .panel-right #yearSelect:focus + label,
-body:not(.light-mode) .panel-right #monthSelect:focus + label,
-body:not(.light-mode) .panel-right #daySelect:focus + label,
-body:not(.light-mode) .panel-right #categoryFilterSelect:focus + label,
-body:not(.light-mode) .panel-right #tagFilterSelect:focus + label {
-  color: #00d4ff !important;
-}
-
-
-.light-mode #yearSelect + label,
-.light-mode #monthSelect + label,
-.light-mode #daySelect + label {
-  color: #1a1a1a !important; /* schwarz */
-}
-
-body:not(.light-mode) #yearSelect + label,
-body:not(.light-mode) #monthSelect + label,
-body:not(.light-mode) #daySelect + label {
-  color: #e6eef8 !important; /* hellgrau */
-}
-
-/* ============================================================
-   1) FLOATING — Fokus → immer hellblau
-   ============================================================ */
-
-#yearSelect:focus + label,
-#monthSelect:focus + label,
-#daySelect:focus + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Floating Farbe Light Mode */
-.light-mode #yearSelect:focus + label,
-.light-mode #monthSelect:focus + label,
-.light-mode #daySelect:focus + label {
-  color: #007bff !important; /* hellblau */
-}
-
-/* Floating Farbe Dark Mode */
-body:not(.light-mode) #yearSelect:focus + label,
-body:not(.light-mode) #monthSelect:focus + label,
-body:not(.light-mode) #daySelect:focus + label {
-  color: #00d4ff !important; /* hellblau */
-}
-
-/* ============================================================
-   2) FLOATING — Wert gesetzt (.has-value)
-   ============================================================ */
-
-#yearSelect.has-value + label,
-#monthSelect.has-value + label,
-#daySelect.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Farbe Light Mode */
-.light-mode #yearSelect.has-value + label,
-.light-mode #monthSelect.has-value + label,
-.light-mode #daySelect.has-value + label {
-  color: #007bff !important;
-}
-
-/* Farbe Dark Mode */
-body:not(.light-mode) #yearSelect.has-value + label,
-body:not(.light-mode) #monthSelect.has-value + label,
-body:not(.light-mode) #daySelect.has-value + label {
-  color: #00d4ff !important;
-}
-
-/* ============================================================
-   3) Kein Wert + kein Fokus → NICHT floaten
-   ============================================================ */
-#yearSelect:not(.has-value):not(:focus) + label,
-#monthSelect:not(.has-value):not(:focus) + label,
-#daySelect:not(.has-value):not(:focus) + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-  color: inherit !important; /* nimmt schwarz/hellgrau je nach Mode */
-}
-
-/* ============================================================
-   4) Entfernt alte störende Regeln in diesem Bereich
-   ============================================================ */
-
-.panel-right .field select:not([value=""]) ~ label,
-.panel-right .field select:not([value=" "]) ~ label {
-  color: inherit !important;
-  background: transparent !important;
-}
-
-/* Nicht floatend → schwarz im Light Mode */
-.light-mode .panel-right #categoryFilterSelect + label,
-.light-mode .panel-right #tagFilterSelect + label {
-  color: #1a1a1a !important;
-}
-
-/* FLOATING (Fokus ODER Wert) → immer hellblau + oben + klein */
-.light-mode .panel-right #categoryFilterSelect:focus + label,
-.light-mode .panel-right #categoryFilterSelect.has-value + label,
-.light-mode .panel-right #tagFilterSelect:focus + label,
-.light-mode .panel-right #tagFilterSelect.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-  color: #007bff !important; /* HELLBLAU */
-}
-
-/* Kein Wert + kein Fokus → NICHT floaten + schwarz */
-.light-mode .panel-right #categoryFilterSelect:not(.has-value):not(:focus) + label,
-.light-mode .panel-right #tagFilterSelect:not(.has-value):not(:focus) + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-  color: #1a1a1a !important;
-}
-
-/* Alte Regeln in diesem Bereich ausknipsen (falls vorhanden) */
-.light-mode .panel-right #categoryFilterSelect ~ label,
-.light-mode .panel-right #tagFilterSelect ~ label {
-  background: transparent !important;
-}
-
-
-.light-mode .field select option,
-.light-mode select.minimal option,
-.light-mode .mini-select option {
-  background: #e6e6e6 !important;   /* HELLGRAU für die geöffnete Liste */
-  color: #1a1a1a !important;        /* dunkler Text für gute Lesbarkeit */
-}
-
-/* Optional: bessere Lesbarkeit für markierte (ausgewählte) Option in der Liste */
-.light-mode .field select option:checked,
-.light-mode select.minimal option:checked,
-.light-mode .mini-select option:checked {
-  background: #cfd8e3 !important;   /* etwas dunkleres Grau */
-  color: #0b315e !important;        /* dunkles Blau/Grau */
-}
-
-/* Optional: Hover/Focus (nicht überall unterstützt, schadet nicht) */
-.light-mode .field select option:hover,
-.light-mode select.minimal option:hover,
-.light-mode .mini-select option:hover,
-.light-mode .field select option:focus {
-  background: #dfe3e8 !important;
-  color: #14213d !important;
-}
-
-/* Popup Text-Ausrichtung zentriert lassen (passt zu deinem UI) */
-.light-mode .mini-select,
-.light-mode select.minimal {
-  text-align: center !important;
-  text-align-last: center !important;
-}
-
-/* (Optional) Scrollbar im Dropdown etwas dezenter in WebKit-Browsern */
-.light-mode .field select::-webkit-scrollbar {
-  width: 10px;
-}
-.light-mode .field select::-webkit-scrollbar-track {
-  background: #e6e6e6;
-  border-radius: 10px;
-}
-.light-mode .field select::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
-  border-radius: 10px;
-}
-
-.light-mode .analysis-panel #modeCategoryBtn.toggle-btn,
-.light-mode .analysis-panel #modeTagBtn.toggle-btn {
-  background: #ffffff !important;
-  color: #1a1a1a !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  box-shadow: none !important;
-}
-
-.analysis-panel #modeCategoryBtn.toggle-btn.active,
-.analysis-panel #modeTagBtn.toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-/* ============================================================
-   DARK MODE (Normalzustand) — Right Panel + Analyse
-   Zentrierte Werte + kein Hover, analog Light Mode
-   ============================================================ */
-
-/* 1) Right Panel: Jahr / Monat / Tag — Wert zentrieren, kein Hover */
-body:not(.light-mode) .panel-right .field select,
-body:not(.light-mode) select.minimal,
-body:not(.light-mode) .mini-select {
-  text-align: center !important;       /* sichtbarer Wert */
-  text-align-last: center !important;  /* ausgewählter Wert */
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  background: rgba(255, 255, 255, 0.06) !important; /* dein Dark-Mode Standard */
-  color: #e6eef8 !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  box-shadow: none !important;
-}
-
-/* Optionsliste (zentriert; je nach Browser teilweise unterstützt) */
-body:not(.light-mode) .panel-right .field select option,
-body:not(.light-mode) select.minimal option,
-body:not(.light-mode) .mini-select option {
-  background: #161a22 !important;  /* dunkles Panel-Grau */
-  color: #e6eef8 !important;
-  text-align: center !important;
-}
-
-/* Hover bei Selects abschalten (kein Aufhellen) */
-body:not(.light-mode) .panel-right .field select:hover,
-body:not(.light-mode) select.minimal:hover,
-body:not(.light-mode) .mini-select:hover {
-  background: rgba(255, 255, 255, 0.06) !important; /* gleich wie normal */
-}
-
-/* Fokus ruhig halten (kein Glow), nur leichte Randfarbe */
-body:not(.light-mode) .panel-right .field select:focus,
-body:not(.light-mode) select.minimal:focus,
-body:not(.light-mode) .mini-select:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-color: rgba(255,255,255,0.18) !important;
-}
-
-/* 2) Analyse-Panel: Mini-Selects (Jahr/Monat) — zentriert + kein Hover */
-body:not(.light-mode) .analysis-panel .mini-select {
-  text-align: center !important;
-  text-align-last: center !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #e6eef8 !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  box-shadow: none !important;
-}
-
-/* Mini-Select Hover abschalten */
-body:not(.light-mode) .analysis-panel .mini-select:hover {
-  background: rgba(255, 255, 255, 0.06) !important;
-}
-
-/* Mini-Select Fokus ruhig */
-body:not(.light-mode) .analysis-panel .mini-select:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: rgba(255,255,255,0.18) !important;
-}
-
-/* 3) Analyse-Panel: Kategorie/Type Toggle — kein Hover-Effekt (nur aktiv = grün) */
-body:not(.light-mode) .analysis-panel .toggle-btn {
-  background: rgba(255,255,255,0.06) !important;
-  color: #e6eef8 !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  box-shadow: none !important;
-}
-
-/* Hover NICHT ändern (gleich halten wie normal) */
-body:not(.light-mode) .analysis-panel .toggle-btn:hover:not(.active) {
-  background: rgba(255,255,255,0.06) !important;
-  color: #e6eef8 !important;
-  border-color: rgba(255,255,255,0.12) !important;
-}
-
-/* Fokus ruhig */
-body:not(.light-mode) .analysis-panel .toggle-btn:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: rgba(255,255,255,0.18) !important;
-}
-
-/* Aktivzustand bleibt dein grüner Verlauf */
-body:not(.light-mode) .analysis-panel .toggle-btn.active {
-  background: linear-gradient(135deg, #0a7a36, #024d20) !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-
-
-.light-mode select,
-.light-mode select.minimal,
-.light-mode .mini-select {
-  -webkit-appearance: none !important;  /* Chrome/Safari/iOS */
-  -moz-appearance: none !important;     /* Firefox */
-  appearance: none !important;          /* Standard */
-  background-image: none !important;    /* evtl. eingebaute Icons entfernen */
-}
-
-/* WebKit-spezifische Steuerelemente ausblenden (iOS/Safari) */
-.light-mode select::-webkit-inner-spin-button,
-.light-mode select::-webkit-calendar-picker-indicator,
-.light-mode select::-webkit-clear-button {
-  display: none !important;
-  -webkit-appearance: none !important;
-}
-
-/* (Legacy) IE/Edge: Expand-Pfeil ausblenden */
-.light-mode select::-ms-expand {
-  display: none !important;
-}
-
-/* Optional: Platz für eigenes Icon rechts freimachen (falls du später eins setzt) */
-/*
-.light-mode select,
-.light-mode select.minimal,
-.light-mode .mini-select {
-  padding-right: 28px !important;
-}
-*/
-
-/* Optional: zentrierte Anzeige wie im Light Mode üblich beibehalten */
-.light-mode select,
-.light-mode select.minimal,
-.light-mode .mini-select {
-  text-align: center !important;
-  text-align-last: center !important;
-}
-/* ============================================================
-   DARK/NORMAL MODE — Analyse-Button wie Light Mode, ohne weißen Rand
-   ============================================================ */
-
-/* Analysen-Button im Dark Mode exakt wie Light Mode stylen */
-body:not(.light-mode) .analysis-panel .analysis-btn,
-body:not(.light-mode) .analysis-panel button.primary.analysis-btn {
-  background: linear-gradient(135deg, #007bff, #00aaff) !important; /* wie Light Mode */
-  color: #ffffff !important;
-  border: none !important;           /* weißen Rand entfernen */
-  box-shadow: none !important;       /* kein Glow/Shadow */
-}
-
-/* Optional: gleiches Hover-Verhalten wie Light Mode (leicht intensiver) */
-body:not(.light-mode) .analysis-panel .analysis-btn:hover {
-  filter: brightness(1.05) !important;
-}
-
-/* Optional: ruhiger Fokus (kein Shadow) */
-body:not(.light-mode) .analysis-panel .analysis-btn:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-.light-mode,
-.light-mode html,
-.light-mode body {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  background-clip: border-box !important; /* vermeidet Farbsäume */
-}
-
-/* 2) Jeder Focus-Zustand im Light-Mode → ohne Outline/Glow */
-.light-mode :focus,
-.light-mode :focus-visible,
-.light-mode :focus-within {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 3) Panels & Paper: keine Ränder, keine zufälligen Kanten */
-.light-mode .panel-left,
-.light-mode .panel-right,
-.light-mode .analysis-panel,
-.light-mode .paper {
-  border: none !important;
-  /* Falls du die weichen Schatten im Light-Mode behalten willst, 
-     diese Zeile entfernen/auskommentieren: */
-  box-shadow: none !important;
-}
-
-/* 4) Firefox: innerer Fokus-Rand (v.a. Buttons/Selects) entfernen */
-.light-mode *::-moz-focus-inner {
-  border: 0 !important;
-}
-
-/* 5) Safari/iOS: native blaue Highlights/Pfeile deaktivieren */
-.light-mode * {
-  -webkit-tap-highlight-color: transparent !important;
-}
-.light-mode select,
-.light-mode input,
-.light-mode button {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* 6) Falls ein Wrapper (z. B. .container) die Kante erzeugt */
-.light-mode .container {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 7) OPTIONAL: Wenn du nur den Body-Rand siehst (einige Browser) */
-@supports (-webkit-touch-callout: none) {
-  .light-mode body {
-    /* Safari-spezifische Fokusränder verhindern */
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
-
-#leftYearSelect + label,
-#leftMonthSelect + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-  pointer-events: none;
-  background: transparent !important;
-}
-
-
-
-/* ============================================================
-   1) FLOATING DURCH FOKUS (sofort hoch) 
-   ============================================================ */
-
-#leftYearSelect:focus + label,
-#leftMonthSelect:focus + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Light Mode: hellblau beim Fokus */
-.light-mode #leftYearSelect:focus + label,
-.light-mode #leftMonthSelect:focus + label {
-  color: #007bff !important;
-}
-
-/* Dark Mode: hellblau beim Fokus */
-body:not(.light-mode) #leftYearSelect:focus + label,
-body:not(.light-mode) #leftMonthSelect:focus + label {
-  color: #00d4ff !important;
-}
-
-
-
-/* ============================================================
-   2) FLOATING DURCH WERT (has-value / filled)
-   ============================================================ */
-
-#leftYearSelect.has-value + label,
-#leftMonthSelect.has-value + label,
-.field.filled #leftYearSelect + label,
-.field.filled #leftMonthSelect + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Wert + Light Mode → bleibt hellblau */
-.light-mode #leftYearSelect.has-value + label,
-.light-mode #leftMonthSelect.has-value + label {
-  color: #007bff !important;
-}
-
-/* Wert + Dark Mode → bleibt hellblau */
-body:not(.light-mode) #leftYearSelect.has-value + label,
-body:not(.light-mode) #leftMonthSelect.has-value + label {
-  color: #00d4ff !important;
-}
-
-
-
-/* ============================================================
-   3) NICHT FLOATEND (weder Fokus noch Wert)
-   ============================================================ */
-
-#leftYearSelect:not(.has-value):not(:focus) + label,
-#leftMonthSelect:not(.has-value):not(:focus) + label {
-  top: 50% !important;
-  left: 12px !important;
-  transform: translateY(-50%) !important;
-  font-size: 1rem !important;
-}
-
-/* Light Mode → unten = schwarz */
-.light-mode #leftYearSelect:not(.has-value):not(:focus) + label,
-.light-mode #leftMonthSelect:not(.has-value):not(:focus) + label {
-  color: #1a1a1a !important;
-}
-
-/* Dark Mode → unten = hellgrau */
-body:not(.light-mode) #leftYearSelect:not(.has-value):not(:focus) + label,
-body:not(.light-mode) #leftMonthSelect:not(.has-value):not(:focus) + label {
-  color: #e6eef8 !important;
-}
-/* ============================================================
-   GLOBAL FLOATING ENGINE — FINAL FIX (Dark + Light Mode)
-   ============================================================ */
-
-/* 0) STANDARD (Label unten) */
-.field label {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  pointer-events: none;
-  transition: 0.2s ease;
-  background: transparent !important;
-}
-
-/* 1) FLOATING BEI FOKUS ODER WERT */
-.field.filled label,
-.field:focus-within label,
-.field select.has-value + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* ============================================================
-   DARK MODE COLORS
-   ============================================================ */
-
-/* Nicht floatend */
-body:not(.light-mode) .field label {
-  color: #e6eef8 !important;
-}
-
-/* Floatend */
-body:not(.light-mode) .field.filled label,
-body:not(.light-mode) .field select.has-value + label,
-body:not(.light-mode) .field:focus-within label {
-  color: #00d4ff !important;
-}
-
-/* ============================================================
-   LIGHT MODE COLORS
-   ============================================================ */
-
-/* Nicht floatend */
-.light-mode .field label {
-  color: #1a1a1a !important;
-}
-
-/* Floatend */
-.light-mode .field.filled label,
-.light-mode .field select.has-value + label,
-.light-mode .field:focus-within label {
-  color: #007bff !important;
-}
-
-/* ============================================================
-   SELECT ohne Wert → NICHT FLOATEN
-   ============================================================ */
-
-.field select:not(.has-value):not(:focus) + label {
-  top: 50% !important;
-  left: 12px !important;
-  font-size: 1rem !important;
-  transform: translateY(-50%) !important;
-}
-
-/* ============================================================
-   ANALYSE-PANEL: Jahr & Monat FLOAT FIX
-   ============================================================ */
-
-#leftYearSelect.has-value + label,
-#leftMonthSelect.has-value + label,
-#leftYearSelect:focus + label,
-#leftMonthSelect:focus + label {
-  top: -8px !important;
-  left: 10px !important;
-  transform: none !important;
-  font-size: 0.78rem !important;
-}
-
-/* Light Mode → Hellblau */
-.light-mode #leftYearSelect.has-value + label,
-.light-mode #leftMonthSelect.has-value + label,
-.light-mode #leftYearSelect:focus + label,
-.light-mode #leftMonthSelect:focus + label {
-  color: #007bff !important;
-}
-
-/* Dark Mode → Hellblau */
-body:not(.light-mode) #leftYearSelect.has-value + label,
-body:not(.light-mode) #leftMonthSelect.has-value + label,
-body:not(.light-mode) #leftYearSelect:focus + label,
-body:not(.light-mode) #leftMonthSelect:focus + label {
-  color: #00d4ff !important;
-}
-/* Statt alle Inputs, nur Selects und Buttons neutralisieren */
-.light-mode select,
-.light-mode button {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* Falls du appearance für Textfelder brauchst,
-   dann bitte NICHT auf radio/checkbox anwenden: */
-.light-mode input:not([type="radio"]):not([type="checkbox"]) {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* Radios sichtbar machen und Farbe setzen */
-.light-mode input[type="radio"] {
-  -webkit-appearance: radio !important; /* Safari/iOS */
-  appearance: auto !important;          /* Standard */
-  accent-color: #007bff;                /* Light-Mode Akzent */
-}
-/* ============================================================
-   DARK MODE — Entfernt weißen Rand im LEFT PANEL
-   ============================================================ */
-body:not(.light-mode) .panel-left .field input,
-body:not(.light-mode) .panel-left .field select {
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  box-shadow: none !important;
-}
-
-
-/* ============================================================
-   DARK MODE — Mobile: Datumfeld exakt so groß wie Eingabefelder
-   ============================================================ */
-@media (max-width: 900px) {
-  body:not(.light-mode) .panel-left .field #dateInput {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-
-    height: 48px !important;
-    padding: 12px 12px 10px !important;
-
-    box-sizing: border-box !important;
-    display: block !important;
-  }
-}	
-
-/* ============================================================
-   FIX: Date-Input im LEFT PANEL wie normale Inputs stylen
-   ============================================================ */
-
-.panel-left #dateInput {
-  width: 100% !important;
-  height: 48px !important;
-  padding: 12px !important;
-
-  border-radius: 10px !important;
-  border: none !important;
-  box-sizing: border-box !important;
-
-  /* Hintergrund & Textfarbe wie deine anderen Eingabefelder */
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #e6eef8 !important;
-  font-size: 1rem !important;
-
-  /* Text/Wert vollständig zentrieren */
-  text-align: center !important;
-  text-align-last: center !important;
-
-  /* Safari iOS / Android Chrome wollen sonst eigene Styles erzwingen */
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* Entfernt das native Kalender-Icon (verschiebt sonst den Inhalt) */
-.panel-left #dateInput::-webkit-calendar-picker-indicator {
-  opacity: 0 !important;
-  display: none !important;
-}
-
-/* ===================== DARK MODE Fokus ===================== */
-body:not(.light-mode) .panel-left #dateInput:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  background: rgba(255,255,255,0.12) !important;
-}
-
-/* ===================== LIGHT MODE ===================== */
-.light-mode .panel-left #dateInput {
-  background: #f3f3f3 !important;
-  color: #1a1a1a !important;
-  border: 1px solid #cfcfcf !important;
-}
-
-/* Fokus im Light Mode */
-.light-mode .panel-left #dateInput:focus {
-  background: #f0f0f0 !important;
-  border-color: #007bff !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-
-/* ============================================================
-   MOBILE FIX: Abstand zwischen Zeile 1 und Zeile 2 reparieren
-   ============================================================ */
-@media (max-width: 900px) {
-
-    /* Abstand NUR zwischen den beiden Reihen */
-    .panel-right .field-group .field:nth-child(3) {
-        margin-bottom: 14px !important;
-    }
-
-    /* Die zweite Zeile darf KEINEN eigenen großen Abstand erzeugen */
-    .panel-right .field-group .field:nth-child(4),
-    .panel-right .field-group .field:nth-child(5) {
-        margin-top: 0 !important;
-    }
-
-    /* Optional: Abstand unter dem Titel korrigieren */
-    .panel-right h2 {
-        margin-bottom: 14px !important;
-    }
-}
-
-
-.export-import-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.export-import-bar button {
-  flex: 1 1 calc(50% - 10px);
-  min-width: 0;
-  border: none;
-  padding: 12px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* ORANGE – Export */
-.btn-export {
-  background: #f39c12;
-  color: #fff;
-}
-
-.btn-export:hover {
-  background: #d98206;
-}
-
-/* PURPLE – Import */
-.btn-import {
-  background: #7d3cff;
-  color: #fff;
-}
-
-.btn-import:hover {
-  background: #692bd6;
-}
-
-/* ============================================================
-   BUTTON-LAYOUT — 3 ZEILEN
-   ============================================================ */
-
-/* Allgemein */
-.action-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-/* ===== ZEILE 1 & 3 ===== */
-.single-row {
-  justify-content: center;
-}
-
-.full-btn {
+.panel-left .action-row {
   width: 100%;
-  height: 48px;
-  font-size: 1rem;
-  font-weight: 600;
 }
 
-/* ===== ZEILE 2 ===== */
-.triple-row {
-  display: flex;
-  gap: 10px;
+/* Alle Buttons im Left Panel: standardmäßig volle Höhe + keine Schrumpfung */
+.panel-left .action-row button {
+  height: var(--h);
+  min-width: 0;     /* wichtig für Flex */
 }
 
-/* Breitenverhältnis 1 : 3 : 3 */
-.triple-row .btn-neu {
+/* 1) EINTRAG: allein in der Reihe -> volle Breite */
+.panel-left .action-row #addBtn {
+  flex: 1;
+  width: 100%;
+}
+
+/* 2) EXPORT/IMPORT/NEU: zusammen in einer Reihe -> gesamte Reihe 100% */
+.panel-left .action-row.triple-row {
+  width: 100%;
+}
+
+/* Buttons in der triple-row gleich breit (1/3 - 1/3 - 1/3) */
+.panel-left .action-row.triple-row button {
   flex: 1;
 }
 
-.triple-row .btn-wide {
-  flex: 3;
+/* 3) ALLES LÖSCHEN: volle Breite */
+.panel-left #clearAllRow #clearBtn {
+  width: 100%;
+  flex: 1;
 }
 
-/* Einheitliche Höhe */
-.triple-row button {
-  height: 48px;
+/* Optional: Abstände zwischen den Reihen noch enger */
+.panel-left .action-row {
+  margin: 3px 0;   /* oder 2px 0, wenn du es noch dichter willst */
+}
+
+.panel-left .action-row {
+  margin: 6px 0 !important;  /* vorher 3px oder 4px → jetzt 6px */
+}
+
+
+/* ============================================================
+   ANALYSE PANEL — Layout: 2 Zeilen Controls + Button voll breit
+   ============================================================ */
+
+.analysis-panel .analysis-controls{
+  margin: 10px 0 6px;
+}
+
+/* Jede Reihe: volle Breite, gleiche Optik wie Inputs */
+.analysis-panel .controls-row{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  margin: 6px 0; /* Abstand zwischen den Reihen */
+}
+
+/* Höhe wie Eingabefelder */
+.analysis-panel .mini-select,
+.analysis-panel .toggle-btn{
+  height: var(--h);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
+  min-width: 0;
 }
 
-/* Optional: Gefahren-Button klar markieren */
-.action-row .danger {
-  background: rgba(165, 0, 0, 1);
-  color: #fff;
+/* Zeile 1: Jahr/Monat -> 1 : 2 */
+.analysis-panel .row-ym #leftYearSelect{ flex: 1; }
+.analysis-panel .row-ym #leftMonthSelect{ flex: 1; }
+
+/* Zeile 2: Kategorie/Type -> 1 : 2 */
+.analysis-panel .row-ct #modeCategoryBtn{ flex: 1; }
+.analysis-panel .row-ct #modeTagBtn{ flex: 1; }
+
+/* Analyse Button -> wie Eintrag: volle Breite */
+.analysis-panel #analysisBtn{
+  width: 100%;
+  height: var(--h);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+
 }
 
 
+.analysis-panel .mini-select{
+  background: var(--muted) !important;        /* wie Eingabefelder */
+  border: 1px solid var(--border) !important; /* wie Eingabefelder */
+  color: var(--text) !important;
+  box-shadow: none !important;
 
+  text-align: center !important;
+  text-align-last: center !important;
+}
+
+/* Fokus/“geklickt”: so lassen wir es angenehm (leicht heller wie Inputs) */
+.analysis-panel .mini-select:focus{
+  background: var(--muted2) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ---------- 2) Dropdown-LISTEN überall gleich (Optionen) ---------- */
+/* Hinweis: iOS Safari kann option-styling eingeschränkt unterstützen */
+select option{
+  background: var(--panel) !important;  /* dunkles Panel-Grau */
+  color: var(--text) !important;
+  text-align: center !important;
+}
+
+/* Optional: ausgewählte Option (wenn Browser es unterstützt) */
+select option:checked{
+  background: rgba(255,255,255,0.14) !important;
+  color: var(--text) !important;
+}
+
+/* Optional: Hover/Focus in Dropdown (nicht überall unterstützt) */
+select option:hover,
+select option:focus{
+  background: rgba(255,255,255,0.12) !important;
+  color: var(--text) !important;
+}
+
+/* ---------- 3) Analysepanel Toggle Buttons: Standard wie Inputs + Active wie "Neu" ---------- */
+.analysis-panel .toggle-btn{
+  background: var(--muted) !important;          /* wie Eingabefelder */
+  border: 1px solid var(--border) !important;   /* wie Eingabefelder */
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+
+/* Hover/Fokus ruhig wie Inputs */
+.analysis-panel .toggle-btn:hover:not(.active),
+.analysis-panel .toggle-btn:focus-visible:not(.active){
+  background: var(--muted2) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ACTIVE = gleiches Grün wie "Neu" Button */
+.analysis-panel .toggle-btn.active{
+  background: linear-gradient(135deg, #1a662c, #218838) !important; /* wie #resetInputsBtn */
+  color: #fff !important;
+  border: none !important;
+}
+
+
+.analysis-panel .mini-select option {
+  background: var(--panel) !important;  /* dunkles Panel-Grau */
+  color: var(--text) !important;        /* hell */
+  text-align: center !important;
 
 </style>
 </head>
@@ -2061,8 +588,8 @@ body:not(.light-mode) .panel-left #dateInput:focus {
 
 
 <div class="action-row triple-row">
-  <button id="exportBtn" class="btn-export">Export</button>
-  <button id="importBtn" class="btn-import">Import</button>
+  <button id="exportBtn" class="btn-export">📤 Export</button>
+  <button id="importBtn" class="btn-import">📥 Import</button>
 <button class="ghost" id="resetInputsBtn">➕ Neu </button>
   <input type="file" id="importFileInput" accept="application/json" hidden>
 </div>
@@ -2117,24 +644,33 @@ body:not(.light-mode) .panel-left #dateInput:focus {
     <div class="analysis-panel">
       <h2>📊 Analyse</h2>
 
-      <div class="analysis-controls">
-        <div class="controls-row">
-          <select id="leftYearSelect" class="mini-select">
-            <option value="">Jahr</option>
-          </select>
+  
+<div class="analysis-controls">
 
-          <select id="leftMonthSelect" class="mini-select">
-            <option value="">Monat</option>
-          </select>
+  <!-- Zeile 1: Jahr / Monat (1 : 2) -->
+  <div class="controls-row row-ym">
+    <select id="leftYearSelect" class="mini-select">
+      <option value="">Jahr</option>
+    </select>
 
-          <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
-          <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
-        </div>
-      </div>
+    <select id="leftMonthSelect" class="mini-select">
+      <option value="">Monat</option>
+    </select>
+  </div>
 
-      <div class="analysis-controls">
-        <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
-      </div>
+  <!-- Zeile 2: Kategorie / Type (1 : 2) -->
+  <div class="controls-row row-ct">
+    <button type="button" class="toggle-btn" id="modeCategoryBtn">Kategorie</button>
+    <button type="button" class="toggle-btn" id="modeTagBtn">Type</button>
+  </div>
+
+</div>
+
+<!-- Zeile 3: Analyse Button (voll breit) -->
+<div class="analysis-controls">
+  <button class="primary analysis-btn" id="analysisBtn">📊 Analyse</button>
+</div>
+
 	  
     </div>
 	  <div id="themeToggle" class="theme-toggle">☀️</div>
