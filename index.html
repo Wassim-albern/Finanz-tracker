@@ -1922,6 +1922,56 @@ body:not(.light-mode) .panel-left #dateInput:focus {
   background: #692bd6;
 }
 
+/* ============================================================
+   BUTTON-LAYOUT — 3 ZEILEN
+   ============================================================ */
+
+/* Allgemein */
+.action-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* ===== ZEILE 1 & 3 ===== */
+.single-row {
+  justify-content: center;
+}
+
+.full-btn {
+  width: 100%;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ===== ZEILE 2 ===== */
+.triple-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Breitenverhältnis 1 : 3 : 3 */
+.triple-row .btn-neu {
+  flex: 1;
+}
+
+.triple-row .btn-wide {
+  flex: 3;
+}
+
+/* Einheitliche Höhe */
+.triple-row button {
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Optional: Gefahren-Button klar markieren */
+.action-row .danger {
+  background: rgba(165, 0, 0, 1);
+  color: #fff;
+}
 
 
 
@@ -2004,15 +2054,16 @@ body:not(.light-mode) .panel-left #dateInput:focus {
 
      
 <div class="action-row">
-  <button class="primary" id="addBtn">📥 Eintrag</button>
+  <button class="primary" id="addBtn">✔️ Eintrag</button>
   <!-- Zurück zu resetInputsBtn + Beschriftung 'Leeren' -->
-  <button class="ghost" id="resetInputsBtn">➕ Neu </button>
+  
 </div>
 
 
-<div class="export-import-bar">
+<div class="action-row triple-row">
   <button id="exportBtn" class="btn-export">📤 Export</button>
   <button id="importBtn" class="btn-import">📥 Import</button>
+<button class="ghost" id="resetInputsBtn">➕ Neu </button>
   <input type="file" id="importFileInput" accept="application/json" hidden>
 </div>
 
@@ -2521,15 +2572,11 @@ addBtn.onclick = () => {
 
   save();
 
-  newCategoryInput.value = '';
-  newTagInput.value = '';
-
   updateSelects();
   filterEntries();
   updateAllFilled();
 
-  newCategoryInput.value = '';
-  newTagInput.value = '';
+  resetInputsBtn.onclick();
 };
 
 
@@ -2557,7 +2604,34 @@ resetInputsBtn.onclick = () => {
 markSelectFilled(leftYearSelect);
 markSelectFilled(leftMonthSelect);
 
+  
+const now = new Date();
+
+  // Jahr / Monat / Tag → HEUTIGES DATUM
+  yearSelect.value  = String(now.getFullYear());
+  monthSelect.value = String(now.getMonth() + 1);
+
+  fillDaySelect(); // Tage NEU erzeugen
+  daySelect.value = String(now.getDate());
+
+  markSelectFilled(yearSelect);
+  markSelectFilled(monthSelect);
+  markSelectFilled(daySelect);
+
+  // Kategorie- & Type-Filter → LEER
+  categoryFilterSelect.value = "";
+  tagFilterSelect.value = "";
+
+  markSelectFilled(categoryFilterSelect);
+  markSelectFilled(tagFilterSelect);
+
+
+
+  /* ===================== STATUS ===================== */
+
   updateAllFilled();
+  filterEntries(); // Liste korrekt neu anzeigen
+
 
   // Optional: Radio wieder auf "Ausgabe" setzen (falls gewünscht)
   // document.querySelector('input[name="type"][value="expense"]').checked = true;
