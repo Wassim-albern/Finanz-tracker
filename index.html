@@ -207,6 +207,16 @@
   .panel-right .field-group .field:nth-child(5){
     flex: 1 1 calc(50% - 10px);
   }
+	
+  .panel-right .field-group{
+    gap: 10px !important;          /* Abstand horizontal + vertikal */
+    margin-bottom: 12px !important;
+  }
+
+  /* Wichtig: Extra-Spacing unter jedem Feld entfernen (nur in der field-group) */
+  .panel-right .field-group .field{
+    margin-bottom: 0 !important;
+  }
 
   /* ===== Entries ===== */
   .entry{
@@ -522,6 +532,27 @@ select option:focus{
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+}
+
+
+.analysis-panel .mini-select{
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+
+  background-image: none !important;
+
+  /* ✅ mehr Luft oben/unten (Innenabstand) */
+  padding: 14px 12px !important;   /* oben/unten | links/rechts */
+  line-height: 1 !important;       /* macht den Text optisch sauber mittig */
+
+  /* dein bisheriges */
+  padding-right: 12px !important;
+}
+
+/* Legacy Edge/IE: Pfeil ausblenden (schadet nicht) */
+.analysis-panel .mini-select::-ms-expand{
+  display: none !important;
 }
 
 
