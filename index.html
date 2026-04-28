@@ -373,6 +373,7 @@
 /* Buttons in der triple-row gleich breit (1/3 - 1/3 - 1/3) */
 .panel-left .action-row.triple-row button {
   flex: 1;
+  
 }
 
 /* 3) ALLES LÖSCHEN: volle Breite */
@@ -383,11 +384,7 @@
 
 /* Optional: Abstände zwischen den Reihen noch enger */
 .panel-left .action-row {
-  margin: 3px 0;   /* oder 2px 0, wenn du es noch dichter willst */
-}
-
-.panel-left .action-row {
-  margin: 6px 0 !important;  /* vorher 3px oder 4px → jetzt 6px */
+  margin: 10px 0;   /* oder 2px 0, wenn du es noch dichter willst */
 }
 
 
@@ -503,6 +500,30 @@ select option:focus{
   background: var(--panel) !important;  /* dunkles Panel-Grau */
   color: var(--text) !important;        /* hell */
   text-align: center !important;
+}
+
+.analysis-panel #analysisBtn{
+  width: 100%;
+  height: var(--h);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+
+  border: none !important;        /* ✅ Rand weg */
+  outline: none !important;       /* ✅ Fokus-Rand weg */
+  box-shadow: none !important;    /* ✅ Shadow/Glow weg */
+
+  -webkit-appearance: none !important; /* ✅ iOS/Safari */
+  appearance: none !important;
+}
+
+.analysis-panel #analysisBtn:focus,
+.analysis-panel #analysisBtn:focus-visible{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 
 </style>
 </head>
@@ -589,9 +610,9 @@ select option:focus{
 
 
 <div class="action-row triple-row">
-  <button id="exportBtn" class="btn-export">📤 Export</button>
-  <button id="importBtn" class="btn-import">📥 Import</button>
-<button class="ghost" id="resetInputsBtn">➕ Neu </button>
+  <button id="exportBtn" class="btn-export">Export</button>
+  <button id="importBtn" class="btn-import">Import</button>
+<button class="ghost" id="resetInputsBtn">Neu </button>
   <input type="file" id="importFileInput" accept="application/json" hidden>
 </div>
 
